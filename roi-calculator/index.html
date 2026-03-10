@@ -821,11 +821,12 @@
 
                   <section class="input-group">
                     <h3>Engagement assumptions</h3>
+                    <div class="panel-copy" style="margin-bottom:14px;">These default assumptions reflect Gallup engagement findings and common workplace cost benchmarks so leaders can begin with a realistic baseline before adjusting for their own context.</div>
                     <div class="field-grid">
                       <div class="field">
                         <label for="engagedPct">% engaged</label>
                         <div class="value-chip" id="engagedPctDisplay">31%</div>
-                        <input id="engagedPct" type="range" min="0" max="100" step="1" value="31">
+                        <input id="engagedPct" type="range" min="0" max="100" step="1" value="35">
                       </div>
                       <div class="field">
                         <label for="productivityDrag">Estimated productivity drag</label>
@@ -850,7 +851,7 @@
                     <div class="field-grid">
                       <div class="field">
                         <label for="monthlyCost">Monthly PeaceWorks cost</label>
-                        <input id="monthlyCost" type="number" min="0" step="50" value="1000">
+                        <input id="monthlyCost" type="number" min="0" step="50" value="500">
                       </div>
                       <div class="field">
                         <label for="improvementPct">Estimated cultural improvement</label>
@@ -878,6 +879,10 @@
                 </div>
 
                 <div class="metric-grid">
+                  <div class="metric-card">
+                    <strong id="fteEquivalent">0.0</strong>
+                    <div class="metric-note">Full-time employee equivalent</div>
+                  </div>
                   <div class="metric-card">
                     <strong id="avgHourlyRate">$0</strong>
                     <div class="metric-note">Average hourly rate</div>
@@ -1077,6 +1082,7 @@
       avgHourlyRate: document.getElementById('avgHourlyRate'),
       annualHours: document.getElementById('annualHours'),
       notEngagedPct: document.getElementById('notEngagedPct'),
+      fteEquivalent: document.getElementById('fteEquivalent'),
       productivityCost: document.getElementById('productivityCost'),
       absenteeCost: document.getElementById('absenteeCost'),
       turnoverCost: document.getElementById('turnoverCost'),
@@ -1130,6 +1136,7 @@
       const absenteeCost = absenteeHours * avgHourlyRate;
       const turnoverCost = keySalary * replacementPct;
       const totalCultureCost = productivityCost + absenteeCost + turnoverCost;
+      const fteEquivalent = avgHourlyRate > 0 ? totalCultureCost / avgHourlyRate / 2080 : 0;
       const annualCost = monthlyCost * 12;
       const annualCostPctOfRevenue = annualRevenue > 0 ? annualCost / annualRevenue : 0;
       const breakEvenNeeded = totalCultureCost > 0 ? annualCost / totalCultureCost : 0;
@@ -1147,6 +1154,7 @@
       outputs.avgHourlyRate.textContent = fmtCurrency(avgHourlyRate);
       outputs.annualHours.textContent = fmtNumber(annualHours);
       outputs.notEngagedPct.textContent = fmtPercent(notEngagedPct, 0);
+      outputs.fteEquivalent.textContent = fteEquivalent.toFixed(1);
       outputs.productivityCost.textContent = fmtCurrency(productivityCost);
       outputs.absenteeCost.textContent = fmtCurrency(absenteeCost);
       outputs.turnoverCost.textContent = fmtCurrency(turnoverCost);
