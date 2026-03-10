@@ -10,9 +10,8 @@
   <style>
     :root {
       --bg: #f6f3ee;
-      --bg-soft: #fbf9f6;
-      --panel: rgba(255,255,255,0.66);
-      --panel-strong: rgba(255,255,255,0.78);
+      --panel: rgba(255,255,255,0.68);
+      --panel-strong: rgba(255,255,255,0.82);
       --text: #141414;
       --muted: #5f625f;
       --line: rgba(20,20,20,0.10);
@@ -25,7 +24,7 @@
       --shadow-lg: 0 28px 90px rgba(17,17,17,0.12);
       --radius: 28px;
       --radius-sm: 20px;
-      --max: 1320px;
+      --max: 1360px;
     }
 
     * { box-sizing: border-box; }
@@ -120,10 +119,7 @@
       transform: translateY(-1px);
     }
 
-    .section {
-      padding: 88px 0;
-      position: relative;
-    }
+    .section { padding: 82px 0; position: relative; }
 
     .eyebrow {
       display: inline-flex;
@@ -154,19 +150,14 @@
       text-wrap: balance;
     }
 
-    p, li {
-      font-size: 1.24rem;
-      line-height: 1.56;
+    p, li, label, input, .value-chip, .metric-note, .chart-label, .chart-value {
+      font-size: 1.15rem;
+      line-height: 1.5;
       color: var(--muted);
       letter-spacing: 0.005em;
     }
 
-    .btn-row {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
+    .btn-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
 
     .btn {
       display: inline-flex;
@@ -184,38 +175,26 @@
     }
 
     .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: linear-gradient(135deg, #111 0%, #1a1f1a 100%); color: #fff; box-shadow: 0 14px 28px rgba(17,17,17,0.18); }
+    .btn-secondary { background: rgba(255,255,255,0.72); color: var(--text); border: 1px solid rgba(20,20,20,0.12); backdrop-filter: blur(10px); }
+    .btn-ghost { background: transparent; color: var(--sage-dark); border: 1px solid rgba(90,122,92,0.22); }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #111 0%, #1a1f1a 100%);
-      color: #fff;
-      box-shadow: 0 14px 28px rgba(17,17,17,0.18);
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.72);
-      color: var(--text);
-      border: 1px solid rgba(20,20,20,0.12);
-      backdrop-filter: blur(10px);
-    }
-
-    .hero {
-      padding: 52px 0 22px;
-    }
+    .hero { padding: 52px 0 20px; }
 
     .hero-grid {
       display: grid;
       grid-template-columns: 1.02fr 0.98fr;
-      gap: 36px;
+      gap: 38px;
       align-items: center;
     }
 
     .hero-title {
-      font-size: clamp(3.8rem, 8vw, 7.4rem);
+      font-size: clamp(3.8rem, 8vw, 7.2rem);
       max-width: 9ch;
       margin-bottom: 20px;
     }
 
-    .hero-copy p { max-width: 760px; }
+    .hero-copy p { max-width: 780px; }
     .hero-copy .btn-row { margin-top: 28px; }
 
     .hero-note {
@@ -226,7 +205,7 @@
       border-radius: var(--radius-sm);
       backdrop-filter: blur(12px);
       box-shadow: var(--shadow);
-      max-width: 700px;
+      max-width: 740px;
     }
 
     .hero-note strong {
@@ -238,12 +217,7 @@
       font-weight: 600;
     }
 
-    .hero-note span {
-      display: block;
-      font-size: 1.03rem;
-      line-height: 1.42;
-      color: var(--muted);
-    }
+    .hero-note span { display: block; font-size: 1.03rem; line-height: 1.42; color: var(--muted); }
 
     .hero-visual {
       min-height: 560px;
@@ -308,16 +282,11 @@
       z-index: 2;
     }
 
-    .logo-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 24px 42px rgba(17,17,17,0.12));
-    }
+    .logo-wrap img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 42px rgba(17,17,17,0.12)); }
 
-    .glass-shell,
-    .embed-shell,
-    .snapshot-shell,
+    .calculator-shell,
+    .why-shell,
+    .advantage-shell,
     .cta-shell {
       position: relative;
       overflow: hidden;
@@ -329,9 +298,9 @@
       backdrop-filter: blur(16px);
     }
 
-    .glass-shell::before,
-    .embed-shell::before,
-    .snapshot-shell::before,
+    .calculator-shell::before,
+    .why-shell::before,
+    .advantage-shell::before,
     .cta-shell::before {
       content: "";
       position: absolute;
@@ -346,135 +315,276 @@
 
     .split-head {
       display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      gap: 34px;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
       align-items: end;
-      margin-bottom: 30px;
+      margin-bottom: 26px;
     }
 
     .split-head h2 {
-      font-size: clamp(2.8rem, 5.6vw, 4.8rem);
+      font-size: clamp(2.7rem, 5.3vw, 4.8rem);
       line-height: 0.96;
       letter-spacing: -0.03em;
       font-weight: 500;
     }
 
-    .reasons-grid,
-    .snapshot-grid,
-    .impact-grid {
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: 0.96fr 1.04fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .inputs-panel,
+    .results-panel {
+      position: relative;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(255,255,255,0.82);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .panel-title {
+      font-size: 2rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .panel-copy { font-size: 1.08rem; margin-bottom: 20px; }
+
+    .input-groups {
+      display: grid;
+      gap: 18px;
+    }
+
+    .input-group {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(20,20,20,0.06);
+    }
+
+    .input-group h3 {
+      font-size: 1.42rem;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field { display: grid; gap: 8px; }
+
+    .field label {
+      font-size: 1rem;
+      line-height: 1.2;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .field input[type="number"],
+    .field input[type="range"] {
+      width: 100%;
+    }
+
+    .field input[type="number"] {
+      appearance: textfield;
+      border: 1px solid rgba(20,20,20,0.10);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-family: inherit;
+      font-size: 1.08rem;
+      color: var(--text);
+      background: rgba(255,255,255,0.90);
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .field input[type="number"]:focus {
+      border-color: rgba(90,122,92,0.36);
+      box-shadow: 0 0 0 4px rgba(143,171,142,0.10);
+    }
+
+    .field input[type="range"] {
+      accent-color: var(--sage-dark);
+      margin-top: 4px;
+    }
+
+    .value-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(143,171,142,0.10);
+      color: var(--sage-dark);
+      font-size: 1rem;
+      font-weight: 600;
+      width: fit-content;
+    }
+
+    .results-top {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .big-stat {
+      padding: 20px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.68));
+      border: 1px solid rgba(20,20,20,0.06);
+    }
+
+    .big-stat strong {
+      display: block;
+      font-size: clamp(2.5rem, 4vw, 3.8rem);
+      line-height: .92;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .big-stat span {
+      display: block;
+      font-size: 1.02rem;
+      line-height: 1.28;
+      color: var(--muted);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .metric-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(20,20,20,0.06);
+    }
+
+    .metric-card strong {
+      display: block;
+      font-size: 1.6rem;
+      line-height: .95;
+      margin-bottom: 6px;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      font-weight: 600;
+    }
+
+    .metric-note { font-size: .98rem; line-height: 1.3; }
+
+    .chart-stack {
       display: grid;
       gap: 16px;
     }
 
-    .reasons-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .snapshot-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .impact-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-    .mini-card,
-    .impact-card {
-      padding: 22px;
-      border-radius: 24px;
-      background: rgba(255,255,255,0.64);
-      border: 1px solid rgba(255,255,255,0.76);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-      min-height: 100%;
+    .chart-card {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(20,20,20,0.06);
     }
 
-    .mini-card h3,
-    .impact-card h3 {
-      font-size: 1.9rem;
-      line-height: 1;
-      letter-spacing: -0.03em;
+    .chart-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
       margin-bottom: 10px;
-      font-weight: 600;
-      color: var(--text);
     }
 
-    .mini-card p,
-    .impact-card p {
-      font-size: 1.14rem;
-      line-height: 1.46;
-    }
-
-    .stat-card {
-      padding: 24px;
-      border-radius: 26px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(255,255,255,0.68));
-      border: 1px solid rgba(255,255,255,0.80);
-      box-shadow: var(--shadow);
-      text-align: left;
-    }
-
-    .stat-card strong {
-      display: block;
-      font-size: clamp(2.4rem, 4vw, 3.5rem);
-      line-height: .95;
-      letter-spacing: -0.04em;
-      margin-bottom: 8px;
+    .chart-head h3 {
+      font-size: 1.42rem;
+      line-height: 1;
       color: var(--text);
       font-weight: 600;
     }
 
-    .stat-card span {
-      display: block;
-      font-size: 1.1rem;
-      line-height: 1.34;
+    .chart-head .chart-value {
+      font-size: 1rem;
+      color: var(--sage-dark);
+      font-weight: 600;
+    }
+
+    .bar-track {
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(20,20,20,0.06);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--sage-light), var(--sage-dark));
+      width: 0%;
+      transition: width .35s ease;
+    }
+
+    .chart-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: .98rem;
       color: var(--muted);
     }
 
-    .embed-shell {
+    .advantage-shell {
       background: linear-gradient(135deg, #101110 0%, #191d1a 100%);
       color: white;
       box-shadow: 0 36px 100px rgba(8,8,8,0.22);
     }
 
-    .embed-shell .eyebrow,
-    .embed-shell p,
-    .embed-shell .split-head h2,
-    .embed-shell .embed-note strong {
-      color: white;
-    }
+    .advantage-shell .eyebrow,
+    .advantage-shell p,
+    .advantage-shell h2,
+    .advantage-shell h3,
+    .advantage-shell strong,
+    .advantage-shell .metric-note { color: white; }
 
-    .embed-shell p { color: rgba(255,255,255,0.72); }
+    .advantage-shell p,
+    .advantage-shell .metric-note { color: rgba(255,255,255,0.72); }
 
-    .embed-grid {
+    .advantage-grid {
       display: grid;
-      grid-template-columns: 0.95fr 1.05fr;
-      gap: 24px;
-      align-items: start;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 8px;
     }
 
-    .embed-note {
+    .advantage-card {
       padding: 22px;
       border-radius: 24px;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.08);
-      margin-top: 24px;
+      min-height: 100%;
     }
 
-    .embed-note strong {
-      display: block;
-      font-size: 1.36rem;
-      line-height: 1.1;
+    .advantage-card h3 {
+      font-size: 1.86rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
       margin-bottom: 10px;
       font-weight: 600;
-    }
-
-    .embed-card {
-      border-radius: 28px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 18px 44px rgba(0,0,0,0.14);
-    }
-
-    .embed-card iframe {
-      display: block;
-      width: 100%;
-      min-height: 880px;
-      border: 0;
-      background: white;
     }
 
     .cta-shell {
@@ -505,24 +615,7 @@
       max-width: 13ch;
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity .8s ease, transform .8s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .delay-1 { transition-delay: .08s; }
-    .delay-2 { transition-delay: .16s; }
-    .delay-3 { transition-delay: .24s; }
-
-    .site-footer {
-      padding: 28px 0 48px;
-    }
+    .site-footer { padding: 28px 0 48px; }
 
     .footer-inner {
       display: flex;
@@ -562,21 +655,28 @@
       transform: translateY(-1px);
     }
 
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: .08s; }
+    .delay-2 { transition-delay: .16s; }
+    .delay-3 { transition-delay: .24s; }
+
     @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     @keyframes spinReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
 
     @media (max-width: 1180px) {
       .hero-grid,
       .split-head,
-      .embed-grid,
-      .cta-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .reasons-grid,
-      .impact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .snapshot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .calculator-grid,
+      .cta-grid { grid-template-columns: 1fr; }
       .hero-visual { display: none; }
+      .field-grid,
+      .results-top,
+      .metric-grid,
+      .advantage-grid,
+      .reasons-grid,
+      .impact-grid,
+      .snapshot-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
     }
 
     @media (max-width: 860px) {
@@ -597,17 +697,17 @@
         padding: 0 12px;
         font-size: .94rem;
       }
-      .section { padding: 74px 0; }
+      .section { padding: 72px 0; }
       .container { width: min(var(--max), calc(100% - 24px)); }
       .hero { padding-top: 34px; }
-      .glass-shell,
-      .embed-shell,
-      .snapshot-shell,
-      .cta-shell { padding: 24px 22px; }
-      .reasons-grid,
-      .impact-grid,
-      .snapshot-grid { grid-template-columns: 1fr; }
-      .embed-card iframe { min-height: 1040px; }
+      .calculator-shell,
+      .why-shell,
+      .advantage-shell,
+      .cta-shell { padding: 22px; }
+      .field-grid,
+      .results-top,
+      .metric-grid,
+      .advantage-grid { grid-template-columns: 1fr; }
       .footer-inner {
         flex-direction: column;
         align-items: flex-start;
@@ -625,8 +725,7 @@
       .cta-highlight { font-size: clamp(2.2rem, 11vw, 3.4rem); }
       .btn-row { flex-direction: column; align-items: stretch; }
       .btn { width: 100%; }
-      p, li { font-size: 1.15rem; line-height: 1.46; }
-      .embed-card iframe { min-height: 1160px; }
+      p, li, label, input, .value-chip, .metric-note, .chart-label, .chart-value { font-size: 1.08rem; line-height: 1.42; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -658,12 +757,12 @@
             <h1 class="display hero-title">Make relational drag visible.</h1>
             <p>Most leaders can feel the cost of tension, disengagement, and low trust. Very few can see it clearly. This calculator helps you estimate the hidden business cost of relational drag inside your organization — and what could change if healthier leadership and culture recovered even part of that lost capacity.</p>
             <div class="btn-row">
-              <a class="btn btn-primary" href="#calculator">Launch the Calculator</a>
+              <a class="btn btn-primary" href="#calculator">Start the Calculator</a>
               <a class="btn btn-secondary" href="https://www.peaceworks.network/join">Join the Founders Circle</a>
             </div>
             <div class="hero-note">
-              <strong>This is not about abstract culture talk.</strong>
-              <span>It is about translating trust, calm leadership, and relational health into something leaders can actually see, measure, and act on.</span>
+              <strong>This is not abstract culture talk.</strong>
+              <span>It is a practical way to translate trust, calm leadership, and relational health into business language leaders can actually see, discuss, and act on.</span>
             </div>
           </div>
 
@@ -681,29 +780,196 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="calculator" style="padding-top: 0;">
         <div class="container">
-          <div class="glass-shell reveal">
+          <div class="calculator-shell reveal">
             <div class="split-head">
               <div>
-                <div class="eyebrow">Why This Matters</div>
-                <h2>Culture costs more than most companies realize.</h2>
+                <div class="eyebrow">Interactive Calculator</div>
+                <h2>Run the numbers live.</h2>
               </div>
-              <p>Relational drag shows up as hesitation, unspoken tension, duplicated effort, low trust, defensive leadership, and meetings that never surface the real issue. The cost is usually hidden, but it is not small.</p>
+              <p>Adjust the inputs below to reflect your organization. The calculator updates instantly to estimate productivity loss, absentee costs, turnover exposure, total culture exposure, and the potential value of improvement.</p>
+            </div>
+
+            <div class="calculator-grid">
+              <div class="inputs-panel">
+                <div class="panel-title">Inputs</div>
+                <div class="panel-copy">Start with a realistic picture of your company and use the sliders to test different assumptions.</div>
+
+                <div class="input-groups">
+                  <section class="input-group">
+                    <h3>Company inputs</h3>
+                    <div class="field-grid">
+                      <div class="field">
+                        <label for="annualRevenue">Annual revenue</label>
+                        <input id="annualRevenue" type="number" min="0" step="10000" value="5000000">
+                      </div>
+                      <div class="field">
+                        <label for="annualPayroll">Annual payroll</label>
+                        <input id="annualPayroll" type="number" min="0" step="10000" value="2500000">
+                      </div>
+                      <div class="field">
+                        <label for="employees">Number of full-time employees</label>
+                        <input id="employees" type="number" min="1" step="1" value="50">
+                      </div>
+                      <div class="field">
+                        <label for="keySalary">Key salary at risk</label>
+                        <input id="keySalary" type="number" min="0" step="1000" value="200000">
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="input-group">
+                    <h3>Engagement assumptions</h3>
+                    <div class="field-grid">
+                      <div class="field">
+                        <label for="engagedPct">% engaged</label>
+                        <div class="value-chip" id="engagedPctDisplay">31%</div>
+                        <input id="engagedPct" type="range" min="0" max="100" step="1" value="31">
+                      </div>
+                      <div class="field">
+                        <label for="productivityDrag">Estimated productivity drag</label>
+                        <div class="value-chip" id="productivityDragDisplay">15%</div>
+                        <input id="productivityDrag" type="range" min="0" max="40" step="1" value="15">
+                      </div>
+                      <div class="field">
+                        <label for="extraDays">Extra unproductive days per employee</label>
+                        <div class="value-chip" id="extraDaysDisplay">3 days</div>
+                        <input id="extraDays" type="range" min="0" max="10" step="1" value="3">
+                      </div>
+                      <div class="field">
+                        <label for="replacementPct">Replacement cost %</label>
+                        <div class="value-chip" id="replacementPctDisplay">50%</div>
+                        <input id="replacementPct" type="range" min="0" max="150" step="5" value="50">
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="input-group">
+                    <h3>PeaceWorks assumptions</h3>
+                    <div class="field-grid">
+                      <div class="field">
+                        <label for="monthlyCost">Monthly PeaceWorks cost</label>
+                        <input id="monthlyCost" type="number" min="0" step="50" value="1000">
+                      </div>
+                      <div class="field">
+                        <label for="improvementPct">Estimated cultural improvement</label>
+                        <div class="value-chip" id="improvementPctDisplay">5%</div>
+                        <input id="improvementPct" type="range" min="0" max="30" step="1" value="5">
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+
+              <div class="results-panel">
+                <div class="panel-title">Live results</div>
+                <div class="panel-copy">A clearer view of what relational drag may already be costing — and what could be recovered.</div>
+
+                <div class="results-top">
+                  <div class="big-stat">
+                    <strong id="totalCultureCost">$0</strong>
+                    <span>Total estimated culture cost</span>
+                  </div>
+                  <div class="big-stat">
+                    <strong id="netGain">$0</strong>
+                    <span>Estimated net gain after PeaceWorks investment</span>
+                  </div>
+                </div>
+
+                <div class="metric-grid">
+                  <div class="metric-card">
+                    <strong id="avgHourlyRate">$0</strong>
+                    <div class="metric-note">Average hourly rate</div>
+                  </div>
+                  <div class="metric-card">
+                    <strong id="annualHours">0</strong>
+                    <div class="metric-note">Annual work hours</div>
+                  </div>
+                  <div class="metric-card">
+                    <strong id="notEngagedPct">0%</strong>
+                    <div class="metric-note">Not fully engaged</div>
+                  </div>
+                  <div class="metric-card">
+                    <strong id="productivityCost">$0</strong>
+                    <div class="metric-note">Productivity cost</div>
+                  </div>
+                  <div class="metric-card">
+                    <strong id="absenteeCost">$0</strong>
+                    <div class="metric-note">Absentee cost</div>
+                  </div>
+                  <div class="metric-card">
+                    <strong id="turnoverCost">$0</strong>
+                    <div class="metric-note">Turnover cost</div>
+                  </div>
+                </div>
+
+                <div class="chart-stack">
+                  <div class="chart-card">
+                    <div class="chart-head">
+                      <h3>Culture cost composition</h3>
+                      <div class="chart-value" id="compositionLabel">Live view</div>
+                    </div>
+                    <div class="chart-label">Productivity loss</div>
+                    <div class="bar-track"><div class="bar-fill" id="productivityBar"></div></div>
+                    <div class="chart-row"><span id="productivityBarLabel">$0</span><span id="productivityBarPct">0%</span></div>
+
+                    <div class="chart-label" style="margin-top:10px;">Absenteeism</div>
+                    <div class="bar-track"><div class="bar-fill" id="absenteeBar"></div></div>
+                    <div class="chart-row"><span id="absenteeBarLabel">$0</span><span id="absenteeBarPct">0%</span></div>
+
+                    <div class="chart-label" style="margin-top:10px;">Turnover exposure</div>
+                    <div class="bar-track"><div class="bar-fill" id="turnoverBar"></div></div>
+                    <div class="chart-row"><span id="turnoverBarLabel">$0</span><span id="turnoverBarPct">0%</span></div>
+                  </div>
+
+                  <div class="chart-card">
+                    <div class="chart-head">
+                      <h3>Recovery model</h3>
+                      <div class="chart-value" id="breakEvenLabel">Break-even view</div>
+                    </div>
+                    <div class="chart-label">Annual PeaceWorks cost</div>
+                    <div class="bar-track"><div class="bar-fill" id="annualCostBar"></div></div>
+                    <div class="chart-row"><span id="annualCostLabel">$0</span><span id="annualCostPct">0.0% of revenue</span></div>
+
+                    <div class="chart-label" style="margin-top:10px;">Estimated value recovered</div>
+                    <div class="bar-track"><div class="bar-fill" id="recoveredBar"></div></div>
+                    <div class="chart-row"><span id="recoveredLabel">$0</span><span id="recoveredPct">0%</span></div>
+
+                    <div class="chart-label" style="margin-top:10px;">Improvement needed to break even</div>
+                    <div class="bar-track"><div class="bar-fill" id="breakEvenBar"></div></div>
+                    <div class="chart-row"><span id="breakEvenValue">0%</span><span id="breakEvenNote">of total culture exposure</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 0;">
+        <div class="container">
+          <div class="why-shell reveal">
+            <div class="split-head">
+              <div>
+                <div class="eyebrow">What The Calculator Shows</div>
+                <h2>The business case becomes clearer when leaders can see the pattern.</h2>
+              </div>
+              <p>The calculator is not trying to reduce culture to a spreadsheet. It is helping leaders name what is usually invisible: how relational weakness lowers productivity, increases unproductive time, and raises the cost of leadership strain and turnover.</p>
             </div>
 
             <div class="reasons-grid">
-              <article class="mini-card reveal delay-1">
-                <h3>Execution slows</h3>
-                <p>Teams spend energy navigating friction instead of moving forward with clarity.</p>
+              <article class="metric-card reveal delay-1">
+                <strong>Productivity loss</strong>
+                <div class="metric-note">When engagement is low and pressure is mishandled, time is lost through hesitation, confusion, emotional drag, and indirect communication.</div>
               </article>
-              <article class="mini-card reveal delay-2">
-                <h3>Trust erodes</h3>
-                <p>People begin protecting themselves, which quietly changes the emotional atmosphere of the whole company.</p>
+              <article class="metric-card reveal delay-2">
+                <strong>Absentee exposure</strong>
+                <div class="metric-note">Relational stress does not stay in meetings. It affects focus, energy, and people’s actual capacity to bring their best to work.</div>
               </article>
-              <article class="mini-card reveal delay-3">
-                <h3>Leaders carry too much</h3>
-                <p>Senior leaders absorb unresolved tension they were never trained to process or repair.</p>
+              <article class="metric-card reveal delay-3">
+                <strong>Turnover risk</strong>
+                <div class="metric-note">When key people leave because of unresolved tension, the cost is not only relational. It is financial, operational, and strategic.</div>
               </article>
             </div>
           </div>
@@ -712,74 +978,28 @@
 
       <section class="section" style="padding-top: 0;">
         <div class="container">
-          <div class="snapshot-shell reveal">
+          <div class="advantage-shell reveal">
             <div class="split-head">
               <div>
-                <div class="eyebrow">A Typical Snapshot</div>
-                <h2>What a normal company might be carrying.</h2>
+                <div class="eyebrow" style="color: var(--sage-light);">The PeaceWorks Advantage</div>
+                <h2>Peace is not passive. It is practiced.</h2>
               </div>
-              <p>Imagine a company with steady revenue, meaningful payroll, and a team large enough that culture begins to compound. Even modest disengagement or friction can create substantial hidden cost over time.</p>
+              <p>PeaceWorks helps leaders move from awareness to implementation — not only seeing the hidden cost of relational drag, but building the practices that actually change how a culture responds under pressure.</p>
             </div>
 
-            <div class="snapshot-grid">
-              <div class="stat-card reveal delay-1">
-                <strong>$3M</strong>
-                <span>Annual revenue</span>
-              </div>
-              <div class="stat-card reveal delay-2">
-                <strong>$1.4M</strong>
-                <span>Annual payroll</span>
-              </div>
-              <div class="stat-card reveal delay-3">
-                <strong>15</strong>
-                <span>Employees</span>
-              </div>
-              <div class="stat-card reveal delay-1">
-                <strong>10%</strong>
-                <span>Productivity loss from relational friction or disengagement</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="calculator" style="padding-top: 0;">
-        <div class="container">
-          <div class="embed-shell reveal">
-            <div class="split-head">
-              <div>
-                <div class="eyebrow" style="color: var(--sage-light);">Interactive Tool</div>
-                <h2>Run the numbers for your organization.</h2>
-              </div>
-              <p>Use the calculator below to explore how revenue, payroll, team size, and drag assumptions can shape the business case for healthier leadership and culture.</p>
-            </div>
-
-            <div class="embed-grid">
-              <div>
-                <div class="impact-grid">
-                  <article class="impact-card reveal delay-1">
-                    <h3>See hidden cost</h3>
-                    <p>Estimate what relational friction may already be costing in lost capacity and performance.</p>
-                  </article>
-                  <article class="impact-card reveal delay-2">
-                    <h3>Model recovery</h3>
-                    <p>Explore what happens if even part of that lost capacity is recovered through healthier culture.</p>
-                  </article>
-                  <article class="impact-card reveal delay-3">
-                    <h3>Make the case</h3>
-                    <p>Use a clearer financial narrative to support leadership conversations about trust and culture.</p>
-                  </article>
-                </div>
-
-                <div class="embed-note">
-                  <strong>Best used as a strategic conversation starter.</strong>
-                  <p>The calculator is not meant to pretend that culture can be reduced to a spreadsheet. It is meant to help leaders name the scale of what they already feel — and open a more honest business conversation about what healthier leadership could recover.</p>
-                </div>
-              </div>
-
-              <div class="embed-card reveal delay-2">
-                <iframe src="https://1f69db7295fc4e29a9.v2.appdeploy.ai/" title="PeaceWorks Culture ROI Calculator" loading="lazy"></iframe>
-              </div>
+            <div class="advantage-grid">
+              <article class="advantage-card reveal delay-1">
+                <h3>Calmer leadership</h3>
+                <p>Leaders learn to guide pressure without spreading panic through the organization.</p>
+              </article>
+              <article class="advantage-card reveal delay-2">
+                <h3>Stronger trust</h3>
+                <p>Teams gain more honesty, earlier repair, and healthier ways to carry disagreement.</p>
+              </article>
+              <article class="advantage-card reveal delay-3">
+                <h3>Recovered capacity</h3>
+                <p>Even modest gains in relational health can unlock meaningful financial and organizational value.</p>
+              </article>
             </div>
           </div>
         </div>
@@ -800,9 +1020,9 @@
                 </div>
               </div>
 
-              <div class="hero-note" style="max-width: none; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.10); box-shadow: none;">
+              <div class="hero-note" style="max-width:none; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.10); box-shadow: none;">
                 <strong style="color:white;">From ROI to real change.</strong>
-                <span style="color: rgba(255,255,255,0.72);">The calculator helps leaders quantify the problem. PeaceWorks helps them practice a different way of leading — through monthly cohorts, practical tools, and relational rhythms that strengthen the culture over time.</span>
+                <span style="color: rgba(255,255,255,0.72);">The calculator helps leaders quantify the problem. PeaceWorks helps them practice a different way of leading — through cohorts, practical tools, and relational rhythms that strengthen the culture over time.</span>
               </div>
             </div>
           </div>
@@ -832,6 +1052,138 @@
       });
     }, { threshold: 0.16 });
     reveals.forEach((el) => io.observe(el));
+
+    const state = {
+      annualRevenue: document.getElementById('annualRevenue'),
+      annualPayroll: document.getElementById('annualPayroll'),
+      employees: document.getElementById('employees'),
+      keySalary: document.getElementById('keySalary'),
+      engagedPct: document.getElementById('engagedPct'),
+      productivityDrag: document.getElementById('productivityDrag'),
+      extraDays: document.getElementById('extraDays'),
+      replacementPct: document.getElementById('replacementPct'),
+      monthlyCost: document.getElementById('monthlyCost'),
+      improvementPct: document.getElementById('improvementPct')
+    };
+
+    const outputs = {
+      engagedPctDisplay: document.getElementById('engagedPctDisplay'),
+      productivityDragDisplay: document.getElementById('productivityDragDisplay'),
+      extraDaysDisplay: document.getElementById('extraDaysDisplay'),
+      replacementPctDisplay: document.getElementById('replacementPctDisplay'),
+      improvementPctDisplay: document.getElementById('improvementPctDisplay'),
+      totalCultureCost: document.getElementById('totalCultureCost'),
+      netGain: document.getElementById('netGain'),
+      avgHourlyRate: document.getElementById('avgHourlyRate'),
+      annualHours: document.getElementById('annualHours'),
+      notEngagedPct: document.getElementById('notEngagedPct'),
+      productivityCost: document.getElementById('productivityCost'),
+      absenteeCost: document.getElementById('absenteeCost'),
+      turnoverCost: document.getElementById('turnoverCost'),
+      productivityBar: document.getElementById('productivityBar'),
+      absenteeBar: document.getElementById('absenteeBar'),
+      turnoverBar: document.getElementById('turnoverBar'),
+      productivityBarLabel: document.getElementById('productivityBarLabel'),
+      absenteeBarLabel: document.getElementById('absenteeBarLabel'),
+      turnoverBarLabel: document.getElementById('turnoverBarLabel'),
+      productivityBarPct: document.getElementById('productivityBarPct'),
+      absenteeBarPct: document.getElementById('absenteeBarPct'),
+      turnoverBarPct: document.getElementById('turnoverBarPct'),
+      annualCostBar: document.getElementById('annualCostBar'),
+      recoveredBar: document.getElementById('recoveredBar'),
+      breakEvenBar: document.getElementById('breakEvenBar'),
+      annualCostLabel: document.getElementById('annualCostLabel'),
+      annualCostPct: document.getElementById('annualCostPct'),
+      recoveredLabel: document.getElementById('recoveredLabel'),
+      recoveredPct: document.getElementById('recoveredPct'),
+      breakEvenValue: document.getElementById('breakEvenValue'),
+      breakEvenNote: document.getElementById('breakEvenNote')
+    };
+
+    const fmtCurrency = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n || 0);
+    const fmtNumber = (n) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(n || 0);
+    const fmtPercent = (n, d = 0) => `${(n * 100).toFixed(d)}%`;
+
+    function clampWidth(n) {
+      return Math.max(0, Math.min(100, n));
+    }
+
+    function calculate() {
+      const annualRevenue = Number(state.annualRevenue.value) || 0;
+      const annualPayroll = Number(state.annualPayroll.value) || 0;
+      const employees = Math.max(1, Number(state.employees.value) || 1);
+      const keySalary = Number(state.keySalary.value) || 0;
+      const engagedPct = (Number(state.engagedPct.value) || 0) / 100;
+      const productivityDrag = (Number(state.productivityDrag.value) || 0) / 100;
+      const extraDays = Number(state.extraDays.value) || 0;
+      const replacementPct = (Number(state.replacementPct.value) || 0) / 100;
+      const monthlyCost = Number(state.monthlyCost.value) || 0;
+      const improvementPct = (Number(state.improvementPct.value) || 0) / 100;
+
+      const avgHourlyRate = annualPayroll / employees / 2080;
+      const annualHours = employees * 2080;
+      const notEngagedPct = 1 - engagedPct;
+      const disengagedHours = annualHours * notEngagedPct;
+      const lostHours = disengagedHours * productivityDrag;
+      const productivityCost = lostHours * avgHourlyRate;
+      const absenteeHours = extraDays * employees * 8;
+      const absenteeCost = absenteeHours * avgHourlyRate;
+      const turnoverCost = keySalary * replacementPct;
+      const totalCultureCost = productivityCost + absenteeCost + turnoverCost;
+      const annualCost = monthlyCost * 12;
+      const annualCostPctOfRevenue = annualRevenue > 0 ? annualCost / annualRevenue : 0;
+      const breakEvenNeeded = totalCultureCost > 0 ? annualCost / totalCultureCost : 0;
+      const recoveredValue = totalCultureCost * improvementPct;
+      const netGain = recoveredValue - annualCost;
+
+      outputs.engagedPctDisplay.textContent = `${Math.round(engagedPct * 100)}%`;
+      outputs.productivityDragDisplay.textContent = `${Math.round(productivityDrag * 100)}%`;
+      outputs.extraDaysDisplay.textContent = `${extraDays} day${extraDays === 1 ? '' : 's'}`;
+      outputs.replacementPctDisplay.textContent = `${Math.round(replacementPct * 100)}%`;
+      outputs.improvementPctDisplay.textContent = `${Math.round(improvementPct * 100)}%`;
+
+      outputs.totalCultureCost.textContent = fmtCurrency(totalCultureCost);
+      outputs.netGain.textContent = fmtCurrency(netGain);
+      outputs.avgHourlyRate.textContent = fmtCurrency(avgHourlyRate);
+      outputs.annualHours.textContent = fmtNumber(annualHours);
+      outputs.notEngagedPct.textContent = fmtPercent(notEngagedPct, 0);
+      outputs.productivityCost.textContent = fmtCurrency(productivityCost);
+      outputs.absenteeCost.textContent = fmtCurrency(absenteeCost);
+      outputs.turnoverCost.textContent = fmtCurrency(turnoverCost);
+
+      const total = totalCultureCost || 1;
+      const productivityShare = productivityCost / total;
+      const absenteeShare = absenteeCost / total;
+      const turnoverShare = turnoverCost / total;
+
+      outputs.productivityBar.style.width = `${clampWidth(productivityShare * 100)}%`;
+      outputs.absenteeBar.style.width = `${clampWidth(absenteeShare * 100)}%`;
+      outputs.turnoverBar.style.width = `${clampWidth(turnoverShare * 100)}%`;
+      outputs.productivityBarLabel.textContent = fmtCurrency(productivityCost);
+      outputs.absenteeBarLabel.textContent = fmtCurrency(absenteeCost);
+      outputs.turnoverBarLabel.textContent = fmtCurrency(turnoverCost);
+      outputs.productivityBarPct.textContent = fmtPercent(productivityShare, 1);
+      outputs.absenteeBarPct.textContent = fmtPercent(absenteeShare, 1);
+      outputs.turnoverBarPct.textContent = fmtPercent(turnoverShare, 1);
+
+      const maxRecoveryScale = Math.max(totalCultureCost, recoveredValue, annualCost, 1);
+      outputs.annualCostBar.style.width = `${clampWidth((annualCost / maxRecoveryScale) * 100)}%`;
+      outputs.recoveredBar.style.width = `${clampWidth((recoveredValue / maxRecoveryScale) * 100)}%`;
+      outputs.breakEvenBar.style.width = `${clampWidth(Math.min(breakEvenNeeded, 1) * 100)}%`;
+      outputs.annualCostLabel.textContent = fmtCurrency(annualCost);
+      outputs.annualCostPct.textContent = `${fmtPercent(annualCostPctOfRevenue, 1)} of revenue`;
+      outputs.recoveredLabel.textContent = fmtCurrency(recoveredValue);
+      outputs.recoveredPct.textContent = `${fmtPercent(improvementPct, 0)} improvement modeled`;
+      outputs.breakEvenValue.textContent = fmtPercent(breakEvenNeeded, 1);
+      outputs.breakEvenNote.textContent = 'of total culture exposure';
+    }
+
+    Object.values(state).forEach((el) => {
+      el.addEventListener('input', calculate);
+      el.addEventListener('change', calculate);
+    });
+
+    calculate();
   </script>
 </body>
 </html>
