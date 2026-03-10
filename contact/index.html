@@ -148,7 +148,7 @@
       text-wrap: balance;
     }
 
-    p, label, input, textarea {
+    p {
       font-size: 1.18rem;
       line-height: 1.5;
       color: var(--muted);
@@ -171,7 +171,6 @@
       text-transform: uppercase;
       font-weight: 600;
       transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease, color .22s ease;
-      cursor: pointer;
       border: 0;
     }
 
@@ -285,7 +284,7 @@
     .logo-wrap img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 42px rgba(17,17,17,0.12)); }
 
     .contact-shell,
-    .support-shell,
+    .questions-shell,
     .cta-shell {
       position: relative;
       overflow: hidden;
@@ -298,7 +297,7 @@
     }
 
     .contact-shell::before,
-    .support-shell::before,
+    .questions-shell::before,
     .cta-shell::before {
       content: "";
       position: absolute;
@@ -333,8 +332,9 @@
       align-items: start;
     }
 
-    .form-panel,
-    .info-panel {
+    .contact-card,
+    .info-panel,
+    .question-card {
       border-radius: 28px;
       background: rgba(255,255,255,0.74);
       border: 1px solid rgba(255,255,255,0.82);
@@ -353,56 +353,13 @@
 
     .panel-copy { margin-bottom: 18px; font-size: 1.08rem; }
 
-    .field-grid {
-      display: grid;
-      gap: 16px;
-    }
-
-    .field {
-      display: grid;
-      gap: 8px;
-    }
-
-    .field label {
-      color: var(--text);
-      font-weight: 600;
-      font-size: 1rem;
-      line-height: 1.2;
-    }
-
-    .field input,
-    .field textarea {
-      width: 100%;
-      border: 1px solid rgba(20,20,20,0.10);
-      border-radius: 16px;
-      padding: 14px 16px;
-      background: rgba(255,255,255,0.92);
-      color: var(--text);
-      outline: none;
-      transition: border-color .2s ease, box-shadow .2s ease;
-      resize: vertical;
-    }
-
-    .field textarea {
-      min-height: 220px;
-    }
-
-    .field input:focus,
-    .field textarea:focus {
-      border-color: rgba(90,122,92,0.36);
-      box-shadow: 0 0 0 4px rgba(143,171,142,0.10);
-    }
-
-    .help-text {
-      font-size: 0.98rem;
-      line-height: 1.35;
-      color: var(--muted);
-    }
-
-    .info-stack {
+    .info-stack,
+    .question-grid {
       display: grid;
       gap: 14px;
     }
+
+    .question-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
     .info-card {
       padding: 20px;
@@ -411,7 +368,8 @@
       border: 1px solid rgba(20,20,20,0.06);
     }
 
-    .info-card strong {
+    .info-card strong,
+    .question-card strong {
       display: block;
       font-size: 1.4rem;
       line-height: 1.06;
@@ -420,7 +378,8 @@
       font-weight: 600;
     }
 
-    .info-card p { font-size: 1.08rem; }
+    .info-card p,
+    .question-card p { font-size: 1.08rem; }
 
     .email-link {
       color: var(--sage-dark);
@@ -510,6 +469,7 @@
       .split-head,
       .contact-grid,
       .cta-grid { grid-template-columns: 1fr; }
+      .question-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .hero-visual { display: none; }
     }
 
@@ -535,8 +495,9 @@
       .container { width: min(var(--max), calc(100% - 24px)); }
       .hero { padding-top: 34px; }
       .contact-shell,
-      .support-shell,
+      .questions-shell,
       .cta-shell { padding: 22px; }
+      .question-grid { grid-template-columns: 1fr; }
       .footer-inner {
         flex-direction: column;
         align-items: flex-start;
@@ -554,7 +515,7 @@
       .cta-highlight { font-size: clamp(2.2rem, 11vw, 3.4rem); }
       .btn-row { flex-direction: column; align-items: stretch; }
       .btn { width: 100%; }
-      p, label, input, textarea { font-size: 1.08rem; line-height: 1.42; }
+      p { font-size: 1.08rem; line-height: 1.42; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -583,15 +544,15 @@
         <div class="container hero-grid">
           <div class="hero-copy reveal visible">
             <div class="eyebrow">Contact PeaceWorks</div>
-            <h1 class="display hero-title">Start the conversation.</h1>
-            <p>If you are interested in learning more about PeaceWorks, exploring the Founders Circle, or asking a question about what we do, send us a message here. This page helps you prepare the email and open it directly in your mail app.</p>
+            <h1 class="display hero-title">Questions are welcome.</h1>
+            <p>If you have questions about PeaceWorks, the cohort experience, the ROI work, or whether this may fit your organization, the simplest next step is to email us directly.</p>
             <div class="btn-row">
-              <a class="btn btn-primary" href="#contact-form">Write a Message</a>
-              <a class="btn btn-secondary" href="mailto:peaceworks@peaceworks.network">Email Us Directly</a>
+              <a class="btn btn-primary" href="mailto:peaceworks@peaceworks.network?subject=I%20have%20a%20question%20about%20PeaceWorks">Email PeaceWorks</a>
+              <a class="btn btn-secondary" href="https://www.peaceworks.network/join">Explore the Cohort</a>
             </div>
             <div class="hero-note">
-              <strong>Simple and direct for this stage.</strong>
-              <span>When you click send, the page will open your default email app with your subject and message prepared for <span class="email-link">peaceworks@peaceworks.network</span>.</span>
+              <strong>Simple is better here.</strong>
+              <span>Clicking the contact button opens your mail app with a message addressed to <span class="email-link">peaceworks@peaceworks.network</span> and a prefilled subject line.</span>
             </div>
           </div>
 
@@ -609,65 +570,70 @@
         </div>
       </section>
 
-      <section class="section" id="contact-form" style="padding-top: 0;">
+      <section class="section" style="padding-top: 0;">
         <div class="container">
           <div class="contact-shell reveal">
             <div class="split-head">
               <div>
-                <div class="eyebrow">Compose Your Message</div>
-                <h2>Use the page to prepare the email.</h2>
+                <div class="eyebrow">Get In Touch</div>
+                <h2>Reach out directly.</h2>
               </div>
-              <p>Enter your name, adjust the subject if needed, and write your message below. When you send, your email app will open with everything filled in.</p>
+              <p>For this stage of the site, the contact experience is intentionally straightforward. No forms, no extra steps, just a direct email conversation.</p>
             </div>
 
             <div class="contact-grid">
-              <div class="form-panel">
-                <div class="panel-title">Message builder</div>
-                <div class="panel-copy">This creates a ready-to-send email addressed to PeaceWorks.</div>
-
-                <form id="contactBuilder" class="field-grid">
-                  <div class="field">
-                    <label for="senderName">Your name</label>
-                    <input id="senderName" name="senderName" type="text" placeholder="Your name">
-                  </div>
-
-                  <div class="field">
-                    <label for="subjectLine">Subject</label>
-                    <input id="subjectLine" name="subjectLine" type="text" value="I am interested in learning more about PeaceWorks">
-                  </div>
-
-                  <div class="field">
-                    <label for="messageBody">Message</label>
-                    <textarea id="messageBody" name="messageBody" placeholder="Write your message here."></textarea>
-                    <div class="help-text">Your name will be added at the bottom of the email if you enter it above.</div>
-                  </div>
-
-                  <div class="btn-row">
-                    <button type="button" class="btn btn-primary" id="sendMessageBtn">Send Message</button>
-                    <button type="reset" class="btn btn-secondary" id="resetFormBtn">Clear</button>
-                  </div>
-                </form>
+              <div class="contact-card">
+                <div class="panel-title">Email PeaceWorks</div>
+                <div class="panel-copy">Use the button below to open your email app with a message already addressed to PeaceWorks.</div>
+                <div class="btn-row">
+                  <a class="btn btn-primary" href="mailto:peaceworks@peaceworks.network?subject=I%20have%20a%20question%20about%20PeaceWorks">Open Email</a>
+                  <a class="btn btn-secondary" href="mailto:peaceworks@peaceworks.network">Just Address the Email</a>
+                </div>
               </div>
 
               <aside class="info-panel">
                 <div class="panel-title">Direct contact</div>
-                <div class="panel-copy">If you prefer not to use the message builder, you can email us directly.</div>
-
+                <div class="panel-copy">You can always email PeaceWorks directly at:</div>
                 <div class="info-stack">
                   <div class="info-card">
                     <strong>Email</strong>
                     <p><a class="email-link" href="mailto:peaceworks@peaceworks.network">peaceworks@peaceworks.network</a></p>
                   </div>
                   <div class="info-card">
-                    <strong>Best for</strong>
-                    <p>General questions, PeaceWorks cohort interest, partnership inquiries, or learning more about the work.</p>
-                  </div>
-                  <div class="info-card">
-                    <strong>How this page works</strong>
-                    <p>This page prepares the email in your own email app. That keeps things simple while the site is still in its early build stage.</p>
+                    <strong>Good reasons to reach out</strong>
+                    <p>Cohort questions, fit questions, pricing questions, organizational needs, or simple curiosity about the work.</p>
                   </div>
                 </div>
               </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 0;">
+        <div class="container">
+          <div class="questions-shell reveal">
+            <div class="split-head">
+              <div>
+                <div class="eyebrow">Some Reasons People Reach Out</div>
+                <h2>Common starting questions.</h2>
+              </div>
+              <p>You do not need a polished explanation before contacting us. Often the first step is simply naming what you are carrying and asking whether PeaceWorks might help.</p>
+            </div>
+
+            <div class="question-grid">
+              <div class="question-card reveal delay-1">
+                <strong>Could this help our leadership team?</strong>
+                <p>Especially if tension, trust, or communication are affecting how the organization functions.</p>
+              </div>
+              <div class="question-card reveal delay-2">
+                <strong>Is the cohort the right fit?</strong>
+                <p>If you are unsure where to start, this is a very good question to ask directly.</p>
+              </div>
+              <div class="question-card reveal delay-3">
+                <strong>How does this connect to our business reality?</strong>
+                <p>We understand the practical pressures leaders are under and welcome that kind of conversation.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -679,18 +645,18 @@
             <div class="cta-grid">
               <div>
                 <div class="eyebrow" style="color: var(--sage-light);">PeaceWorks</div>
-                <h2 class="display">Sometimes the best next step is simply to reach out.</h2>
-                <p>Whether you are exploring the cohort, curious about the ROI work, or wondering whether PeaceWorks fits your organization, we would love to hear from you.</p>
-                <div class="cta-highlight">Clear questions often become the beginning of real change.</div>
+                <h2 class="display">A simple question can be the beginning of real change.</h2>
+                <p>If your organization is carrying pressure, tension, or relational drag, a direct conversation may be the clearest next step.</p>
+                <div class="cta-highlight">You do not have to solve it before the conversation begins.</div>
                 <div class="btn-row">
-                  <a class="btn btn-primary" href="#contact-form">Write a Message</a>
+                  <a class="btn btn-primary" href="mailto:peaceworks@peaceworks.network?subject=I%20have%20a%20question%20about%20PeaceWorks">Email PeaceWorks</a>
                   <a class="btn btn-secondary" href="https://www.peaceworks.network/join">Explore the Cohort</a>
                 </div>
               </div>
 
               <div class="hero-note" style="max-width:none; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.10); box-shadow: none;">
-                <strong style="color:white;">PeaceWorks contact</strong>
-                <span style="color: rgba(255,255,255,0.72);">If your organization is carrying tension, complexity, or relational drag, a simple conversation may be the most helpful place to begin.</span>
+                <strong style="color:white;">Direct and personal</strong>
+                <span style="color: rgba(255,255,255,0.72);">For now, the best contact path is simply to open an email and start the conversation.</span>
               </div>
             </div>
           </div>
@@ -720,35 +686,6 @@
       });
     }, { threshold: 0.16 });
     reveals.forEach((el) => io.observe(el));
-
-    const sendBtn = document.getElementById('sendMessageBtn');
-    const resetBtn = document.getElementById('resetFormBtn');
-    const senderName = document.getElementById('senderName');
-    const subjectLine = document.getElementById('subjectLine');
-    const messageBody = document.getElementById('messageBody');
-
-    function buildMailto() {
-      const to = 'peaceworks@peaceworks.network';
-      const subject = subjectLine.value || 'I am interested in learning more about PeaceWorks';
-      let body = messageBody.value || '';
-      const trimmedName = senderName.value.trim();
-
-      if (trimmedName) {
-        body = `${body}${body ? '\n\n' : ''}— ${trimmedName}`;
-      }
-
-      return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    }
-
-    sendBtn.addEventListener('click', () => {
-      window.location.href = buildMailto();
-    });
-
-    resetBtn.addEventListener('click', () => {
-      setTimeout(() => {
-        subjectLine.value = 'I am interested in learning more about PeaceWorks';
-      }, 0);
-    });
   </script>
 </body>
 </html>
