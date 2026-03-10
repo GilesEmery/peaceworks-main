@@ -49,6 +49,67 @@
       overflow: hidden;
     }
 
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      padding: 16px 0 0;
+      background: linear-gradient(180deg, rgba(246,243,238,0.92) 0%, rgba(246,243,238,0.72) 72%, rgba(246,243,238,0) 100%);
+      backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 22px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.56);
+      border: 1px solid rgba(255,255,255,0.72);
+      box-shadow: 0 16px 40px rgba(17,17,17,0.06);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: clamp(180px, 20vw, 260px);
+      height: auto;
+      display: block;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .site-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      transition: background .2s ease, transform .2s ease, color .2s ease;
+    }
+
+    .site-nav a:hover {
+      background: rgba(20,20,20,0.05);
+      color: var(--sage-dark);
+      transform: translateY(-1px);
+    }
+
     .page::before {
       content: "";
       position: fixed;
@@ -175,7 +236,7 @@
     }
 
     .hero {
-      min-height: 100svh;
+      min-height: calc(100svh - 96px);
       display: grid;
       align-items: center;
       padding: 56px 0 48px;
@@ -905,6 +966,29 @@
     }
 
     @media (max-width: 860px) {
+      .site-header {
+        padding-top: 10px;
+      }
+
+      .header-inner {
+        border-radius: 28px;
+        padding: 16px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .site-nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 8px;
+      }
+
+      .site-nav a {
+        min-height: 40px;
+        padding: 0 12px;
+        font-size: .94rem;
+      }
+
       .section { padding: 84px 0; }
       .container { width: min(var(--max), calc(100% - 24px)); }
       .hero { min-height: auto; padding-top: 34px; }
@@ -929,6 +1013,10 @@
     }
 
     @media (max-width: 640px) {
+      .brand img {
+        width: 190px;
+      }
+
       .hero-title { font-size: clamp(3.2rem, 16vw, 4.8rem); }
       .split-head h2,
       .roi-shell h2,
@@ -951,6 +1039,18 @@
   </style>
 </head>
 <body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="https://www.peaceworks.network/" aria-label="PeaceWorks home">
+        <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="https://www.peaceworks.network/join">Join</a>
+        <a href="https://www.peaceworks.network/roi-calculator">ROI Calculator</a>
+        <a href="https://www.peaceworks.network/contact">Contact</a>
+      </nav>
+    </div>
+  </header>
   <div class="page">
     <main>
       <section class="hero">
@@ -989,7 +1089,7 @@
               </div>
 
               <div class="logo-wrap">
-                <img src="https://gilesemery.github.io/peaceworks-main/PeaceWorks%20Circle.svg" alt="PeaceWorks logo">
+                <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks logo">
               </div>
             </div>
           </div>
