@@ -1029,6 +1029,76 @@
       .signal p { font-size: 1.2rem; }
     }
 
+    .site-footer {
+      padding: 28px 0 48px;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 26px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-branding {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 420px;
+    }
+
+    .footer-branding img {
+      width: clamp(170px, 18vw, 240px);
+      height: auto;
+    }
+
+    .footer-branding p {
+      font-size: 1.02rem;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 14px;
+      border-radius: 999px;
+      color: var(--text);
+      font-size: .98rem;
+      letter-spacing: .04em;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    .footer-links a:hover {
+      background: rgba(20,20,20,0.05);
+      color: var(--sage-dark);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 860px) {
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-links {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after {
@@ -1089,7 +1159,7 @@
               </div>
 
               <div class="logo-wrap">
-                <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks logo">
+                <img src="https://gilesemery.github.io/peaceworks-main/PeaceWorksCircle.svg" alt="PeaceWorks circle logo">
               </div>
             </div>
           </div>
@@ -1327,6 +1397,21 @@
         </div>
       </section>
     </main>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <div class="footer-branding">
+            <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
+            <p>Peace made practical for leaders, teams, and organizations under pressure.</p>
+          </div>
+
+          <div class="footer-links" aria-label="Footer navigation">
+            <a href="https://www.peaceworks.network/join">Join</a>
+            <a href="https://www.peaceworks.network/roi-calculator">ROI Calculator</a>
+            <a href="https://www.peaceworks.network/contact">Contact</a>
+          </div>
+        </div>
+      </footer>
   </div>
 
   <script>
