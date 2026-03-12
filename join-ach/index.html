@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PeaceWorks — Join by ACH</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="https://gilesemery.github.io/peaceworks-main/PeaceWorksCircle.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,8 +22,10 @@
       --shadow-lg: 0 28px 90px rgba(17,17,17,0.12);
       --max: 1320px;
     }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: "Cormorant Garamond", Georgia, serif;
@@ -32,9 +36,25 @@
         linear-gradient(180deg, #f8f5f0 0%, #f4f1eb 100%);
       overflow-x: hidden;
     }
+
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
-    .page { position: relative; min-height: 100vh; overflow: hidden; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      padding: 16px 0 0;
+      background: linear-gradient(180deg, rgba(246,243,238,0.92) 0%, rgba(246,243,238,0.72) 72%, rgba(246,243,238,0) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .page {
+      position: relative;
+      overflow: hidden;
+    }
+
     .page::before {
       content: "";
       position: fixed;
@@ -45,20 +65,14 @@
       background-size: 10px 10px;
       z-index: 0;
     }
+
     .container {
       width: min(var(--max), calc(100% - 40px));
       margin: 0 auto;
       position: relative;
       z-index: 1;
     }
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      padding: 16px 0 0;
-      background: linear-gradient(180deg, rgba(246,243,238,0.92) 0%, rgba(246,243,238,0.72) 72%, rgba(246,243,238,0) 100%);
-      backdrop-filter: blur(12px);
-    }
+
     .header-inner {
       display: flex;
       align-items: center;
@@ -70,8 +84,21 @@
       border: 1px solid rgba(255,255,255,0.72);
       box-shadow: 0 16px 40px rgba(17,17,17,0.06);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    .brand img { width: clamp(180px, 20vw, 260px); height: auto; }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: clamp(180px, 20vw, 260px);
+      height: auto;
+      display: block;
+    }
+
     .site-nav {
       display: flex;
       align-items: center;
@@ -79,6 +106,7 @@
       flex-wrap: wrap;
       justify-content: flex-end;
     }
+
     .site-nav a {
       display: inline-flex;
       align-items: center;
@@ -91,13 +119,16 @@
       letter-spacing: 0.04em;
       transition: background .2s ease, transform .2s ease, color .2s ease;
     }
+
     .site-nav a:hover,
     .site-nav a.active {
       background: rgba(20,20,20,0.05);
       color: var(--sage-dark);
       transform: translateY(-1px);
     }
+
     .section { padding: 84px 0; }
+
     .eyebrow {
       display: inline-flex;
       align-items: center;
@@ -109,6 +140,7 @@
       margin-bottom: 22px;
       font-weight: 600;
     }
+
     .eyebrow::before {
       content: "";
       width: 34px;
@@ -116,25 +148,30 @@
       background: currentColor;
       opacity: 0.8;
     }
+
     h1, h2, h3, p { margin: 0; }
+
     .display {
       font-weight: 500;
       letter-spacing: -0.03em;
       line-height: 0.95;
       text-wrap: balance;
     }
+
     p {
       font-size: 1.28rem;
       line-height: 1.56;
       color: var(--muted);
       letter-spacing: 0.005em;
     }
+
     .btn-row {
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
       align-items: center;
     }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -149,34 +186,43 @@
       font-weight: 600;
       transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease, color .22s ease;
     }
+
     .btn:hover { transform: translateY(-2px); }
+
     .btn-primary {
       background: linear-gradient(135deg, #111 0%, #1a1f1a 100%);
       color: #fff;
       box-shadow: 0 14px 28px rgba(17,17,17,0.18);
     }
+
     .btn-secondary {
       background: rgba(255,255,255,0.72);
       color: var(--text);
       border: 1px solid rgba(20,20,20,0.12);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
+
     .hero {
       padding: 46px 0 18px;
     }
+
     .hero-grid {
       display: grid;
       grid-template-columns: 1.02fr 0.98fr;
       gap: 34px;
       align-items: center;
     }
+
     .hero-title {
       font-size: clamp(3.6rem, 8vw, 6.8rem);
       max-width: 9ch;
       margin-bottom: 20px;
     }
+
     .hero-copy p { max-width: 760px; }
     .hero-copy .btn-row { margin-top: 26px; }
+
     .hero-note {
       margin-top: 24px;
       padding: 20px 22px;
@@ -184,9 +230,11 @@
       background: rgba(255,255,255,0.54);
       border-radius: 20px;
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       box-shadow: var(--shadow);
       max-width: 680px;
     }
+
     .hero-note strong {
       display: block;
       font-size: 1.16rem;
@@ -195,18 +243,21 @@
       margin-bottom: 6px;
       font-weight: 600;
     }
+
     .hero-note span {
       display: block;
       font-size: 1.04rem;
       line-height: 1.42;
       color: var(--muted);
     }
+
     .hero-visual {
       min-height: 520px;
       display: grid;
       place-items: center;
       position: relative;
     }
+
     .hero-glow {
       position: absolute;
       width: 680px;
@@ -216,6 +267,7 @@
       filter: blur(8px);
       pointer-events: none;
     }
+
     .orbits {
       position: relative;
       width: min(74vw, 500px);
@@ -223,11 +275,13 @@
       display: grid;
       place-items: center;
     }
+
     .orbit {
       position: absolute;
       border-radius: 50%;
       border: 1px solid rgba(143,171,142,0.28);
     }
+
     .orbit::before,
     .orbit::after {
       content: "";
@@ -238,15 +292,19 @@
       background: linear-gradient(135deg, var(--sage-light), var(--sage-dark));
       box-shadow: 0 0 20px rgba(143,171,142,0.36);
     }
+
     .orbit-1 { width: 100%; height: 100%; animation: spin 40s linear infinite; }
     .orbit-1::before { top: 50%; left: -5px; transform: translateY(-50%); }
     .orbit-1::after { top: 14%; right: 15%; }
+
     .orbit-2 { width: 76%; height: 76%; border-color: rgba(143,171,142,0.40); animation: spinReverse 28s linear infinite; }
     .orbit-2::before { top: -5px; left: 50%; transform: translateX(-50%); }
     .orbit-2::after { right: -5px; top: 60%; }
+
     .orbit-3 { width: 54%; height: 54%; border-color: rgba(90,122,92,0.46); animation: spin 18s linear infinite; }
     .orbit-3::before { left: 14%; bottom: 10%; }
     .orbit-3::after { right: 12%; top: 12%; }
+
     .logo-wrap {
       position: relative;
       width: 52%;
@@ -255,12 +313,14 @@
       place-items: center;
       z-index: 2;
     }
+
     .logo-wrap img {
       width: 100%;
       height: 100%;
       object-fit: contain;
       filter: drop-shadow(0 24px 42px rgba(17,17,17,0.12));
     }
+
     .form-shell {
       position: relative;
       overflow: hidden;
@@ -270,7 +330,9 @@
       border: 1px solid rgba(255,255,255,0.76);
       box-shadow: var(--shadow-lg);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
+
     .form-shell::before {
       content: "";
       position: absolute;
@@ -282,6 +344,7 @@
       background: radial-gradient(circle, rgba(184,204,183,0.32), transparent 70%);
       pointer-events: none;
     }
+
     .form-head {
       display: grid;
       grid-template-columns: 1.04fr 0.96fr;
@@ -289,12 +352,14 @@
       align-items: end;
       margin-bottom: 24px;
     }
+
     .form-head h2 {
       font-size: clamp(2.6rem, 5.4vw, 4.6rem);
       line-height: 0.96;
       letter-spacing: -0.03em;
       font-weight: 500;
     }
+
     .embed-wrap {
       position: relative;
       border-radius: 26px;
@@ -303,6 +368,7 @@
       border: 1px solid rgba(20,20,20,0.08);
       box-shadow: var(--shadow);
     }
+
     .embed-wrap iframe {
       display: block;
       width: 100%;
@@ -310,9 +376,11 @@
       border: 0;
       background: white;
     }
+
     .site-footer {
       padding: 28px 0 48px;
     }
+
     .footer-inner {
       display: flex;
       align-items: center;
@@ -321,7 +389,12 @@
       padding-top: 26px;
       border-top: 1px solid var(--line);
     }
-    .footer-branding img { width: clamp(170px, 18vw, 240px); height: auto; }
+
+    .footer-branding img {
+      width: clamp(170px, 18vw, 240px);
+      height: auto;
+    }
+
     .footer-links {
       display: flex;
       align-items: center;
@@ -329,6 +402,7 @@
       flex-wrap: wrap;
       justify-content: flex-end;
     }
+
     .footer-links a {
       display: inline-flex;
       align-items: center;
@@ -341,58 +415,85 @@
       letter-spacing: .04em;
       transition: background .2s ease, color .2s ease, transform .2s ease;
     }
+
     .footer-links a:hover {
       background: rgba(20,20,20,0.05);
       color: var(--sage-dark);
       transform: translateY(-1px);
     }
+
     .reveal {
       opacity: 0;
       transform: translateY(28px);
       transition: opacity .8s ease, transform .8s ease;
     }
+
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @keyframes spinReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-    @media (max-width: 1180px) {
-      .hero-grid, .form-head { grid-template-columns: 1fr; }
-      .hero-visual { display: none; }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
+
+    @keyframes spinReverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    @media (max-width: 1180px) {
+      .hero-grid,
+      .form-head {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+    }
+
     @media (max-width: 860px) {
       .site-header { padding-top: 10px; }
+
       .header-inner {
         border-radius: 28px;
         padding: 16px;
         align-items: flex-start;
         flex-direction: column;
       }
+
       .site-nav {
         width: 100%;
         justify-content: flex-start;
         gap: 8px;
       }
+
       .site-nav a {
         min-height: 40px;
         padding: 0 12px;
         font-size: .94rem;
       }
+
       .section { padding: 72px 0; }
       .container { width: min(var(--max), calc(100% - 24px)); }
       .hero { padding-top: 34px; }
       .form-shell { padding: 22px; }
+
       .footer-inner {
         flex-direction: column;
         align-items: flex-start;
       }
+
       .footer-links {
         width: 100%;
         justify-content: flex-start;
       }
+
       .embed-wrap iframe { min-height: 1600px; }
     }
+
     @media (max-width: 640px) {
       .brand img { width: 190px; }
       .hero-title { font-size: clamp(3rem, 15vw, 4.6rem); }
@@ -402,27 +503,31 @@
       p { font-size: 1.16rem; line-height: 1.48; }
       .embed-wrap iframe { min-height: 1720px; }
     }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after { animation: none !important; transition: none !important; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="brand" href="https://www.peaceworks.network/" aria-label="PeaceWorks home">
-          <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
-        </a>
-        <nav class="site-nav" aria-label="Primary">
-          <a href="https://www.peaceworks.network/join" class="active">Join</a>
-          <a href="https://www.peaceworks.network/roi-calculator">ROI Calculator</a>
-          <a href="https://www.peaceworks.network/contact">Contact</a>
-        </nav>
-      </div>
-    </header>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="https://www.peaceworks.network/" aria-label="PeaceWorks home">
+        <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="https://www.peaceworks.network/join" class="active">Join</a>
+        <a href="https://www.peaceworks.network/roi-calculator">ROI Calculator</a>
+        <a href="https://www.peaceworks.network/contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
+  <div class="page">
     <main>
       <section class="hero">
         <div class="container hero-grid">
@@ -493,6 +598,7 @@
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.16 });
+
     reveals.forEach((el) => io.observe(el));
   </script>
 </body>
