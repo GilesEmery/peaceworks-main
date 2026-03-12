@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PeaceWorks — Contact</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="https://gilesemery.github.io/peaceworks-main/PeaceWorksCircle.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -44,7 +46,7 @@
     .page {
       position: relative;
       min-height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     .page::before {
@@ -68,10 +70,11 @@
     .site-header {
       position: sticky;
       top: 0;
-      z-index: 40;
+      z-index: 100;
       padding: 16px 0 0;
       background: linear-gradient(180deg, rgba(246,243,238,0.92) 0%, rgba(246,243,238,0.72) 72%, rgba(246,243,238,0) 100%);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .header-inner {
@@ -85,6 +88,7 @@
       border: 1px solid rgba(255,255,255,0.72);
       box-shadow: 0 16px 40px rgba(17,17,17,0.06);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .brand img { width: clamp(180px, 20vw, 260px); height: auto; }
@@ -198,28 +202,6 @@
     .hero-copy p { max-width: 760px; }
     .hero-copy .btn-row { margin-top: 28px; }
 
-    .hero-note {
-      margin-top: 24px;
-      padding: 20px 22px;
-      border: 1px solid rgba(255,255,255,0.68);
-      background: rgba(255,255,255,0.54);
-      border-radius: var(--radius-sm);
-      backdrop-filter: blur(12px);
-      box-shadow: var(--shadow);
-      max-width: 720px;
-    }
-
-    .hero-note strong {
-      display: block;
-      font-size: 1.16rem;
-      line-height: 1.14;
-      color: var(--text);
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-
-    .hero-note span { display: block; font-size: 1.03rem; line-height: 1.42; color: var(--muted); }
-
     .hero-visual {
       min-height: 560px;
       display: grid;
@@ -284,8 +266,7 @@
     .logo-wrap img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 42px rgba(17,17,17,0.12)); }
 
     .contact-shell,
-    .questions-shell,
-    .cta-shell {
+    .questions-shell {
       position: relative;
       overflow: hidden;
       border-radius: 34px;
@@ -294,11 +275,11 @@
       border: 1px solid rgba(255,255,255,0.76);
       box-shadow: var(--shadow-lg);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .contact-shell::before,
-    .questions-shell::before,
-    .cta-shell::before {
+    .questions-shell::before {
       content: "";
       position: absolute;
       right: -120px;
@@ -387,34 +368,6 @@
       word-break: break-word;
     }
 
-    .cta-shell {
-      background: radial-gradient(circle at 84% 18%, rgba(184,204,183,0.22), transparent 26%), linear-gradient(135deg, #111 0%, #1a1f1a 100%);
-      color: white;
-      box-shadow: 0 36px 100px rgba(8,8,8,0.22);
-    }
-
-    .cta-shell .eyebrow,
-    .cta-shell h2,
-    .cta-shell p { color: white; }
-
-    .cta-shell p { color: rgba(255,255,255,0.72); }
-
-    .cta-grid {
-      display: grid;
-      grid-template-columns: 1.04fr 0.96fr;
-      gap: 24px;
-      align-items: end;
-    }
-
-    .cta-highlight {
-      font-size: clamp(2.1rem, 4vw, 3.4rem);
-      line-height: 0.98;
-      letter-spacing: -0.03em;
-      margin: 18px 0 22px;
-      font-weight: 600;
-      max-width: 13ch;
-    }
-
     .site-footer { padding: 28px 0 48px; }
 
     .footer-inner {
@@ -467,8 +420,7 @@
     @media (max-width: 1180px) {
       .hero-grid,
       .split-head,
-      .contact-grid,
-      .cta-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
       .question-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
       .hero-visual { display: none; }
     }
@@ -495,8 +447,7 @@
       .container { width: min(var(--max), calc(100% - 24px)); }
       .hero { padding-top: 34px; }
       .contact-shell,
-      .questions-shell,
-      .cta-shell { padding: 22px; }
+      .questions-shell { padding: 22px; }
       .question-grid { grid-template-columns: 1fr; }
       .footer-inner {
         flex-direction: column;
@@ -511,8 +462,7 @@
     @media (max-width: 640px) {
       .brand img { width: 190px; }
       .hero-title { font-size: clamp(3rem, 15vw, 4.8rem); }
-      .split-head h2,
-      .cta-highlight { font-size: clamp(2.2rem, 11vw, 3.4rem); }
+      .split-head h2 { font-size: clamp(2.2rem, 11vw, 3.4rem); }
       .btn-row { flex-direction: column; align-items: stretch; }
       .btn { width: 100%; }
       p { font-size: 1.08rem; line-height: 1.42; }
@@ -548,9 +498,8 @@
             <p>If you have questions about PeaceWorks, the cohort experience, the ROI work, or whether this may fit your organization, the simplest next step is to email us directly.</p>
             <div class="btn-row">
               <a class="btn btn-primary" href="mailto:peaceworks@peaceworks.network?subject=I%20have%20a%20question%20about%20PeaceWorks">Email PeaceWorks</a>
-              
             </div>
-            </div>
+          </div>
 
           <div class="hero-visual reveal visible" aria-hidden="true">
             <div class="hero-glow"></div>
@@ -635,10 +584,6 @@
           </div>
         </div>
       </section>
-
-      <section class="section" style="padding-top: 0;">
-        <div class="container">
-          
     </main>
 
     <footer class="site-footer">
