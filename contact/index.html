@@ -40,13 +40,22 @@
       overflow-x: hidden;
     }
 
-    a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      padding: 16px 0 0;
+      background: linear-gradient(180deg, rgba(246,243,238,0.92) 0%, rgba(246,243,238,0.72) 72%, rgba(246,243,238,0) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
 
     .page {
       position: relative;
-      min-height: 100vh;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
     .page::before {
@@ -67,16 +76,6 @@
       z-index: 1;
     }
 
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 16px 0 0;
-      background: linear-gradient(180deg, rgba(246,243,238,0.92) 0%, rgba(246,243,238,0.72) 72%, rgba(246,243,238,0) 100%);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
     .header-inner {
       display: flex;
       align-items: center;
@@ -91,7 +90,17 @@
       -webkit-backdrop-filter: blur(12px);
     }
 
-    .brand img { width: clamp(180px, 20vw, 260px); height: auto; }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: clamp(180px, 20vw, 260px);
+      height: auto;
+      display: block;
+    }
 
     .site-nav {
       display: flex;
@@ -121,7 +130,10 @@
       transform: translateY(-1px);
     }
 
-    .section { padding: 86px 0; }
+    .section {
+      padding: 88px 0;
+      position: relative;
+    }
 
     .eyebrow {
       display: inline-flex;
@@ -157,10 +169,14 @@
       line-height: 1.5;
       color: var(--muted);
       letter-spacing: 0.005em;
-      font-family: inherit;
     }
 
-    .btn-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
 
     .btn {
       display: inline-flex;
@@ -175,15 +191,29 @@
       text-transform: uppercase;
       font-weight: 600;
       transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease, color .22s ease;
-      border: 0;
     }
 
     .btn:hover { transform: translateY(-2px); }
-    .btn-primary { background: linear-gradient(135deg, #111 0%, #1a1f1a 100%); color: #fff; box-shadow: 0 14px 28px rgba(17,17,17,0.18); }
-    .btn-secondary { background: rgba(255,255,255,0.72); color: var(--text); border: 1px solid rgba(20,20,20,0.12); backdrop-filter: blur(10px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #111 0%, #1a1f1a 100%);
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(17,17,17,0.18);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.72);
+      color: var(--text);
+      border: 1px solid rgba(20,20,20,0.12);
+      backdrop-filter: blur(10px);
+    }
 
     .hero {
-      padding: 54px 0 24px;
+      min-height: calc(100svh - 96px);
+      display: grid;
+      align-items: center;
+      padding: 56px 0 40px;
+      position: relative;
     }
 
     .hero-grid {
@@ -247,9 +277,11 @@
     .orbit-1 { width: 100%; height: 100%; animation: spin 40s linear infinite; }
     .orbit-1::before { top: 50%; left: -5px; transform: translateY(-50%); }
     .orbit-1::after { top: 14%; right: 15%; }
+
     .orbit-2 { width: 76%; height: 76%; border-color: rgba(143,171,142,0.40); animation: spinReverse 28s linear infinite; }
     .orbit-2::before { top: -5px; left: 50%; transform: translateX(-50%); }
     .orbit-2::after { right: -5px; top: 60%; }
+
     .orbit-3 { width: 54%; height: 54%; border-color: rgba(90,122,92,0.46); animation: spin 18s linear infinite; }
     .orbit-3::before { left: 14%; bottom: 10%; }
     .orbit-3::after { right: 12%; top: 12%; }
@@ -263,10 +295,15 @@
       z-index: 2;
     }
 
-    .logo-wrap img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 42px rgba(17,17,17,0.12)); }
+    .logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 24px 42px rgba(17,17,17,0.12));
+    }
 
-    .contact-shell,
-    .questions-shell {
+    .questions-shell,
+    .contact-shell {
       position: relative;
       overflow: hidden;
       border-radius: 34px;
@@ -278,8 +315,8 @@
       -webkit-backdrop-filter: blur(16px);
     }
 
-    .contact-shell::before,
-    .questions-shell::before {
+    .questions-shell::before,
+    .contact-shell::before {
       content: "";
       position: absolute;
       right: -120px;
@@ -306,21 +343,44 @@
       font-weight: 500;
     }
 
-    .contact-grid {
+    .question-grid {
       display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
-      gap: 22px;
-      align-items: start;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
     }
 
+    .question-card,
     .contact-card,
     .info-panel,
-    .question-card {
+    .info-card {
       border-radius: 28px;
       background: rgba(255,255,255,0.74);
       border: 1px solid rgba(255,255,255,0.82);
       box-shadow: var(--shadow);
       padding: 24px;
+    }
+
+    .question-card strong,
+    .info-card strong {
+      display: block;
+      font-size: 1.4rem;
+      line-height: 1.06;
+      color: var(--text);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .question-card p,
+    .info-card p {
+      font-size: 1.08rem;
+      line-height: 1.4;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 22px;
+      align-items: start;
     }
 
     .panel-title {
@@ -332,43 +392,19 @@
       font-weight: 600;
     }
 
-    .panel-copy { margin-bottom: 18px; font-size: 1.08rem; }
+    .panel-copy {
+      margin-bottom: 18px;
+      font-size: 1.08rem;
+    }
 
-    .info-stack,
-    .question-grid {
+    .info-stack {
       display: grid;
       gap: 14px;
     }
 
-    .question-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-    .info-card {
-      padding: 20px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.78);
-      border: 1px solid rgba(20,20,20,0.06);
+    .site-footer {
+      padding: 28px 0 48px;
     }
-
-    .info-card strong,
-    .question-card strong {
-      display: block;
-      font-size: 1.4rem;
-      line-height: 1.06;
-      color: var(--text);
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .info-card p,
-    .question-card p { font-size: 1.08rem; }
-
-    .email-link {
-      color: var(--sage-dark);
-      font-weight: 600;
-      word-break: break-word;
-    }
-
-    .site-footer { padding: 28px 0 48px; }
 
     .footer-inner {
       display: flex;
@@ -379,7 +415,10 @@
       border-top: 1px solid var(--line);
     }
 
-    .footer-branding img { width: clamp(170px, 18vw, 240px); height: auto; }
+    .footer-branding img {
+      width: clamp(170px, 18vw, 240px);
+      height: auto;
+    }
 
     .footer-links {
       display: flex;
@@ -408,51 +447,83 @@
       transform: translateY(-1px);
     }
 
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .delay-1 { transition-delay: .08s; }
     .delay-2 { transition-delay: .16s; }
     .delay-3 { transition-delay: .24s; }
 
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @keyframes spinReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spinReverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
 
     @media (max-width: 1180px) {
       .hero-grid,
       .split-head,
-      .contact-grid { grid-template-columns: 1fr; }
-      .question-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .hero-visual { display: none; }
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .question-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .hero-visual {
+        display: none;
+      }
     }
 
     @media (max-width: 860px) {
-      .site-header { padding-top: 10px; }
+      .site-header {
+        padding-top: 10px;
+      }
+
       .header-inner {
         border-radius: 28px;
         padding: 16px;
         align-items: flex-start;
         flex-direction: column;
       }
+
       .site-nav {
         width: 100%;
         justify-content: flex-start;
         gap: 8px;
       }
+
       .site-nav a {
         min-height: 40px;
         padding: 0 12px;
         font-size: .94rem;
       }
+
       .section { padding: 72px 0; }
       .container { width: min(var(--max), calc(100% - 24px)); }
-      .hero { padding-top: 34px; }
-      .contact-shell,
-      .questions-shell { padding: 22px; }
+      .hero { min-height: auto; padding-top: 34px; }
+      .questions-shell,
+      .contact-shell { padding: 22px; }
       .question-grid { grid-template-columns: 1fr; }
+
       .footer-inner {
         flex-direction: column;
         align-items: flex-start;
       }
+
       .footer-links {
         width: 100%;
         justify-content: flex-start;
@@ -470,25 +541,28 @@
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after { animation: none !important; transition: none !important; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header class="site-header">
-      <div class="container header-inner">
-        <a class="brand" href="https://www.peaceworks.network/" aria-label="PeaceWorks home">
-          <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
-        </a>
-        <nav class="site-nav" aria-label="Primary">
-          <a href="https://www.peaceworks.network/join">Join</a>
-          <a href="https://www.peaceworks.network/roi-calculator">ROI Calculator</a>
-          <a class="active" href="https://www.peaceworks.network/contact">Contact</a>
-        </nav>
-      </div>
-    </header>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="https://www.peaceworks.network/" aria-label="PeaceWorks home">
+        <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="https://www.peaceworks.network/join">Join</a>
+        <a href="https://www.peaceworks.network/roi-calculator">ROI Calculator</a>
+        <a class="active" href="https://www.peaceworks.network/contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
+  <div class="page">
     <main>
       <section class="hero">
         <div class="container hero-grid">
