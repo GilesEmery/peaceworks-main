@@ -67,14 +67,20 @@
       z-index: 1;
     }
 
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-      padding: 16px 0 0;
-      background: linear-gradient(180deg, rgba(246,243,238,0.92) 0%, rgba(246,243,238,0.72) 72%, rgba(246,243,238,0) 100%);
-      backdrop-filter: blur(12px);
-    }
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 16px 0 0;
+  background: linear-gradient(
+    180deg,
+    rgba(246,243,238,0.92) 0%,
+    rgba(246,243,238,0.72) 72%,
+    rgba(246,243,238,0) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
 
     .header-inner {
       display: flex;
