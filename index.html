@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PeaceWorks</title>
   <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/svg+xml" href="https://gilesemery.github.io/peaceworks-main/PeaceWorksCircle.svg"> 
+  <link rel="icon" type="image/svg+xml" href="https://gilesemery.github.io/peaceworks-main/PeaceWorksCircle.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -46,11 +46,6 @@
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
 
-    .page {
-      position: relative;
-      overflow: hidden;
-    }
-
     .site-header {
       position: sticky;
       top: 0;
@@ -58,6 +53,30 @@
       padding: 16px 0 0;
       background: linear-gradient(180deg, rgba(246,243,238,0.92) 0%, rgba(246,243,238,0.72) 72%, rgba(246,243,238,0) 100%);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .page {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.05;
+      background-image: radial-gradient(rgba(0,0,0,.35) .6px, transparent .7px);
+      background-size: 10px 10px;
+      z-index: 0;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .header-inner {
@@ -71,6 +90,7 @@
       border: 1px solid rgba(255,255,255,0.72);
       box-shadow: 0 16px 40px rgba(17,17,17,0.06);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .brand {
@@ -112,24 +132,6 @@
       transform: translateY(-1px);
     }
 
-    .page::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.05;
-      background-image: radial-gradient(rgba(0,0,0,.35) .6px, transparent .7px);
-      background-size: 10px 10px;
-      z-index: 0;
-    }
-
-    .container {
-      width: min(var(--max), calc(100% - 40px));
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
     .section {
       padding: 88px 0;
       position: relative;
@@ -162,11 +164,6 @@
       letter-spacing: -0.03em;
       line-height: 0.95;
       text-wrap: balance;
-    }
-
-    .display em {
-      font-style: italic;
-      color: var(--sage-dark);
     }
 
     .lede,
@@ -220,6 +217,7 @@
       color: var(--text);
       border: 1px solid rgba(20,20,20,0.12);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .btn-secondary:hover {
@@ -274,6 +272,7 @@
       background: rgba(255,255,255,0.54);
       border-radius: var(--radius-sm);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       box-shadow: var(--shadow);
       max-width: 620px;
     }
@@ -390,6 +389,7 @@
       border: 1px solid rgba(255,255,255,0.72);
       box-shadow: 0 14px 32px rgba(17,17,17,0.07);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .floating-card strong {
@@ -472,6 +472,7 @@
       border: 1px solid rgba(255,255,255,0.74);
       box-shadow: var(--shadow);
       backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .signal p {
@@ -505,6 +506,7 @@
       border: 1px solid rgba(255,255,255,0.76);
       box-shadow: var(--shadow-lg);
       backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .idea-shell::before {
@@ -594,6 +596,7 @@
       border: 1px solid rgba(255,255,255,0.76);
       box-shadow: var(--shadow);
       backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       display: flex;
       flex-direction: column;
     }
@@ -683,37 +686,6 @@
     .roi-shell li,
     .founders-shell li {
       color: rgba(255,255,255,0.72);
-    }
-
-    .roi-stats {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin: 22px 0 24px;
-    }
-
-    .stat {
-      padding: 18px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(10px);
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 2rem;
-      line-height: 1;
-      margin-bottom: 6px;
-      color: white;
-      font-weight: 600;
-    }
-
-    .stat span {
-      display: block;
-      font-size: 1.04rem;
-      line-height: 1.34;
-      color: rgba(255,255,255,0.64);
     }
 
     .roi-panel {
@@ -862,16 +834,6 @@
       align-items: end;
     }
 
-    .invite-highlight {
-      font-size: clamp(2.2rem, 4vw, 3.6rem);
-      line-height: 0.98;
-      letter-spacing: -0.03em;
-      margin: 18px 0 18px;
-      color: white;
-      font-weight: 600;
-      max-width: 14ch;
-    }
-
     .invite-boxes {
       display: grid;
       gap: 14px;
@@ -883,6 +845,7 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.08);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .invite-box strong {
@@ -958,10 +921,6 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .hero-visual {
-        min-height: 560px;
-      }
-
       .founders-grid {
         gap: 18px;
       }
@@ -1002,7 +961,6 @@
       .problem-grid,
       .idea-points,
       .cards-grid,
-      .roi-stats,
       .founders-list,
       .invite-grid,
       .split-head {
@@ -1054,12 +1012,6 @@
     .footer-branding img {
       width: clamp(170px, 18vw, 240px);
       height: auto;
-    }
-
-    .footer-branding p {
-      font-size: 1.02rem;
-      line-height: 1.4;
-      color: var(--muted);
     }
 
     .footer-links {
@@ -1123,6 +1075,7 @@
       </nav>
     </div>
   </header>
+
   <div class="page">
     <main>
       <section class="hero">
@@ -1130,10 +1083,10 @@
           <div class="hero-copy reveal visible">
             <div class="eyebrow">PeaceWorks • Relational Operating System</div>
             <h1 class="display hero-title">Peace isn’t passive.<br>It’s practiced.</h1>
-            <p class="hero-sub">Most companies invest in strategy and execution. Very few invest in the relational operating system that holds everything together when pressure rises. PeaceWorks equips business leaders to build cultures where trust holds under pressure.</p>
+            <p class="hero-sub">Most companies invest in strategy and execution. Very few invest in the relational operating system that holds everything together. PeaceWorks equips business leaders to build cultures where trust holds under pressure.</p>
             <div class="btn-row">
-              <a class="btn btn-primary" href="https://www.peaceworks.network/join">Join the Founders Circle</a>
-                          </div>
+              <a class="btn btn-primary" href="https://www.peaceworks.network/join">Join a Circle</a>
+            </div>
             <div class="hero-note">
               <strong>For leaders who want calm, honest, durable cultures.</strong>
               <span>PeaceWorks helps organizations strengthen the relational architecture that determines how people work, repair, listen, and lead together.</span>
@@ -1183,21 +1136,21 @@
               <div class="eyebrow">The Problem</div>
               <h2>Every organization has two operating systems.</h2>
             </div>
-            <p>One drives performance. The other drives relationships. When the relational system is weak, pressure exposes it — in meetings, in trust, in leadership fatigue, and in the hidden drag that slows everything down.</p>
+            <p>One drives performance. The other drives relationships. When the relational system is weak, performance suffers.</p>
           </div>
 
           <div class="problem-grid">
-            <div class="signal reveal delay-1"><p>Meetings where no one says the real thing.</p></div>
-            <div class="signal reveal delay-2"><p>Tension that quietly slows execution.</p></div>
-            <div class="signal reveal delay-3"><p>High performers competing instead of collaborating.</p></div>
-            <div class="signal reveal delay-4"><p>Leaders carrying emotional weight they were never trained to carry.</p></div>
-            <div class="signal reveal delay-1"><p>HR becoming the conflict department.</p></div>
-            <div class="signal reveal delay-2"><p>Relational drag that is not on the balance sheet, but felt in every room.</p></div>
+            <div class="signal reveal delay-1"><p>“Leadership feels heavier than it used to.”</p></div>
+            <div class="signal reveal delay-2"><p>“High performers are competing instead of collaborating.”</p></div>
+            <div class="signal reveal delay-3"><p>“We’re good at solving problems. Not great at absorbing stress.”</p></div>
+            <div class="signal reveal delay-4"><p>“Everyone’s looking to leadership for calm. Leadership is asking GPT how.”</p></div>
+            <div class="signal reveal delay-1"><p>“We have managers. We’re missing peacemakers.”</p></div>
+            <div class="signal reveal delay-2"><p>“The hardest part of leadership isn’t strategy, it’s carrying people.”</p></div>
           </div>
 
           <div class="problem-close reveal">
             <strong>The result is relational drag.</strong>
-            <p>Not visible on a balance sheet. But felt in every room.</p>
+            <p>Not visible on the balance sheet. But felt in every room.</p>
           </div>
         </div>
       </section>
@@ -1207,7 +1160,7 @@
           <div class="idea-shell reveal">
             <div class="eyebrow">The PeaceWorks Idea</div>
             <h2 class="idea-title">Install a Relational Operating System.</h2>
-            <p class="lede">PeaceWorks helps leaders install a Relational Operating System inside their organization. Not another leadership seminar. A rhythm of practices that strengthens how people work together when pressure rises.</p>
+            <p class="lede">PeaceWorks helps leaders install a Relational Operating System inside their organization. Not another leadership seminar, but a rhythm of practices that strengthen how people work together when pressure rises.</p>
 
             <div class="idea-grid">
               <div class="idea-points">
@@ -1220,7 +1173,7 @@
 
               <div class="idea-quote">
                 <strong>Strong cultures are not built by accident.</strong>
-                <p>They are practiced. PeaceWorks creates a repeatable rhythm that strengthens the relational habits behind trust, honesty, accountability, and calm leadership.</p>
+                <p>They are practiced. PeaceWorks strengthens the relational habits behind trust, honesty, accountability, and calm leadership.</p>
               </div>
             </div>
           </div>
@@ -1280,7 +1233,7 @@
 
             <article class="feature-card reveal delay-2">
               <h3>The Peace Index</h3>
-              <p>A simple measurement tool that helps leaders track relational health over time.</p>
+              <p>Simple tools that help leaders track relational health over time.</p>
               <ul>
                 <li>Trust and meeting honesty</li>
                 <li>Conflict repair speed</li>
@@ -1299,30 +1252,11 @@
               <div>
                 <h2>Healthy cultures are good for business.</h2>
                 <p>Most organizations never calculate the cost of relational drag. But even modest friction can quietly reduce trust, focus, execution, and leadership clarity. The losses compound long before anyone names them.</p>
-
-                <div class="roi-stats">
-                  <div class="stat">
-                    <strong>$3M</strong>
-                    <span>Annual revenue</span>
-                  </div>
-                  <div class="stat">
-                    <strong>$1.4M</strong>
-                    <span>Annual payroll</span>
-                  </div>
-                  <div class="stat">
-                    <strong>15</strong>
-                    <span>Employees</span>
-                  </div>
-                  <div class="stat">
-                    <strong>10%</strong>
-                    <span>Productivity loss from disengagement and friction</span>
-                  </div>
-                </div>
               </div>
 
               <div class="roi-panel">
-                <strong>This is a normal kind of company. That is the point.</strong>
-                <p>For a business of this size, relational drag can create substantial hidden cost each year. If you want to see how the numbers could change inside your own company, use the PeaceWorks ROI Calculator and run the model for your context.</p>
+                <strong>See the numbers more clearly.</strong>
+                <p>Use the ROI Calculator to explore the business case for reducing relational drag inside your company.</p>
                 <div style="margin-top: 20px;">
                   <a class="btn btn-secondary" href="https://www.peaceworks.network/roi-calculator">See the ROI Calculator</a>
                 </div>
@@ -1335,11 +1269,11 @@
       <section class="section">
         <div class="container">
           <div class="founders-shell reveal">
-            <div class="eyebrow" style="color: var(--sage-light);">The Founders Circle</div>
+            <div class="eyebrow" style="color: var(--sage-light);">The PeaceWorks Circle</div>
             <div class="founders-grid">
               <div>
-                <h2>A limited circle for companies committed to a better way of leading.</h2>
-                <p>PeaceWorks is launching with a small Founders Circle — a limited group of companies committed to practicing leadership that is calmer, more honest, and more durable under pressure.</p>
+                <h2>A circle for companies committed to a better way of leading.</h2>
+                <p>PeaceWorks offers small Circles, a limited group of companies committed to practicing leadership that is calmer, more honest, and more durable under pressure.</p>
 
                 <div class="founders-list">
                   <div class="founders-item"><strong>Monthly leadership cohorts</strong><span>Roundtables for owners and senior leaders.</span></div>
@@ -1351,15 +1285,15 @@
               </div>
 
               <aside class="membership-card">
-                <span class="tag">Founding membership</span>
+                <span class="tag">Circle membership</span>
                 <div class="price">$500 <small>/ month</small></div>
-                <p>Designed for a small number of founding companies who want to install healthier relational rhythms early.</p>
+                <p>Designed for a small number of companies who want to install healthier relational rhythms early.</p>
                 <ul>
-                  <li>Limited to 10 founding companies</li>
+                  <li>Each circle is limited to 10 companies</li>
                   <li>Built for owners and leadership teams</li>
                   <li>Designed for implementation, not inspiration only</li>
                 </ul>
-                <a class="btn btn-primary" href="https://www.peaceworks.network/join">Join the Founders Circle</a>
+                <a class="btn btn-primary" href="https://www.peaceworks.network/join">Join a Circle</a>
               </aside>
             </div>
           </div>
@@ -1374,9 +1308,8 @@
               <div>
                 <h2>The question isn’t whether tension exists in your company.</h2>
                 <p>Every organization carries pressure. The real question is what changes when your leaders become the calmest people in the room.</p>
-                <div class="invite-highlight">What would change if calm became part of your leadership culture?</div>
-                <div class="btn-row">
-                  <a class="btn btn-primary" href="https://www.peaceworks.network/join">Join the Founders Circle</a>
+                <div class="btn-row" style="margin-top: 24px;">
+                  <a class="btn btn-primary" href="https://www.peaceworks.network/join">Join a Circle</a>
                   <a class="btn btn-ghost" href="https://www.peaceworks.network/contact">Contact PeaceWorks</a>
                 </div>
               </div>
@@ -1384,7 +1317,7 @@
               <div class="invite-boxes">
                 <div class="invite-box">
                   <strong>Ready to join?</strong>
-                  <span>Apply for the Founders Circle and begin building healthier relational rhythms inside your company.</span>
+                  <span>Apply for a Circle and begin building healthier relational rhythms inside your company.</span>
                 </div>
                 <div class="invite-box">
                   <strong>Want to understand the numbers first?</strong>
@@ -1400,19 +1333,19 @@
       </section>
     </main>
 
-      <footer class="site-footer">
-        <div class="container footer-inner">
-          <div class="footer-branding">
-            <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
-          </div>
-
-          <div class="footer-links" aria-label="Footer navigation">
-            <a href="https://www.peaceworks.network/join">Join</a>
-            <a href="https://www.peaceworks.network/roi-calculator">ROI Calculator</a>
-            <a href="https://www.peaceworks.network/contact">Contact</a>
-          </div>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-branding">
+          <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
         </div>
-      </footer>
+
+        <div class="footer-links" aria-label="Footer navigation">
+          <a href="https://www.peaceworks.network/join">Join</a>
+          <a href="https://www.peaceworks.network/roi-calculator">ROI Calculator</a>
+          <a href="https://www.peaceworks.network/contact">Contact</a>
+        </div>
+      </div>
+    </footer>
   </div>
 
   <script>
