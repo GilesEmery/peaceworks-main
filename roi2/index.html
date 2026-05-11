@@ -688,9 +688,15 @@
     .pdf-big-card { border-radius: 26px; padding: 28px; }
     .pdf-big-card.light { background: #e7efe5; }
     .pdf-big-card.dark { background: #141414; color: white; }
+    .pdf-big-card.loss { background: #9f2f2f; color: white; }
+    .pdf-big-card.gain { background: #8fab8e; color: #141414; }
     .pdf-big-value { font-size: 60px; line-height: .92; font-weight: 600; margin-bottom: 10px; letter-spacing: -.04em; }
     .pdf-big-label { font-size: 21px; color: #5f625f; line-height: 1.25; }
-    .pdf-big-card.dark .pdf-big-label { color: rgba(255,255,255,.72); }
+    .pdf-big-card.dark .pdf-big-label,
+    .pdf-big-card.loss .pdf-big-label { color: rgba(255,255,255,.82); }
+    .pdf-big-card.gain .pdf-big-label { color: rgba(20,20,20,.72); }
+    .company-inputs { margin-top: -10px; }
+    .company-input-grid { grid-template-columns: repeat(3,1fr); margin-bottom: 0; }
     .pdf-metric-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 30px; }
     .pdf-metric { background: white; border: 1px solid rgba(20,20,20,.08); border-radius: 20px; padding: 20px; }
     .pdf-metric-value { font-size: 38px; font-weight: 600; margin-bottom: 8px; letter-spacing: -.03em; }
@@ -1064,13 +1070,25 @@
       <p class="pdf-copy">This report estimates the hidden business cost of disengagement, absenteeism, leadership strain, productivity loss, and turnover exposure — and models what healthier leadership and stronger relational culture could recover.</p>
 
       <div class="pdf-big-grid">
-        <div class="pdf-big-card light">
+        <div class="pdf-big-card loss">
           <div class="pdf-big-value" id="pdfTotalCultureCost">$0</div>
-          <div class="pdf-big-label">Total estimated culture cost</div>
+          <div class="pdf-big-label">Total estimated culture cost / net loss exposure</div>
         </div>
-        <div class="pdf-big-card dark">
+        <div class="pdf-big-card gain">
           <div class="pdf-big-value" id="pdfNetGain">$0</div>
-          <div class="pdf-big-label">Estimated net gain after PeaceWorks investment</div>
+          <div class="pdf-big-label">Estimated net gain after one year of PeaceWorks investment</div>
+        </div>
+      </div>
+
+      <div class="pdf-chart company-inputs">
+        <h2>Company inputs used</h2>
+        <div class="pdf-summary-grid company-input-grid">
+          <div class="pdf-summary"><strong id="pdfAnnualRevenue">$0</strong><span>Annual revenue</span></div>
+          <div class="pdf-summary"><strong id="pdfAnnualPayroll">$0</strong><span>Annual payroll</span></div>
+          <div class="pdf-summary"><strong id="pdfEmployees">0</strong><span>Full-time employees</span></div>
+          <div class="pdf-summary"><strong id="pdfKeySalary">$0</strong><span>Key salary at risk</span></div>
+          <div class="pdf-summary"><strong id="pdfMonthlyCost">$0</strong><span>Monthly PeaceWorks cost</span></div>
+          <div class="pdf-summary"><strong id="pdfAnnualPeaceWorksCost">$0</strong><span>Annual PeaceWorks cost</span></div>
         </div>
       </div>
 
@@ -1130,7 +1148,11 @@
         <p>PeaceWorks helps leaders move from awareness to implementation — building the relational operating system that allows trust to hold under pressure.</p>
       </div>
 
-      <div class="pdf-footer-note">This report is an estimate for strategic conversation, not a financial audit. The numbers are based on the assumptions entered into the PeaceWorks ROI Calculator.</div>
+      <div class="pdf-footer-note">
+        This report is an estimate for strategic conversation, not a financial audit. The numbers are based on the assumptions entered into the PeaceWorks ROI Calculator.
+        <br><br>
+        Questions or ready to schedule a meeting? Contact <a href="mailto:contact@peaceworks.network" style="color:#5a7a5c; font-weight:600;">contact@peaceworks.network</a>.
+      </div>
     </div>
   </div>
 
@@ -1298,6 +1320,11 @@
       outputs.breakEvenNote.textContent = 'of total culture exposure';
 
       syncPdfReport({
+        annualRevenue,
+        annualPayroll,
+        employees,
+        keySalary,
+        monthlyCost,
         totalCultureCost,
         netGain,
         productivityCost,
@@ -1342,6 +1369,13 @@
       pdf.avgHourlyRate.textContent = fmtCurrency(data.avgHourlyRate);
       pdf.notEngagedPct.textContent = fmtPercent(data.notEngagedPct, 0);
       pdf.improvementPct.textContent = fmtPercent(data.improvementPct, 0);
+
+      pdf.annualRevenue.textContent = fmtCurrency(data.annualRevenue);
+      pdf.annualPayroll.textContent = fmtCurrency(data.annualPayroll);
+      pdf.employees.textContent = fmtNumber(data.employees);
+      pdf.keySalary.textContent = fmtCurrency(data.keySalary);
+      pdf.monthlyCost.textContent = fmtCurrency(data.monthlyCost);
+      pdf.annualPeaceWorksCost.textContent = fmtCurrency(data.annualCost);
     }
 
     async function downloadVisualPdf() {
