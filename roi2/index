@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PeaceWorks — ROI Calculator</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="https://gilesemery.github.io/peaceworks-main/PeaceWorksCircle.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --panel: rgba(255,255,255,0.68);
+      --panel-strong: rgba(255,255,255,0.82);
+      --text: #141414;
+      --muted: #5f625f;
+      --line: rgba(20,20,20,0.10);
+      --line-soft: rgba(20,20,20,0.06);
+      --sage: #8fab8e;
+      --sage-light: #b8ccb7;
+      --sage-pale: #e7efe5;
+      --sage-dark: #5a7a5c;
+      --shadow: 0 18px 50px rgba(17,17,17,0.08);
+      --shadow-lg: 0 28px 90px rgba(17,17,17,0.12);
+      --radius: 28px;
+      --radius-sm: 20px;
+      --max: 1360px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(184,204,183,0.22), transparent 26%),
+        radial-gradient(circle at 88% 12%, rgba(143,171,142,0.20), transparent 24%),
+        linear-gradient(180deg, #f8f5f0 0%, #f4f1eb 100%);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; border: 0; }
+
+    .page { position: relative; overflow: hidden; }
+
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.05;
+      background-image: radial-gradient(rgba(0,0,0,.35) .6px, transparent .7px);
+      background-size: 10px 10px;
+      z-index: 0;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 0 0;
+      background: linear-gradient(
+        180deg,
+        rgba(246,243,238,0.92) 0%,
+        rgba(246,243,238,0.72) 72%,
+        rgba(246,243,238,0) 100%
+      );
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 22px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.56);
+      border: 1px solid rgba(255,255,255,0.72);
+      box-shadow: 0 16px 40px rgba(17,17,17,0.06);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand img { width: clamp(180px, 20vw, 260px); height: auto; }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .site-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      transition: background .2s ease, transform .2s ease, color .2s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      background: rgba(20,20,20,0.05);
+      color: var(--sage-dark);
+      transform: translateY(-1px);
+    }
+
+    .section { padding: 82px 0; position: relative; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.86rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      margin-bottom: 22px;
+      font-weight: 600;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.8;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    .display {
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      text-wrap: balance;
+    }
+
+    p, li, label, input, .value-chip, .metric-note, .chart-label, .chart-value {
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: var(--muted);
+      letter-spacing: 0.005em;
+    }
+
+    .btn-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+      padding: 0 24px;
+      border-radius: 999px;
+      font-size: 1rem;
+      line-height: 1;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease, color .22s ease;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: linear-gradient(135deg, #111 0%, #1a1f1a 100%); color: #fff; box-shadow: 0 14px 28px rgba(17,17,17,0.18); }
+    .btn-secondary { background: rgba(255,255,255,0.72); color: var(--text); border: 1px solid rgba(20,20,20,0.12); backdrop-filter: blur(10px); }
+    .btn-ghost { background: transparent; color: var(--sage-dark); border: 1px solid rgba(90,122,92,0.22); }
+
+    .download-row {
+      margin: 0 0 20px;
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(231,239,229,0.60);
+      border: 1px solid rgba(90,122,92,0.12);
+    }
+
+    .download-row .btn { width: 100%; }
+
+    .download-note {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+
+    .hero { padding: 52px 0 20px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 38px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: clamp(3.8rem, 8vw, 7.2rem);
+      max-width: 9ch;
+      margin-bottom: 20px;
+    }
+
+    .hero-copy p { max-width: 780px; }
+    .hero-copy .btn-row { margin-top: 28px; }
+
+    .hero-note {
+      margin-top: 24px;
+      padding: 20px 22px;
+      border: 1px solid rgba(255,255,255,0.68);
+      background: rgba(255,255,255,0.54);
+      border-radius: var(--radius-sm);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      max-width: 740px;
+    }
+
+    .hero-note strong {
+      display: block;
+      font-size: 1.16rem;
+      line-height: 1.14;
+      color: var(--text);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .hero-note span { display: block; font-size: 1.03rem; line-height: 1.42; color: var(--muted); }
+
+    .hero-visual {
+      min-height: 560px;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 720px;
+      height: 720px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,204,183,0.34) 0%, rgba(143,171,142,0.14) 38%, transparent 70%);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    .orbits {
+      position: relative;
+      width: min(76vw, 540px);
+      aspect-ratio: 1 / 1;
+      display: grid;
+      place-items: center;
+    }
+
+    .orbit { position: absolute; border-radius: 50%; border: 1px solid rgba(143,171,142,0.28); }
+
+    .orbit::before,
+    .orbit::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage-light), var(--sage-dark));
+      box-shadow: 0 0 20px rgba(143,171,142,0.36);
+    }
+
+    .orbit-1 { width: 100%; height: 100%; animation: spin 40s linear infinite; }
+    .orbit-1::before { top: 50%; left: -5px; transform: translateY(-50%); }
+    .orbit-1::after { top: 14%; right: 15%; }
+
+    .orbit-2 { width: 76%; height: 76%; border-color: rgba(143,171,142,0.40); animation: spinReverse 28s linear infinite; }
+    .orbit-2::before { top: -5px; left: 50%; transform: translateX(-50%); }
+    .orbit-2::after { right: -5px; top: 60%; }
+
+    .orbit-3 { width: 54%; height: 54%; border-color: rgba(90,122,92,0.46); animation: spin 18s linear infinite; }
+    .orbit-3::before { left: 14%; bottom: 10%; }
+    .orbit-3::after { right: 12%; top: 12%; }
+
+    .logo-wrap {
+      position: relative;
+      width: 52%;
+      aspect-ratio: 1 / 1;
+      display: grid;
+      place-items: center;
+      z-index: 2;
+    }
+
+    .logo-wrap img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 42px rgba(17,17,17,0.12)); }
+
+    .calculator-shell,
+    .why-shell,
+    .advantage-shell,
+    .cta-shell {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      padding: 34px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(255,255,255,0.62));
+      border: 1px solid rgba(255,255,255,0.76);
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(16px);
+    }
+
+    .calculator-shell::before,
+    .why-shell::before,
+    .advantage-shell::before,
+    .cta-shell::before {
+      content: "";
+      position: absolute;
+      right: -120px;
+      top: -120px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,204,183,0.32), transparent 70%);
+      pointer-events: none;
+    }
+
+    .split-head {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      align-items: end;
+      margin-bottom: 26px;
+    }
+
+    .split-head h2 {
+      font-size: clamp(2.7rem, 5.3vw, 4.8rem);
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+      font-weight: 500;
+    }
+
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: 0.96fr 1.04fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .inputs-panel,
+    .results-panel {
+      position: relative;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(255,255,255,0.82);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .panel-title {
+      font-size: 2rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .panel-copy { font-size: 1.08rem; margin-bottom: 20px; }
+
+    .input-groups { display: grid; gap: 18px; }
+
+    .input-group {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(20,20,20,0.06);
+    }
+
+    .input-group h3 {
+      font-size: 1.42rem;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field { display: grid; gap: 8px; }
+
+    .field label {
+      font-size: 1rem;
+      line-height: 1.2;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .field input[type="number"],
+    .field input[type="range"] { width: 100%; }
+
+    .field input[type="number"] {
+      appearance: textfield;
+      border: 1px solid rgba(20,20,20,0.10);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-family: inherit;
+      font-size: 1.08rem;
+      color: var(--text);
+      background: rgba(255,255,255,0.90);
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .field input[type="number"]:focus {
+      border-color: rgba(90,122,92,0.36);
+      box-shadow: 0 0 0 4px rgba(143,171,142,0.10);
+    }
+
+    .field input[type="range"] { accent-color: var(--sage-dark); margin-top: 4px; }
+
+    .value-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(143,171,142,0.10);
+      color: var(--sage-dark);
+      font-size: 1rem;
+      font-weight: 600;
+      width: fit-content;
+    }
+
+    .results-top {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .big-stat {
+      padding: 20px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(255,255,255,0.68));
+      border: 1px solid rgba(20,20,20,0.06);
+    }
+
+    .big-stat strong {
+      display: block;
+      font-size: clamp(2.5rem, 4vw, 3.8rem);
+      line-height: .92;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .big-stat span {
+      display: block;
+      font-size: 1.02rem;
+      line-height: 1.28;
+      color: var(--muted);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .metric-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(20,20,20,0.06);
+    }
+
+    .metric-card strong {
+      display: block;
+      font-size: 1.6rem;
+      line-height: .95;
+      margin-bottom: 6px;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      font-weight: 600;
+    }
+
+    .metric-note { font-size: .98rem; line-height: 1.3; }
+
+    .chart-stack { display: grid; gap: 16px; }
+
+    .chart-card {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.76);
+      border: 1px solid rgba(20,20,20,0.06);
+    }
+
+    .chart-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .chart-head h3 {
+      font-size: 1.42rem;
+      line-height: 1;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .chart-head .chart-value { font-size: 1rem; color: var(--sage-dark); font-weight: 600; }
+
+    .bar-track {
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(20,20,20,0.06);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--sage-light), var(--sage-dark));
+      width: 0%;
+      transition: width .35s ease;
+    }
+
+    .chart-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: .98rem;
+      color: var(--muted);
+    }
+
+    .advantage-shell {
+      background: linear-gradient(135deg, #101110 0%, #191d1a 100%);
+      color: white;
+      box-shadow: 0 36px 100px rgba(8,8,8,0.22);
+    }
+
+    .advantage-shell .eyebrow,
+    .advantage-shell p,
+    .advantage-shell h2,
+    .advantage-shell h3,
+    .advantage-shell strong,
+    .advantage-shell .metric-note { color: white; }
+
+    .advantage-shell p,
+    .advantage-shell .metric-note { color: rgba(255,255,255,0.72); }
+
+    .advantage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .advantage-card {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      min-height: 100%;
+    }
+
+    .advantage-card h3 {
+      font-size: 1.86rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .cta-shell {
+      background: radial-gradient(circle at 84% 18%, rgba(184,204,183,0.22), transparent 26%), linear-gradient(135deg, #111 0%, #1a1f1a 100%);
+      color: white;
+      box-shadow: 0 36px 100px rgba(8,8,8,0.22);
+    }
+
+    .cta-shell .eyebrow,
+    .cta-shell h2,
+    .cta-shell p { color: white; }
+
+    .cta-shell p { color: rgba(255,255,255,0.72); }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 24px;
+      align-items: end;
+    }
+
+    .cta-highlight {
+      font-size: clamp(2.1rem, 4vw, 3.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+      margin: 18px 0 22px;
+      font-weight: 600;
+      max-width: 13ch;
+    }
+
+    .site-footer { padding: 28px 0 48px; }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 26px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-branding img { width: clamp(170px, 18vw, 240px); height: auto; }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 14px;
+      border-radius: 999px;
+      color: var(--text);
+      font-size: .98rem;
+      letter-spacing: .04em;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    .footer-links a:hover { background: rgba(20,20,20,0.05); color: var(--sage-dark); transform: translateY(-1px); }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: .08s; }
+    .delay-2 { transition-delay: .16s; }
+    .delay-3 { transition-delay: .24s; }
+
+    .pdf-report {
+      position: fixed;
+      left: -10000px;
+      top: 0;
+      width: 1100px;
+      background: #f6f3ee;
+      padding: 56px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      color: #141414;
+      z-index: -1;
+    }
+
+    .pdf-card {
+      background: white;
+      border-radius: 34px;
+      padding: 44px;
+      box-shadow: 0 28px 90px rgba(17,17,17,.12);
+    }
+
+    .pdf-logo { width: 280px; margin-bottom: 34px; }
+    .pdf-eyebrow { font-size: 18px; letter-spacing: .14em; text-transform: uppercase; color: #5a7a5c; margin-bottom: 14px; font-weight: 600; }
+    .pdf-title { font-size: 72px; line-height: .95; letter-spacing: -.05em; margin: 0 0 22px; font-weight: 500; }
+    .pdf-copy { font-size: 25px; line-height: 1.35; color: #5f625f; max-width: 900px; margin-bottom: 34px; }
+    .pdf-big-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-bottom: 30px; }
+    .pdf-big-card { border-radius: 26px; padding: 28px; }
+    .pdf-big-card.light { background: #e7efe5; }
+    .pdf-big-card.dark { background: #141414; color: white; }
+    .pdf-big-value { font-size: 60px; line-height: .92; font-weight: 600; margin-bottom: 10px; letter-spacing: -.04em; }
+    .pdf-big-label { font-size: 21px; color: #5f625f; line-height: 1.25; }
+    .pdf-big-card.dark .pdf-big-label { color: rgba(255,255,255,.72); }
+    .pdf-metric-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 30px; }
+    .pdf-metric { background: white; border: 1px solid rgba(20,20,20,.08); border-radius: 20px; padding: 20px; }
+    .pdf-metric-value { font-size: 38px; font-weight: 600; margin-bottom: 8px; letter-spacing: -.03em; }
+    .pdf-metric-label { font-size: 20px; color: #5f625f; line-height: 1.25; }
+    .pdf-chart { background: white; border: 1px solid rgba(20,20,20,.08); border-radius: 26px; padding: 28px; margin-bottom: 30px; }
+    .pdf-chart h2 { font-size: 40px; line-height: 1; margin: 0 0 24px; }
+    .pdf-chart-row { display: grid; grid-template-columns: 220px 1fr 150px; gap: 18px; align-items: center; margin: 16px 0; }
+    .pdf-chart-label { font-size: 20px; color: #5f625f; }
+    .pdf-bar-track { height: 18px; background: rgba(20,20,20,.08); border-radius: 999px; overflow: hidden; }
+    .pdf-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg,#b8ccb7,#5a7a5c); }
+    .pdf-chart-value { font-size: 20px; text-align: right; color: #141414; font-weight: 600; }
+    .pdf-summary-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 30px; }
+    .pdf-summary { background: #f6f3ee; border-radius: 18px; padding: 16px; }
+    .pdf-summary strong { display: block; font-size: 29px; line-height: 1; margin-bottom: 8px; }
+    .pdf-summary span { display: block; font-size: 17px; line-height: 1.2; color: #5f625f; }
+    .pdf-cta { background: linear-gradient(135deg,#111 0%, #1a1f1a 100%); color: white; border-radius: 30px; padding: 34px; }
+    .pdf-cta h2 { font-size: 46px; line-height: .98; margin: 0 0 16px; }
+    .pdf-cta p { font-size: 24px; line-height: 1.35; color: rgba(255,255,255,.74); margin: 0; }
+    .pdf-footer-note { margin-top: 22px; font-size: 17px; color: #5f625f; line-height: 1.35; }
+
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes spinReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+
+    @media (max-width: 1180px) {
+      .hero-grid,
+      .split-head,
+      .calculator-grid,
+      .cta-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .field-grid,
+      .results-top,
+      .metric-grid,
+      .advantage-grid,
+      .reasons-grid,
+      .impact-grid,
+      .snapshot-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+
+    @media (max-width: 860px) {
+      .site-header { padding-top: 10px; }
+      .header-inner { border-radius: 28px; padding: 16px; align-items: flex-start; flex-direction: column; }
+      .site-nav { width: 100%; justify-content: flex-start; gap: 8px; }
+      .site-nav a { min-height: 40px; padding: 0 12px; font-size: .94rem; }
+      .section { padding: 72px 0; }
+      .container { width: min(var(--max), calc(100% - 24px)); }
+      .hero { padding-top: 34px; }
+      .calculator-shell,
+      .why-shell,
+      .advantage-shell,
+      .cta-shell { padding: 22px; }
+      .field-grid,
+      .results-top,
+      .metric-grid,
+      .advantage-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-links { width: 100%; justify-content: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .brand img { width: 190px; }
+      .hero-title { font-size: clamp(3rem, 15vw, 4.8rem); }
+      .split-head h2,
+      .cta-highlight { font-size: clamp(2.2rem, 11vw, 3.4rem); }
+      .btn-row { flex-direction: column; align-items: stretch; }
+      .btn { width: 100%; }
+      p, li, label, input, .value-chip, .metric-note, .chart-label, .chart-value { font-size: 1.08rem; line-height: 1.42; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="https://www.peaceworks.network/" aria-label="PeaceWorks home">
+        <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="https://www.peaceworks.network/join">Join</a>
+        <a class="active" href="https://www.peaceworks.network/roi-calculator">ROI Calculator</a>
+        <a href="https://www.peaceworks.network/contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page">
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal visible">
+            <div class="eyebrow">PeaceWorks ROI Calculator</div>
+            <h1 class="display hero-title">Make relational drag visible.</h1>
+            <p>Most leaders can feel the cost of tension, disengagement, and low trust. Very few can see it clearly. This calculator helps you estimate the hidden business cost of relational drag inside your organization — and what could change if healthier leadership and culture recovered even part of that lost capacity.</p>
+            <div class="btn-row">
+              <a class="btn btn-primary" href="#calculator">Start the Calculator</a>
+              <a class="btn btn-secondary" href="https://www.peaceworks.network/join">Join the Founders Circle</a>
+            </div>
+            <div class="hero-note">
+              <strong>This is not abstract culture talk.</strong>
+              <span>It is a practical way to translate trust, calm leadership, and relational health into business language leaders can actually see, discuss, and act on.</span>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal visible" aria-hidden="true">
+            <div class="hero-glow"></div>
+            <div class="orbits">
+              <div class="orbit orbit-1"></div>
+              <div class="orbit orbit-2"></div>
+              <div class="orbit orbit-3"></div>
+              <div class="logo-wrap">
+                <img src="https://gilesemery.github.io/peaceworks-main/PeaceWorksCircle.svg" alt="PeaceWorks circle logo">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="calculator" style="padding-top: 0;">
+        <div class="container">
+          <div class="calculator-shell reveal">
+            <div class="split-head">
+              <div>
+                <div class="eyebrow">Interactive Calculator</div>
+                <h2>Run the numbers live.</h2>
+              </div>
+              <p>Adjust the inputs below to reflect your organization. The calculator updates instantly to estimate productivity loss, absentee costs, turnover exposure, total culture exposure, and the potential value of improvement.</p>
+            </div>
+
+            <div class="calculator-grid">
+              <div class="inputs-panel">
+                <div class="panel-title">Inputs</div>
+                <div class="panel-copy">Start with a realistic picture of your company and use the sliders to test different assumptions.</div>
+
+                <div class="input-groups">
+                  <section class="input-group">
+                    <h3>Company inputs</h3>
+                    <div class="field-grid">
+                      <div class="field">
+                        <label for="annualRevenue">Annual revenue</label>
+                        <input id="annualRevenue" type="number" min="0" step="10000" value="5000000">
+                      </div>
+                      <div class="field">
+                        <label for="annualPayroll">Annual payroll</label>
+                        <input id="annualPayroll" type="number" min="0" step="10000" value="2500000">
+                      </div>
+                      <div class="field">
+                        <label for="employees">Number of full-time employees</label>
+                        <input id="employees" type="number" min="1" step="1" value="50">
+                      </div>
+                      <div class="field">
+                        <label for="keySalary">Key salary at risk</label>
+                        <input id="keySalary" type="number" min="0" step="1000" value="200000">
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="input-group">
+                    <h3>Engagement assumptions</h3>
+                    <div class="panel-copy" style="margin-bottom:14px;">These default assumptions reflect Gallup engagement findings and common workplace cost benchmarks so leaders can begin with a realistic baseline before adjusting for their own context.</div>
+                    <div class="field-grid">
+                      <div class="field">
+                        <label for="engagedPct">% engaged</label>
+                        <div class="value-chip" id="engagedPctDisplay">31%</div>
+                        <input id="engagedPct" type="range" min="0" max="100" step="1" value="35">
+                      </div>
+                      <div class="field">
+                        <label for="productivityDrag">Estimated productivity drag</label>
+                        <div class="value-chip" id="productivityDragDisplay">15%</div>
+                        <input id="productivityDrag" type="range" min="0" max="40" step="1" value="15">
+                      </div>
+                      <div class="field">
+                        <label for="extraDays">Extra unproductive days per employee</label>
+                        <div class="value-chip" id="extraDaysDisplay">3 days</div>
+                        <input id="extraDays" type="range" min="0" max="10" step="1" value="3">
+                      </div>
+                      <div class="field">
+                        <label for="replacementPct">Replacement cost %</label>
+                        <div class="value-chip" id="replacementPctDisplay">50%</div>
+                        <input id="replacementPct" type="range" min="0" max="150" step="5" value="50">
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="input-group">
+                    <h3>PeaceWorks assumptions</h3>
+                    <div class="field-grid">
+                      <div class="field">
+                        <label for="monthlyCost">Monthly PeaceWorks cost</label>
+                        <input id="monthlyCost" type="number" min="0" step="50" value="500">
+                      </div>
+                      <div class="field">
+                        <label for="improvementPct">Estimated cultural improvement</label>
+                        <div class="value-chip" id="improvementPctDisplay">5%</div>
+                        <input id="improvementPct" type="range" min="0" max="30" step="1" value="5">
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </div>
+
+              <div class="results-panel">
+                <div class="panel-title">Live results</div>
+                <div class="panel-copy">A clearer view of what relational drag may already be costing — and what could be recovered.</div>
+
+                <div class="download-row">
+                  <button class="btn btn-primary" id="downloadPdf" type="button">Download Visual ROI PDF</button>
+                  <span class="download-note">Downloads a polished, branded one-page report using the current calculator values.</span>
+                </div>
+
+                <div class="results-top">
+                  <div class="big-stat">
+                    <strong id="totalCultureCost">$0</strong>
+                    <span>Total estimated culture cost</span>
+                  </div>
+                  <div class="big-stat">
+                    <strong id="netGain">$0</strong>
+                    <span>Estimated net gain after PeaceWorks investment</span>
+                  </div>
+                </div>
+
+                <div class="metric-grid">
+                  <div class="metric-card"><strong id="fteEquivalent">0.0</strong><div class="metric-note">Full-time employee equivalent</div></div>
+                  <div class="metric-card"><strong id="avgHourlyRate">$0</strong><div class="metric-note">Average hourly rate</div></div>
+                  <div class="metric-card"><strong id="annualHours">0</strong><div class="metric-note">Annual work hours</div></div>
+                  <div class="metric-card"><strong id="notEngagedPct">0%</strong><div class="metric-note">Not fully engaged</div></div>
+                  <div class="metric-card"><strong id="productivityCost">$0</strong><div class="metric-note">Productivity cost</div></div>
+                  <div class="metric-card"><strong id="absenteeCost">$0</strong><div class="metric-note">Absentee cost</div></div>
+                  <div class="metric-card"><strong id="turnoverCost">$0</strong><div class="metric-note">Turnover cost</div></div>
+                </div>
+
+                <div class="chart-stack">
+                  <div class="chart-card">
+                    <div class="chart-head">
+                      <h3>Culture cost composition</h3>
+                      <div class="chart-value" id="compositionLabel">Live view</div>
+                    </div>
+                    <div class="chart-label">Productivity loss</div>
+                    <div class="bar-track"><div class="bar-fill" id="productivityBar"></div></div>
+                    <div class="chart-row"><span id="productivityBarLabel">$0</span><span id="productivityBarPct">0%</span></div>
+
+                    <div class="chart-label" style="margin-top:10px;">Absenteeism</div>
+                    <div class="bar-track"><div class="bar-fill" id="absenteeBar"></div></div>
+                    <div class="chart-row"><span id="absenteeBarLabel">$0</span><span id="absenteeBarPct">0%</span></div>
+
+                    <div class="chart-label" style="margin-top:10px;">Turnover exposure</div>
+                    <div class="bar-track"><div class="bar-fill" id="turnoverBar"></div></div>
+                    <div class="chart-row"><span id="turnoverBarLabel">$0</span><span id="turnoverBarPct">0%</span></div>
+                  </div>
+
+                  <div class="chart-card">
+                    <div class="chart-head">
+                      <h3>Recovery model</h3>
+                      <div class="chart-value" id="breakEvenLabel">Break-even view</div>
+                    </div>
+                    <div class="chart-label">Annual PeaceWorks cost</div>
+                    <div class="bar-track"><div class="bar-fill" id="annualCostBar"></div></div>
+                    <div class="chart-row"><span id="annualCostLabel">$0</span><span id="annualCostPct">0.0% of revenue</span></div>
+
+                    <div class="chart-label" style="margin-top:10px;">Estimated value recovered</div>
+                    <div class="bar-track"><div class="bar-fill" id="recoveredBar"></div></div>
+                    <div class="chart-row"><span id="recoveredLabel">$0</span><span id="recoveredPct">0%</span></div>
+
+                    <div class="chart-label" style="margin-top:10px;">Improvement needed to break even</div>
+                    <div class="bar-track"><div class="bar-fill" id="breakEvenBar"></div></div>
+                    <div class="chart-row"><span id="breakEvenValue">0%</span><span id="breakEvenNote">of total culture exposure</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 0;">
+        <div class="container">
+          <div class="why-shell reveal">
+            <div class="split-head">
+              <div>
+                <div class="eyebrow">What The Calculator Shows</div>
+                <h2>The business case becomes clearer when leaders can see the pattern.</h2>
+              </div>
+              <p>The calculator is not trying to reduce culture to a spreadsheet. It is helping leaders name what is usually invisible: how relational weakness lowers productivity, increases unproductive time, and raises the cost of leadership strain and turnover.</p>
+            </div>
+
+            <div class="reasons-grid">
+              <article class="metric-card reveal delay-1">
+                <strong>Productivity loss</strong>
+                <div class="metric-note">When engagement is low and pressure is mishandled, time is lost through hesitation, confusion, emotional drag, and indirect communication.</div>
+              </article>
+              <article class="metric-card reveal delay-2">
+                <strong>Absentee exposure</strong>
+                <div class="metric-note">Relational stress does not stay in meetings. It affects focus, energy, and people’s actual capacity to bring their best to work.</div>
+              </article>
+              <article class="metric-card reveal delay-3">
+                <strong>Turnover risk</strong>
+                <div class="metric-note">When key people leave because of unresolved tension, the cost is not only relational. It is financial, operational, and strategic.</div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 0;">
+        <div class="container">
+          <div class="advantage-shell reveal">
+            <div class="split-head">
+              <div>
+                <div class="eyebrow" style="color: var(--sage-light);">The PeaceWorks Advantage</div>
+                <h2>Peace is not passive. It is practiced.</h2>
+              </div>
+              <p>PeaceWorks helps leaders move from awareness to implementation — not only seeing the hidden cost of relational drag, but building the practices that actually change how a culture responds under pressure.</p>
+            </div>
+
+            <div class="advantage-grid">
+              <article class="advantage-card reveal delay-1"><h3>Calmer leadership</h3><p>Leaders learn to guide pressure without spreading panic through the organization.</p></article>
+              <article class="advantage-card reveal delay-2"><h3>Stronger trust</h3><p>Teams gain more honesty, earlier repair, and healthier ways to carry disagreement.</p></article>
+              <article class="advantage-card reveal delay-3"><h3>Recovered capacity</h3><p>Even modest gains in relational health can unlock meaningful financial and organizational value.</p></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top: 0;">
+        <div class="container">
+          <div class="cta-shell reveal">
+            <div class="cta-grid">
+              <div>
+                <div class="eyebrow" style="color: var(--sage-light);">What Comes Next</div>
+                <h2 class="display">If the numbers get your attention, the culture already should.</h2>
+                <p>PeaceWorks helps leaders move from awareness to practice — building the relational operating system that allows trust to hold under pressure.</p>
+                <div class="cta-highlight">What would change if your leaders became the calmest people in the room?</div>
+                <div class="btn-row">
+                  <a class="btn btn-primary" href="https://www.peaceworks.network/join">Join the Founders Circle</a>
+                  <a class="btn btn-secondary" href="https://www.peaceworks.network/contact">Contact PeaceWorks</a>
+                </div>
+              </div>
+
+              <div class="hero-note" style="max-width:none; background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.10); box-shadow: none;">
+                <strong style="color:white;">From ROI to real change.</strong>
+                <span style="color: rgba(255,255,255,0.72);">The calculator helps leaders quantify the problem. PeaceWorks helps them practice a different way of leading — through cohorts, practical tools, and relational rhythms that strengthen the culture over time.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-branding">
+          <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
+        </div>
+        <div class="footer-links" aria-label="Footer navigation">
+          <a href="https://www.peaceworks.network/join">Join</a>
+          <a href="https://www.peaceworks.network/roi-calculator">ROI Calculator</a>
+          <a href="https://www.peaceworks.network/contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div id="pdfReport" class="pdf-report" aria-hidden="true">
+    <div class="pdf-card">
+      <img class="pdf-logo" src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
+
+      <div class="pdf-eyebrow">PeaceWorks ROI Calculator</div>
+      <h1 class="pdf-title">Relational drag, made visible.</h1>
+      <p class="pdf-copy">This report estimates the hidden business cost of disengagement, absenteeism, leadership strain, productivity loss, and turnover exposure — and models what healthier leadership and stronger relational culture could recover.</p>
+
+      <div class="pdf-big-grid">
+        <div class="pdf-big-card light">
+          <div class="pdf-big-value" id="pdfTotalCultureCost">$0</div>
+          <div class="pdf-big-label">Total estimated culture cost</div>
+        </div>
+        <div class="pdf-big-card dark">
+          <div class="pdf-big-value" id="pdfNetGain">$0</div>
+          <div class="pdf-big-label">Estimated net gain after PeaceWorks investment</div>
+        </div>
+      </div>
+
+      <div class="pdf-metric-grid">
+        <div class="pdf-metric"><div class="pdf-metric-value" id="pdfProductivityCost">$0</div><div class="pdf-metric-label">Productivity cost</div></div>
+        <div class="pdf-metric"><div class="pdf-metric-value" id="pdfAbsenteeCost">$0</div><div class="pdf-metric-label">Absentee cost</div></div>
+        <div class="pdf-metric"><div class="pdf-metric-value" id="pdfTurnoverCost">$0</div><div class="pdf-metric-label">Turnover exposure</div></div>
+      </div>
+
+      <div class="pdf-chart">
+        <h2>Culture cost composition</h2>
+        <div class="pdf-chart-row">
+          <div class="pdf-chart-label">Productivity loss</div>
+          <div class="pdf-bar-track"><div class="pdf-bar-fill" id="pdfProductivityBar"></div></div>
+          <div class="pdf-chart-value" id="pdfProductivityPct">0%</div>
+        </div>
+        <div class="pdf-chart-row">
+          <div class="pdf-chart-label">Absenteeism</div>
+          <div class="pdf-bar-track"><div class="pdf-bar-fill" id="pdfAbsenteeBar"></div></div>
+          <div class="pdf-chart-value" id="pdfAbsenteePct">0%</div>
+        </div>
+        <div class="pdf-chart-row">
+          <div class="pdf-chart-label">Turnover exposure</div>
+          <div class="pdf-bar-track"><div class="pdf-bar-fill" id="pdfTurnoverBar"></div></div>
+          <div class="pdf-chart-value" id="pdfTurnoverPct">0%</div>
+        </div>
+      </div>
+
+      <div class="pdf-chart">
+        <h2>Recovery model</h2>
+        <div class="pdf-chart-row">
+          <div class="pdf-chart-label">Annual PeaceWorks cost</div>
+          <div class="pdf-bar-track"><div class="pdf-bar-fill" id="pdfAnnualCostBar"></div></div>
+          <div class="pdf-chart-value" id="pdfAnnualCostLabel">$0</div>
+        </div>
+        <div class="pdf-chart-row">
+          <div class="pdf-chart-label">Estimated value recovered</div>
+          <div class="pdf-bar-track"><div class="pdf-bar-fill" id="pdfRecoveredBar"></div></div>
+          <div class="pdf-chart-value" id="pdfRecoveredLabel">$0</div>
+        </div>
+        <div class="pdf-chart-row">
+          <div class="pdf-chart-label">Break-even improvement</div>
+          <div class="pdf-bar-track"><div class="pdf-bar-fill" id="pdfBreakEvenBar"></div></div>
+          <div class="pdf-chart-value" id="pdfBreakEvenValue">0%</div>
+        </div>
+      </div>
+
+      <div class="pdf-summary-grid">
+        <div class="pdf-summary"><strong id="pdfFteEquivalent">0.0</strong><span>FTE equivalent</span></div>
+        <div class="pdf-summary"><strong id="pdfAvgHourlyRate">$0</strong><span>Average hourly rate</span></div>
+        <div class="pdf-summary"><strong id="pdfNotEngagedPct">0%</strong><span>Not fully engaged</span></div>
+        <div class="pdf-summary"><strong id="pdfImprovementPct">0%</strong><span>Improvement modeled</span></div>
+      </div>
+
+      <div class="pdf-cta">
+        <h2>Peace is not passive. It is practiced.</h2>
+        <p>PeaceWorks helps leaders move from awareness to implementation — building the relational operating system that allows trust to hold under pressure.</p>
+      </div>
+
+      <div class="pdf-footer-note">This report is an estimate for strategic conversation, not a financial audit. The numbers are based on the assumptions entered into the PeaceWorks ROI Calculator.</div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.16 });
+    reveals.forEach((el) => io.observe(el));
+
+    const state = {
+      annualRevenue: document.getElementById('annualRevenue'),
+      annualPayroll: document.getElementById('annualPayroll'),
+      employees: document.getElementById('employees'),
+      keySalary: document.getElementById('keySalary'),
+      engagedPct: document.getElementById('engagedPct'),
+      productivityDrag: document.getElementById('productivityDrag'),
+      extraDays: document.getElementById('extraDays'),
+      replacementPct: document.getElementById('replacementPct'),
+      monthlyCost: document.getElementById('monthlyCost'),
+      improvementPct: document.getElementById('improvementPct')
+    };
+
+    const outputs = {
+      engagedPctDisplay: document.getElementById('engagedPctDisplay'),
+      productivityDragDisplay: document.getElementById('productivityDragDisplay'),
+      extraDaysDisplay: document.getElementById('extraDaysDisplay'),
+      replacementPctDisplay: document.getElementById('replacementPctDisplay'),
+      improvementPctDisplay: document.getElementById('improvementPctDisplay'),
+      totalCultureCost: document.getElementById('totalCultureCost'),
+      netGain: document.getElementById('netGain'),
+      avgHourlyRate: document.getElementById('avgHourlyRate'),
+      annualHours: document.getElementById('annualHours'),
+      notEngagedPct: document.getElementById('notEngagedPct'),
+      fteEquivalent: document.getElementById('fteEquivalent'),
+      productivityCost: document.getElementById('productivityCost'),
+      absenteeCost: document.getElementById('absenteeCost'),
+      turnoverCost: document.getElementById('turnoverCost'),
+      productivityBar: document.getElementById('productivityBar'),
+      absenteeBar: document.getElementById('absenteeBar'),
+      turnoverBar: document.getElementById('turnoverBar'),
+      productivityBarLabel: document.getElementById('productivityBarLabel'),
+      absenteeBarLabel: document.getElementById('absenteeBarLabel'),
+      turnoverBarLabel: document.getElementById('turnoverBarLabel'),
+      productivityBarPct: document.getElementById('productivityBarPct'),
+      absenteeBarPct: document.getElementById('absenteeBarPct'),
+      turnoverBarPct: document.getElementById('turnoverBarPct'),
+      annualCostBar: document.getElementById('annualCostBar'),
+      recoveredBar: document.getElementById('recoveredBar'),
+      breakEvenBar: document.getElementById('breakEvenBar'),
+      annualCostLabel: document.getElementById('annualCostLabel'),
+      annualCostPct: document.getElementById('annualCostPct'),
+      recoveredLabel: document.getElementById('recoveredLabel'),
+      recoveredPct: document.getElementById('recoveredPct'),
+      breakEvenValue: document.getElementById('breakEvenValue'),
+      breakEvenNote: document.getElementById('breakEvenNote')
+    };
+
+    const pdf = {
+      totalCultureCost: document.getElementById('pdfTotalCultureCost'),
+      netGain: document.getElementById('pdfNetGain'),
+      productivityCost: document.getElementById('pdfProductivityCost'),
+      absenteeCost: document.getElementById('pdfAbsenteeCost'),
+      turnoverCost: document.getElementById('pdfTurnoverCost'),
+      productivityBar: document.getElementById('pdfProductivityBar'),
+      absenteeBar: document.getElementById('pdfAbsenteeBar'),
+      turnoverBar: document.getElementById('pdfTurnoverBar'),
+      productivityPct: document.getElementById('pdfProductivityPct'),
+      absenteePct: document.getElementById('pdfAbsenteePct'),
+      turnoverPct: document.getElementById('pdfTurnoverPct'),
+      annualCostBar: document.getElementById('pdfAnnualCostBar'),
+      recoveredBar: document.getElementById('pdfRecoveredBar'),
+      breakEvenBar: document.getElementById('pdfBreakEvenBar'),
+      annualCostLabel: document.getElementById('pdfAnnualCostLabel'),
+      recoveredLabel: document.getElementById('pdfRecoveredLabel'),
+      breakEvenValue: document.getElementById('pdfBreakEvenValue'),
+      fteEquivalent: document.getElementById('pdfFteEquivalent'),
+      avgHourlyRate: document.getElementById('pdfAvgHourlyRate'),
+      notEngagedPct: document.getElementById('pdfNotEngagedPct'),
+      improvementPct: document.getElementById('pdfImprovementPct')
+    };
+
+    const fmtCurrency = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n || 0);
+    const fmtNumber = (n) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(n || 0);
+    const fmtPercent = (n, d = 0) => `${(n * 100).toFixed(d)}%`;
+
+    function clampWidth(n) {
+      return Math.max(0, Math.min(100, n));
+    }
+
+    function calculate() {
+      const annualRevenue = Number(state.annualRevenue.value) || 0;
+      const annualPayroll = Number(state.annualPayroll.value) || 0;
+      const employees = Math.max(1, Number(state.employees.value) || 1);
+      const keySalary = Number(state.keySalary.value) || 0;
+      const engagedPct = (Number(state.engagedPct.value) || 0) / 100;
+      const productivityDrag = (Number(state.productivityDrag.value) || 0) / 100;
+      const extraDays = Number(state.extraDays.value) || 0;
+      const replacementPct = (Number(state.replacementPct.value) || 0) / 100;
+      const monthlyCost = Number(state.monthlyCost.value) || 0;
+      const improvementPct = (Number(state.improvementPct.value) || 0) / 100;
+
+      const avgHourlyRate = annualPayroll / employees / 2080;
+      const annualHours = employees * 2080;
+      const notEngagedPct = 1 - engagedPct;
+      const disengagedHours = annualHours * notEngagedPct;
+      const lostHours = disengagedHours * productivityDrag;
+      const productivityCost = lostHours * avgHourlyRate;
+      const absenteeHours = extraDays * employees * 8;
+      const absenteeCost = absenteeHours * avgHourlyRate;
+      const turnoverCost = keySalary * replacementPct;
+      const totalCultureCost = productivityCost + absenteeCost + turnoverCost;
+      const fteEquivalent = avgHourlyRate > 0 ? totalCultureCost / avgHourlyRate / 2080 : 0;
+      const annualCost = monthlyCost * 12;
+      const annualCostPctOfRevenue = annualRevenue > 0 ? annualCost / annualRevenue : 0;
+      const breakEvenNeeded = totalCultureCost > 0 ? annualCost / totalCultureCost : 0;
+      const recoveredValue = totalCultureCost * improvementPct;
+      const netGain = recoveredValue - annualCost;
+
+      outputs.engagedPctDisplay.textContent = `${Math.round(engagedPct * 100)}%`;
+      outputs.productivityDragDisplay.textContent = `${Math.round(productivityDrag * 100)}%`;
+      outputs.extraDaysDisplay.textContent = `${extraDays} day${extraDays === 1 ? '' : 's'}`;
+      outputs.replacementPctDisplay.textContent = `${Math.round(replacementPct * 100)}%`;
+      outputs.improvementPctDisplay.textContent = `${Math.round(improvementPct * 100)}%`;
+
+      outputs.totalCultureCost.textContent = fmtCurrency(totalCultureCost);
+      outputs.netGain.textContent = fmtCurrency(netGain);
+      outputs.avgHourlyRate.textContent = fmtCurrency(avgHourlyRate);
+      outputs.annualHours.textContent = fmtNumber(annualHours);
+      outputs.notEngagedPct.textContent = fmtPercent(notEngagedPct, 0);
+      outputs.fteEquivalent.textContent = fteEquivalent.toFixed(1);
+      outputs.productivityCost.textContent = fmtCurrency(productivityCost);
+      outputs.absenteeCost.textContent = fmtCurrency(absenteeCost);
+      outputs.turnoverCost.textContent = fmtCurrency(turnoverCost);
+
+      const total = totalCultureCost || 1;
+      const productivityShare = productivityCost / total;
+      const absenteeShare = absenteeCost / total;
+      const turnoverShare = turnoverCost / total;
+
+      outputs.productivityBar.style.width = `${clampWidth(productivityShare * 100)}%`;
+      outputs.absenteeBar.style.width = `${clampWidth(absenteeShare * 100)}%`;
+      outputs.turnoverBar.style.width = `${clampWidth(turnoverShare * 100)}%`;
+      outputs.productivityBarLabel.textContent = fmtCurrency(productivityCost);
+      outputs.absenteeBarLabel.textContent = fmtCurrency(absenteeCost);
+      outputs.turnoverBarLabel.textContent = fmtCurrency(turnoverCost);
+      outputs.productivityBarPct.textContent = fmtPercent(productivityShare, 1);
+      outputs.absenteeBarPct.textContent = fmtPercent(absenteeShare, 1);
+      outputs.turnoverBarPct.textContent = fmtPercent(turnoverShare, 1);
+
+      const maxRecoveryScale = Math.max(totalCultureCost, recoveredValue, annualCost, 1);
+      outputs.annualCostBar.style.width = `${clampWidth((annualCost / maxRecoveryScale) * 100)}%`;
+      outputs.recoveredBar.style.width = `${clampWidth((recoveredValue / maxRecoveryScale) * 100)}%`;
+      outputs.breakEvenBar.style.width = `${clampWidth(Math.min(breakEvenNeeded, 1) * 100)}%`;
+      outputs.annualCostLabel.textContent = fmtCurrency(annualCost);
+      outputs.annualCostPct.textContent = `${fmtPercent(annualCostPctOfRevenue, 1)} of revenue`;
+      outputs.recoveredLabel.textContent = fmtCurrency(recoveredValue);
+      outputs.recoveredPct.textContent = `${fmtPercent(improvementPct, 0)} improvement modeled`;
+      outputs.breakEvenValue.textContent = fmtPercent(breakEvenNeeded, 1);
+      outputs.breakEvenNote.textContent = 'of total culture exposure';
+
+      syncPdfReport({
+        totalCultureCost,
+        netGain,
+        productivityCost,
+        absenteeCost,
+        turnoverCost,
+        productivityShare,
+        absenteeShare,
+        turnoverShare,
+        annualCost,
+        recoveredValue,
+        breakEvenNeeded,
+        maxRecoveryScale,
+        fteEquivalent,
+        avgHourlyRate,
+        notEngagedPct,
+        improvementPct
+      });
+    }
+
+    function syncPdfReport(data) {
+      pdf.totalCultureCost.textContent = fmtCurrency(data.totalCultureCost);
+      pdf.netGain.textContent = fmtCurrency(data.netGain);
+      pdf.productivityCost.textContent = fmtCurrency(data.productivityCost);
+      pdf.absenteeCost.textContent = fmtCurrency(data.absenteeCost);
+      pdf.turnoverCost.textContent = fmtCurrency(data.turnoverCost);
+
+      pdf.productivityBar.style.width = `${clampWidth(data.productivityShare * 100)}%`;
+      pdf.absenteeBar.style.width = `${clampWidth(data.absenteeShare * 100)}%`;
+      pdf.turnoverBar.style.width = `${clampWidth(data.turnoverShare * 100)}%`;
+      pdf.productivityPct.textContent = fmtPercent(data.productivityShare, 1);
+      pdf.absenteePct.textContent = fmtPercent(data.absenteeShare, 1);
+      pdf.turnoverPct.textContent = fmtPercent(data.turnoverShare, 1);
+
+      pdf.annualCostBar.style.width = `${clampWidth((data.annualCost / data.maxRecoveryScale) * 100)}%`;
+      pdf.recoveredBar.style.width = `${clampWidth((data.recoveredValue / data.maxRecoveryScale) * 100)}%`;
+      pdf.breakEvenBar.style.width = `${clampWidth(Math.min(data.breakEvenNeeded, 1) * 100)}%`;
+      pdf.annualCostLabel.textContent = fmtCurrency(data.annualCost);
+      pdf.recoveredLabel.textContent = fmtCurrency(data.recoveredValue);
+      pdf.breakEvenValue.textContent = fmtPercent(data.breakEvenNeeded, 1);
+
+      pdf.fteEquivalent.textContent = data.fteEquivalent.toFixed(1);
+      pdf.avgHourlyRate.textContent = fmtCurrency(data.avgHourlyRate);
+      pdf.notEngagedPct.textContent = fmtPercent(data.notEngagedPct, 0);
+      pdf.improvementPct.textContent = fmtPercent(data.improvementPct, 0);
+    }
+
+    async function downloadVisualPdf() {
+      calculate();
+
+      const button = document.getElementById('downloadPdf');
+      const originalText = button.textContent;
+      button.textContent = 'Preparing PDF...';
+      button.disabled = true;
+
+      try {
+        const report = document.getElementById('pdfReport');
+        const canvas = await html2canvas(report, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#f6f3ee',
+          logging: false
+        });
+
+        const imgData = canvas.toDataURL('image/png');
+        const { jsPDF } = window.jspdf;
+        const pdfDoc = new jsPDF({
+          orientation: 'portrait',
+          unit: 'px',
+          format: [canvas.width, canvas.height]
+        });
+
+        pdfDoc.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+        pdfDoc.save('PeaceWorks-ROI-Report.pdf');
+      } catch (error) {
+        console.error('PDF download failed:', error);
+        alert('The PDF could not be created. Please try again, or check that the PDF scripts are loading correctly.');
+      } finally {
+        button.textContent = originalText;
+        button.disabled = false;
+      }
+    }
+
+    Object.values(state).forEach((el) => {
+      el.addEventListener('input', calculate);
+      el.addEventListener('change', calculate);
+    });
+
+    document.getElementById('downloadPdf').addEventListener('click', downloadVisualPdf);
+
+    calculate();
+  </script>
+</body>
+</html>
