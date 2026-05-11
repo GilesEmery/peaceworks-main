@@ -663,13 +663,16 @@
 
     .pdf-report {
       position: fixed;
-      left: -10000px;
+      left: 0;
       top: 0;
       width: 1100px;
       background: #f6f3ee;
       padding: 56px;
       font-family: "Cormorant Garamond", Georgia, serif;
       color: #141414;
+      transform: translateX(-120vw);
+      opacity: 1;
+      pointer-events: none;
       z-index: -1;
     }
 
@@ -1237,7 +1240,13 @@
       fteEquivalent: document.getElementById('pdfFteEquivalent'),
       avgHourlyRate: document.getElementById('pdfAvgHourlyRate'),
       notEngagedPct: document.getElementById('pdfNotEngagedPct'),
-      improvementPct: document.getElementById('pdfImprovementPct')
+      improvementPct: document.getElementById('pdfImprovementPct'),
+      annualRevenue: document.getElementById('pdfAnnualRevenue'),
+      annualPayroll: document.getElementById('pdfAnnualPayroll'),
+      employees: document.getElementById('pdfEmployees'),
+      keySalary: document.getElementById('pdfKeySalary'),
+      monthlyCost: document.getElementById('pdfMonthlyCost'),
+      annualPeaceWorksCost: document.getElementById('pdfAnnualPeaceWorksCost')
     };
 
     const fmtCurrency = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n || 0);
@@ -1386,14 +1395,33 @@
       button.textContent = 'Preparing PDF...';
       button.disabled = true;
 
+      const report = document.getElementById('pdfReport');
+      const originalStyles = {
+        transform: report.style.transform,
+        zIndex: report.style.zIndex,
+        left: report.style.left,
+        top: report.style.top
+      };
+
       try {
-        const report = document.getElementById('pdfReport');
+        if (!window.html2canvas || !window.jspdf) {
+          throw new Error('PDF libraries did not load.');
+        }
+
+        report.style.transform = 'translateX(0)';
+        report.style.left = '0';
+        report.style.top = '0';
+        report.style.zIndex = '999999';
+
+        await new Promise((resolve) => requestAnimationFrame(resolve));
+
         const canvas = await html2canvas(report, {
           scale: 2,
           useCORS: true,
-          allowTaint: true,
           backgroundColor: '#f6f3ee',
-          logging: false
+          logging: false,
+          windowWidth: 1300,
+          windowHeight: report.scrollHeight + 120
         });
 
         const imgData = canvas.toDataURL('image/png');
@@ -1408,8 +1436,12 @@
         pdfDoc.save('PeaceWorks-ROI-Report.pdf');
       } catch (error) {
         console.error('PDF download failed:', error);
-        alert('The PDF could not be created. Please try again, or check that the PDF scripts are loading correctly.');
+        alert('The PDF could not be created. Check that your page is online and that the html2canvas/jsPDF scripts are loading.');
       } finally {
+        report.style.transform = originalStyles.transform;
+        report.style.zIndex = originalStyles.zIndex;
+        report.style.left = originalStyles.left;
+        report.style.top = originalStyles.top;
         button.textContent = originalText;
         button.disabled = false;
       }
