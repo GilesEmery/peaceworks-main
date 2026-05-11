@@ -662,8 +662,8 @@
     .delay-3 { transition-delay: .24s; }
 
     .pdf-report {
-      position: fixed;
-      left: 0;
+      position: absolute;
+      left: -99999px;
       top: 0;
       width: 1100px;
       background: #f6f3ee;
@@ -672,7 +672,7 @@
       color: #141414;
       opacity: 1;
       pointer-events: none;
-      z-index: -9999;
+      z-index: 0;
       visibility: visible;
     }
 
@@ -684,6 +684,43 @@
     }
 
     .pdf-logo { width: 280px; margin-bottom: 34px; }
+    .pdf-wordmark {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 34px;
+    }
+    .pdf-wordmark-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 2px solid #8fab8e;
+      display: grid;
+      place-items: center;
+      color: #5a7a5c;
+      font-size: 25px;
+      line-height: 1;
+      font-weight: 600;
+      letter-spacing: -.05em;
+    }
+    .pdf-wordmark-text {
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #141414;
+      font-weight: 600;
+    }
+    .pdf-wordmark-subtitle {
+      display: block;
+      margin-top: 4px;
+      font-size: 13px;
+      line-height: 1;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #5a7a5c;
+      font-weight: 600;
+    }
     .pdf-eyebrow { font-size: 18px; letter-spacing: .14em; text-transform: uppercase; color: #5a7a5c; margin-bottom: 14px; font-weight: 600; }
     .pdf-title { font-size: 72px; line-height: .95; letter-spacing: -.05em; margin: 0 0 22px; font-weight: 500; }
     .pdf-copy { font-size: 25px; line-height: 1.35; color: #5f625f; max-width: 900px; margin-bottom: 34px; }
@@ -1066,7 +1103,13 @@
 
   <div id="pdfReport" class="pdf-report" aria-hidden="true">
     <div class="pdf-card">
-      <img class="pdf-logo" src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
+      <div class="pdf-wordmark" aria-label="PeaceWorks">
+        <div class="pdf-wordmark-mark">P</div>
+        <div>
+          <div class="pdf-wordmark-text">PeaceWorks</div>
+          <span class="pdf-wordmark-subtitle">Relational Operating System</span>
+        </div>
+      </div>
 
       <div class="pdf-eyebrow">PeaceWorks ROI Calculator</div>
       <h1 class="pdf-title">Relational drag, made visible.</h1>
@@ -1396,22 +1439,11 @@
       button.disabled = true;
 
       const report = document.getElementById('pdfReport');
-      const originalStyles = {
-        zIndex: report.style.zIndex,
-        left: report.style.left,
-        top: report.style.top,
-        position: report.style.position
-      };
 
       try {
         if (!window.html2canvas || !window.jspdf) {
           throw new Error('PDF libraries did not load.');
         }
-
-        report.style.position = 'fixed';
-        report.style.left = '0';
-        report.style.top = '0';
-        report.style.zIndex = '-9999';
 
         await new Promise((resolve) => requestAnimationFrame(resolve));
 
@@ -1438,10 +1470,6 @@
         console.error('PDF download failed:', error);
         alert('The PDF could not be created. Check that your page is online and that the html2canvas/jsPDF scripts are loading.');
       } finally {
-        report.style.zIndex = originalStyles.zIndex;
-        report.style.left = originalStyles.left;
-        report.style.top = originalStyles.top;
-        report.style.position = originalStyles.position;
         button.textContent = originalText;
         button.disabled = false;
       }
