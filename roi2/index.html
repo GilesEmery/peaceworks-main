@@ -683,11 +683,24 @@
       box-shadow: 0 28px 90px rgba(17,17,17,.12);
     }
 
-    .pdf-logo {
-      width: 280px;
-      height: auto;
+    .pdf-title-brand {
       margin-bottom: 34px;
-      display: block;
+    }
+    .pdf-title-main {
+      font-size: 48px;
+      line-height: .9;
+      letter-spacing: -.04em;
+      color: #141414;
+      font-weight: 600;
+    }
+    .pdf-title-sub {
+      margin-top: 8px;
+      font-size: 16px;
+      line-height: 1;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #5a7a5c;
+      font-weight: 600;
     }
     .pdf-eyebrow { font-size: 18px; letter-spacing: .14em; text-transform: uppercase; color: #5a7a5c; margin-bottom: 14px; font-weight: 600; }
     .pdf-title { font-size: 72px; line-height: .95; letter-spacing: -.05em; margin: 0 0 22px; font-weight: 500; }
@@ -1071,7 +1084,10 @@
 
   <div id="pdfReport" class="pdf-report" aria-hidden="true">
     <div class="pdf-card">
-      <img class="pdf-logo" src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks" crossorigin="anonymous">
+      <div class="pdf-title-brand">
+        <div class="pdf-title-main">PeaceWorks</div>
+        <div class="pdf-title-sub">Peace Made Practical</div>
+      </div>
 
       <div class="pdf-eyebrow">PeaceWorks ROI Calculator</div>
       <h1 class="pdf-title">Relational drag, made visible.</h1>
@@ -1407,14 +1423,7 @@
           throw new Error('PDF libraries did not load.');
         }
 
-        const reportImages = Array.from(report.querySelectorAll('img'));
-        await Promise.all(reportImages.map((img) => {
-          if (img.complete && img.naturalWidth > 0) return Promise.resolve();
-          return new Promise((resolve) => {
-            img.onload = resolve;
-            img.onerror = resolve;
-          });
-        }));
+        
 
         if (document.fonts && document.fonts.ready) {
           await document.fonts.ready;
