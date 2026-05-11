@@ -670,10 +670,10 @@
       padding: 56px;
       font-family: "Cormorant Garamond", Georgia, serif;
       color: #141414;
-      transform: translateX(-120vw);
       opacity: 1;
       pointer-events: none;
-      z-index: -1;
+      z-index: -9999;
+      visibility: visible;
     }
 
     .pdf-card {
@@ -1397,10 +1397,10 @@
 
       const report = document.getElementById('pdfReport');
       const originalStyles = {
-        transform: report.style.transform,
         zIndex: report.style.zIndex,
         left: report.style.left,
-        top: report.style.top
+        top: report.style.top,
+        position: report.style.position
       };
 
       try {
@@ -1408,10 +1408,10 @@
           throw new Error('PDF libraries did not load.');
         }
 
-        report.style.transform = 'translateX(0)';
+        report.style.position = 'fixed';
         report.style.left = '0';
         report.style.top = '0';
-        report.style.zIndex = '999999';
+        report.style.zIndex = '-9999';
 
         await new Promise((resolve) => requestAnimationFrame(resolve));
 
@@ -1438,10 +1438,10 @@
         console.error('PDF download failed:', error);
         alert('The PDF could not be created. Check that your page is online and that the html2canvas/jsPDF scripts are loading.');
       } finally {
-        report.style.transform = originalStyles.transform;
         report.style.zIndex = originalStyles.zIndex;
         report.style.left = originalStyles.left;
         report.style.top = originalStyles.top;
+        report.style.position = originalStyles.position;
         button.textContent = originalText;
         button.disabled = false;
       }
