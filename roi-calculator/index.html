@@ -44,11 +44,9 @@
 
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; border: 0; }
 
-    .page {
-      position: relative;
-      overflow: hidden;
-    }
+    .page { position: relative; overflow: hidden; }
 
     .page::before {
       content: "";
@@ -68,20 +66,20 @@
       z-index: 1;
     }
 
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  padding: 16px 0 0;
-  background: linear-gradient(
-    180deg,
-    rgba(246,243,238,0.92) 0%,
-    rgba(246,243,238,0.72) 72%,
-    rgba(246,243,238,0) 100%
-  );
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 16px 0 0;
+      background: linear-gradient(
+        180deg,
+        rgba(246,243,238,0.92) 0%,
+        rgba(246,243,238,0.72) 72%,
+        rgba(246,243,238,0) 100%
+      );
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
 
     .header-inner {
       display: flex;
@@ -186,6 +184,24 @@
     .btn-secondary { background: rgba(255,255,255,0.72); color: var(--text); border: 1px solid rgba(20,20,20,0.12); backdrop-filter: blur(10px); }
     .btn-ghost { background: transparent; color: var(--sage-dark); border: 1px solid rgba(90,122,92,0.22); }
 
+    .download-row {
+      margin: 0 0 20px;
+      padding: 16px;
+      border-radius: 22px;
+      background: rgba(231,239,229,0.60);
+      border: 1px solid rgba(90,122,92,0.12);
+    }
+
+    .download-row .btn { width: 100%; }
+
+    .download-note {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+
     .hero { padding: 52px 0 20px; }
 
     .hero-grid {
@@ -251,11 +267,7 @@
       place-items: center;
     }
 
-    .orbit {
-      position: absolute;
-      border-radius: 50%;
-      border: 1px solid rgba(143,171,142,0.28);
-    }
+    .orbit { position: absolute; border-radius: 50%; border: 1px solid rgba(143,171,142,0.28); }
 
     .orbit::before,
     .orbit::after {
@@ -363,10 +375,7 @@
 
     .panel-copy { font-size: 1.08rem; margin-bottom: 20px; }
 
-    .input-groups {
-      display: grid;
-      gap: 18px;
-    }
+    .input-groups { display: grid; gap: 18px; }
 
     .input-group {
       padding: 18px;
@@ -399,9 +408,7 @@
     }
 
     .field input[type="number"],
-    .field input[type="range"] {
-      width: 100%;
-    }
+    .field input[type="range"] { width: 100%; }
 
     .field input[type="number"] {
       appearance: textfield;
@@ -421,10 +428,7 @@
       box-shadow: 0 0 0 4px rgba(143,171,142,0.10);
     }
 
-    .field input[type="range"] {
-      accent-color: var(--sage-dark);
-      margin-top: 4px;
-    }
+    .field input[type="range"] { accent-color: var(--sage-dark); margin-top: 4px; }
 
     .value-chip {
       display: inline-flex;
@@ -497,10 +501,7 @@
 
     .metric-note { font-size: .98rem; line-height: 1.3; }
 
-    .chart-stack {
-      display: grid;
-      gap: 16px;
-    }
+    .chart-stack { display: grid; gap: 16px; }
 
     .chart-card {
       padding: 18px;
@@ -524,11 +525,7 @@
       font-weight: 600;
     }
 
-    .chart-head .chart-value {
-      font-size: 1rem;
-      color: var(--sage-dark);
-      font-weight: 600;
-    }
+    .chart-head .chart-value { font-size: 1rem; color: var(--sage-dark); font-weight: 600; }
 
     .bar-track {
       height: 16px;
@@ -656,17 +653,253 @@
       transition: background .2s ease, color .2s ease, transform .2s ease;
     }
 
-    .footer-links a:hover {
-      background: rgba(20,20,20,0.05);
-      color: var(--sage-dark);
-      transform: translateY(-1px);
-    }
+    .footer-links a:hover { background: rgba(20,20,20,0.05); color: var(--sage-dark); transform: translateY(-1px); }
 
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .delay-1 { transition-delay: .08s; }
     .delay-2 { transition-delay: .16s; }
     .delay-3 { transition-delay: .24s; }
+
+    .pdf-report {
+      position: absolute;
+      left: -99999px;
+      top: 0;
+      width: 816px;
+      min-height: 1056px;
+      background: #ffffff;
+      padding: 38px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      color: #141414;
+      opacity: 1;
+      pointer-events: none;
+      z-index: 0;
+      visibility: visible;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .pdf-card {
+      background: #ffffff;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .pdf-title-brand { margin-bottom: 10px; }
+    .pdf-title-main {
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: -.035em;
+      color: #141414;
+      font-weight: 600;
+    }
+
+    .pdf-eyebrow {
+      font-size: 10px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #5a7a5c;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .pdf-title {
+      font-size: 40px;
+      line-height: .94;
+      letter-spacing: -.045em;
+      margin: 0 0 8px;
+      font-weight: 500;
+      max-width: 640px;
+    }
+
+    .pdf-copy {
+      font-size: 15px;
+      line-height: 1.22;
+      color: #5f625f;
+      max-width: 680px;
+      margin-bottom: 16px;
+    }
+
+    .pdf-big-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .pdf-big-card {
+      border-radius: 16px;
+      padding: 16px 18px;
+      min-height: 82px;
+    }
+
+    .pdf-big-card.light { background: #e7efe5; }
+    .pdf-big-card.dark { background: #141414; color: white; }
+    .pdf-big-card.loss { background: #9f2f2f; color: white; }
+    .pdf-big-card.gain { background: #8fab8e; color: #141414; }
+
+    .pdf-big-value {
+      font-size: 34px;
+      line-height: .9;
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: -.04em;
+    }
+
+    .pdf-big-label {
+      font-size: 12px;
+      color: #5f625f;
+      line-height: 1.15;
+    }
+
+    .pdf-big-card.dark .pdf-big-label,
+    .pdf-big-card.loss .pdf-big-label { color: rgba(255,255,255,.82); }
+    .pdf-big-card.gain .pdf-big-label { color: rgba(20,20,20,.72); }
+
+    .pdf-chart {
+      background: #ffffff;
+      border: 1px solid rgba(20,20,20,.08);
+      border-radius: 16px;
+      padding: 15px 18px;
+      margin-bottom: 12px;
+    }
+
+    .pdf-chart h2 {
+      font-size: 24px;
+      line-height: 1;
+      margin: 0 0 12px;
+      letter-spacing: -.025em;
+    }
+
+    .company-inputs { margin-top: 0; }
+
+    .pdf-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 9px;
+      margin-bottom: 12px;
+    }
+
+    .company-input-grid {
+      grid-template-columns: repeat(3,1fr);
+      margin-bottom: 0;
+    }
+
+    .pdf-summary {
+      background: #f6f3ee;
+      border-radius: 10px;
+      padding: 10px 12px;
+      min-height: 54px;
+    }
+
+    .pdf-summary strong {
+      display: block;
+      font-size: 16px;
+      line-height: .95;
+      margin-bottom: 4px;
+      letter-spacing: -.02em;
+    }
+
+    .pdf-summary span {
+      display: block;
+      font-size: 10px;
+      line-height: 1.08;
+      color: #5f625f;
+    }
+
+    .pdf-metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .pdf-metric {
+      background: white;
+      border: 1px solid rgba(20,20,20,.08);
+      border-radius: 12px;
+      padding: 12px 14px;
+      min-height: 58px;
+    }
+
+    .pdf-metric-value {
+      font-size: 21px;
+      line-height: 1;
+      font-weight: 600;
+      margin-bottom: 4px;
+      letter-spacing: -.03em;
+    }
+
+    .pdf-metric-label {
+      font-size: 11px;
+      color: #5f625f;
+      line-height: 1.15;
+    }
+
+    .pdf-chart-row {
+      display: grid;
+      grid-template-columns: 150px 1fr 70px;
+      gap: 12px;
+      align-items: center;
+      margin: 8px 0;
+    }
+
+    .pdf-chart-label {
+      font-size: 12px;
+      color: #5f625f;
+      line-height: 1.1;
+    }
+
+    .pdf-bar-track {
+      height: 8px;
+      background: rgba(20,20,20,.08);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .pdf-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg,#b8ccb7,#5a7a5c);
+    }
+
+    .pdf-chart-value {
+      font-size: 12px;
+      text-align: right;
+      color: #141414;
+      font-weight: 600;
+    }
+
+    .pdf-cta {
+      background: linear-gradient(135deg,#111 0%, #1a1f1a 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-top: 10px;
+    }
+
+    .pdf-cta h2 {
+      font-size: 28px;
+      line-height: .98;
+      margin: 0 0 8px;
+      letter-spacing: -.025em;
+    }
+
+    .pdf-cta p {
+      font-size: 13px;
+      line-height: 1.22;
+      color: rgba(255,255,255,.74);
+      margin: 0;
+      max-width: 590px;
+    }
+
+    .pdf-footer-note {
+      margin-top: 12px;
+      font-size: 9.5px;
+      color: #5f625f;
+      line-height: 1.25;
+    }
 
     @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     @keyframes spinReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
@@ -688,22 +921,9 @@
 
     @media (max-width: 860px) {
       .site-header { padding-top: 10px; }
-      .header-inner {
-        border-radius: 28px;
-        padding: 16px;
-        align-items: flex-start;
-        flex-direction: column;
-      }
-      .site-nav {
-        width: 100%;
-        justify-content: flex-start;
-        gap: 8px;
-      }
-      .site-nav a {
-        min-height: 40px;
-        padding: 0 12px;
-        font-size: .94rem;
-      }
+      .header-inner { border-radius: 28px; padding: 16px; align-items: flex-start; flex-direction: column; }
+      .site-nav { width: 100%; justify-content: flex-start; gap: 8px; }
+      .site-nav a { min-height: 40px; padding: 0 12px; font-size: .94rem; }
       .section { padding: 72px 0; }
       .container { width: min(var(--max), calc(100% - 24px)); }
       .hero { padding-top: 34px; }
@@ -715,14 +935,8 @@
       .results-top,
       .metric-grid,
       .advantage-grid { grid-template-columns: 1fr; }
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .footer-links {
-        width: 100%;
-        justify-content: flex-start;
-      }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-links { width: 100%; justify-content: flex-start; }
     }
 
     @media (max-width: 640px) {
@@ -874,6 +1088,11 @@
                 <div class="panel-title">Live results</div>
                 <div class="panel-copy">A clearer view of what relational drag may already be costing — and what could be recovered.</div>
 
+                <div class="download-row">
+                  <button class="btn btn-primary" id="downloadPdf" type="button">Download Visual ROI PDF</button>
+                  <span class="download-note">Downloads a polished, branded one-page report using the current calculator values.</span>
+                </div>
+
                 <div class="results-top">
                   <div class="big-stat">
                     <strong id="totalCultureCost">$0</strong>
@@ -886,34 +1105,13 @@
                 </div>
 
                 <div class="metric-grid">
-                  <div class="metric-card">
-                    <strong id="fteEquivalent">0.0</strong>
-                    <div class="metric-note">Full-time employee equivalent</div>
-                  </div>
-                  <div class="metric-card">
-                    <strong id="avgHourlyRate">$0</strong>
-                    <div class="metric-note">Average hourly rate</div>
-                  </div>
-                  <div class="metric-card">
-                    <strong id="annualHours">0</strong>
-                    <div class="metric-note">Annual work hours</div>
-                  </div>
-                  <div class="metric-card">
-                    <strong id="notEngagedPct">0%</strong>
-                    <div class="metric-note">Not fully engaged</div>
-                  </div>
-                  <div class="metric-card">
-                    <strong id="productivityCost">$0</strong>
-                    <div class="metric-note">Productivity cost</div>
-                  </div>
-                  <div class="metric-card">
-                    <strong id="absenteeCost">$0</strong>
-                    <div class="metric-note">Absentee cost</div>
-                  </div>
-                  <div class="metric-card">
-                    <strong id="turnoverCost">$0</strong>
-                    <div class="metric-note">Turnover cost</div>
-                  </div>
+                  <div class="metric-card"><strong id="fteEquivalent">0.0</strong><div class="metric-note">Full-time employee equivalent</div></div>
+                  <div class="metric-card"><strong id="avgHourlyRate">$0</strong><div class="metric-note">Average hourly rate</div></div>
+                  <div class="metric-card"><strong id="annualHours">0</strong><div class="metric-note">Annual work hours</div></div>
+                  <div class="metric-card"><strong id="notEngagedPct">0%</strong><div class="metric-note">Not fully engaged</div></div>
+                  <div class="metric-card"><strong id="productivityCost">$0</strong><div class="metric-note">Productivity cost</div></div>
+                  <div class="metric-card"><strong id="absenteeCost">$0</strong><div class="metric-note">Absentee cost</div></div>
+                  <div class="metric-card"><strong id="turnoverCost">$0</strong><div class="metric-note">Turnover cost</div></div>
                 </div>
 
                 <div class="chart-stack">
@@ -1000,18 +1198,9 @@
             </div>
 
             <div class="advantage-grid">
-              <article class="advantage-card reveal delay-1">
-                <h3>Calmer leadership</h3>
-                <p>Leaders learn to guide pressure without spreading panic through the organization.</p>
-              </article>
-              <article class="advantage-card reveal delay-2">
-                <h3>Stronger trust</h3>
-                <p>Teams gain more honesty, earlier repair, and healthier ways to carry disagreement.</p>
-              </article>
-              <article class="advantage-card reveal delay-3">
-                <h3>Recovered capacity</h3>
-                <p>Even modest gains in relational health can unlock meaningful financial and organizational value.</p>
-              </article>
+              <article class="advantage-card reveal delay-1"><h3>Calmer leadership</h3><p>Leaders learn to guide pressure without spreading panic through the organization.</p></article>
+              <article class="advantage-card reveal delay-2"><h3>Stronger trust</h3><p>Teams gain more honesty, earlier repair, and healthier ways to carry disagreement.</p></article>
+              <article class="advantage-card reveal delay-3"><h3>Recovered capacity</h3><p>Even modest gains in relational health can unlock meaningful financial and organizational value.</p></article>
             </div>
           </div>
         </div>
@@ -1055,6 +1244,106 @@
       </div>
     </footer>
   </div>
+
+  <div id="pdfReport" class="pdf-report" aria-hidden="true">
+    <div class="pdf-card">
+      <div class="pdf-title-brand">
+        <div class="pdf-title-main">PeaceWorks</div>
+      </div>
+
+      <div class="pdf-eyebrow">PeaceWorks ROI Calculator</div>
+      <h1 class="pdf-title">Relational drag, made visible.</h1>
+      <p class="pdf-copy">This report estimates the hidden business cost of disengagement, absenteeism, leadership strain, productivity loss, and turnover exposure — and models what healthier leadership and stronger relational culture could recover.</p>
+
+      <div class="pdf-big-grid">
+        <div class="pdf-big-card loss">
+          <div class="pdf-big-value" id="pdfTotalCultureCost">$0</div>
+          <div class="pdf-big-label">Total estimated culture cost / net loss exposure</div>
+        </div>
+        <div class="pdf-big-card gain">
+          <div class="pdf-big-value" id="pdfNetGain">$0</div>
+          <div class="pdf-big-label">Estimated net gain after one year of PeaceWorks investment</div>
+        </div>
+      </div>
+
+      <div class="pdf-chart company-inputs">
+        <h2>Company inputs used</h2>
+        <div class="pdf-summary-grid company-input-grid">
+          <div class="pdf-summary"><strong id="pdfAnnualRevenue">$0</strong><span>Annual revenue</span></div>
+          <div class="pdf-summary"><strong id="pdfAnnualPayroll">$0</strong><span>Annual payroll</span></div>
+          <div class="pdf-summary"><strong id="pdfEmployees">0</strong><span>Full-time employees</span></div>
+          <div class="pdf-summary"><strong id="pdfKeySalary">$0</strong><span>Key salary at risk</span></div>
+          <div class="pdf-summary"><strong id="pdfMonthlyCost">$0</strong><span>Monthly PeaceWorks cost</span></div>
+          <div class="pdf-summary"><strong id="pdfAnnualPeaceWorksCost">$0</strong><span>Annual PeaceWorks cost</span></div>
+        </div>
+      </div>
+
+      <div class="pdf-metric-grid">
+        <div class="pdf-metric"><div class="pdf-metric-value" id="pdfProductivityCost">$0</div><div class="pdf-metric-label">Productivity cost</div></div>
+        <div class="pdf-metric"><div class="pdf-metric-value" id="pdfAbsenteeCost">$0</div><div class="pdf-metric-label">Absentee cost</div></div>
+        <div class="pdf-metric"><div class="pdf-metric-value" id="pdfTurnoverCost">$0</div><div class="pdf-metric-label">Turnover exposure</div></div>
+      </div>
+
+      <div class="pdf-chart">
+        <h2>Culture cost composition</h2>
+        <div class="pdf-chart-row">
+          <div class="pdf-chart-label">Productivity loss</div>
+          <div class="pdf-bar-track"><div class="pdf-bar-fill" id="pdfProductivityBar"></div></div>
+          <div class="pdf-chart-value" id="pdfProductivityPct">0%</div>
+        </div>
+        <div class="pdf-chart-row">
+          <div class="pdf-chart-label">Absenteeism</div>
+          <div class="pdf-bar-track"><div class="pdf-bar-fill" id="pdfAbsenteeBar"></div></div>
+          <div class="pdf-chart-value" id="pdfAbsenteePct">0%</div>
+        </div>
+        <div class="pdf-chart-row">
+          <div class="pdf-chart-label">Turnover exposure</div>
+          <div class="pdf-bar-track"><div class="pdf-bar-fill" id="pdfTurnoverBar"></div></div>
+          <div class="pdf-chart-value" id="pdfTurnoverPct">0%</div>
+        </div>
+      </div>
+
+      <div class="pdf-chart">
+        <h2>Recovery model</h2>
+        <div class="pdf-chart-row">
+          <div class="pdf-chart-label">Annual PeaceWorks cost</div>
+          <div class="pdf-bar-track"><div class="pdf-bar-fill" id="pdfAnnualCostBar"></div></div>
+          <div class="pdf-chart-value" id="pdfAnnualCostLabel">$0</div>
+        </div>
+        <div class="pdf-chart-row">
+          <div class="pdf-chart-label">Estimated value recovered</div>
+          <div class="pdf-bar-track"><div class="pdf-bar-fill" id="pdfRecoveredBar"></div></div>
+          <div class="pdf-chart-value" id="pdfRecoveredLabel">$0</div>
+        </div>
+        <div class="pdf-chart-row">
+          <div class="pdf-chart-label">Break-even improvement</div>
+          <div class="pdf-bar-track"><div class="pdf-bar-fill" id="pdfBreakEvenBar"></div></div>
+          <div class="pdf-chart-value" id="pdfBreakEvenValue">0%</div>
+        </div>
+      </div>
+
+      <div class="pdf-summary-grid">
+        <div class="pdf-summary"><strong id="pdfFteEquivalent">0.0</strong><span>FTE equivalent</span></div>
+        <div class="pdf-summary"><strong id="pdfAvgHourlyRate">$0</strong><span>Average hourly rate</span></div>
+        <div class="pdf-summary"><strong id="pdfNotEngagedPct">0%</strong><span>Not fully engaged</span></div>
+        <div class="pdf-summary"><strong id="pdfImprovementPct">0%</strong><span>Improvement modeled</span></div>
+      </div>
+
+      <div class="pdf-cta">
+        <h2>Peace is not passive. It is practiced.</h2>
+        <p>PeaceWorks helps leaders move from awareness to implementation — building the relational operating system that allows trust to hold under pressure.</p>
+      </div>
+
+      <div class="pdf-footer-note">
+        This report is an estimate for strategic conversation, not a financial audit. The numbers are based on the assumptions entered into the PeaceWorks ROI Calculator.
+        <br><br>
+        Questions or ready to schedule a meeting? Contact <a href="mailto:contact@peaceworks.network" style="color:#5a7a5c; font-weight:600;">contact@peaceworks.network</a>.
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
     const reveals = document.querySelectorAll('.reveal');
@@ -1111,6 +1400,36 @@
       recoveredPct: document.getElementById('recoveredPct'),
       breakEvenValue: document.getElementById('breakEvenValue'),
       breakEvenNote: document.getElementById('breakEvenNote')
+    };
+
+    const pdf = {
+      totalCultureCost: document.getElementById('pdfTotalCultureCost'),
+      netGain: document.getElementById('pdfNetGain'),
+      productivityCost: document.getElementById('pdfProductivityCost'),
+      absenteeCost: document.getElementById('pdfAbsenteeCost'),
+      turnoverCost: document.getElementById('pdfTurnoverCost'),
+      productivityBar: document.getElementById('pdfProductivityBar'),
+      absenteeBar: document.getElementById('pdfAbsenteeBar'),
+      turnoverBar: document.getElementById('pdfTurnoverBar'),
+      productivityPct: document.getElementById('pdfProductivityPct'),
+      absenteePct: document.getElementById('pdfAbsenteePct'),
+      turnoverPct: document.getElementById('pdfTurnoverPct'),
+      annualCostBar: document.getElementById('pdfAnnualCostBar'),
+      recoveredBar: document.getElementById('pdfRecoveredBar'),
+      breakEvenBar: document.getElementById('pdfBreakEvenBar'),
+      annualCostLabel: document.getElementById('pdfAnnualCostLabel'),
+      recoveredLabel: document.getElementById('pdfRecoveredLabel'),
+      breakEvenValue: document.getElementById('pdfBreakEvenValue'),
+      fteEquivalent: document.getElementById('pdfFteEquivalent'),
+      avgHourlyRate: document.getElementById('pdfAvgHourlyRate'),
+      notEngagedPct: document.getElementById('pdfNotEngagedPct'),
+      improvementPct: document.getElementById('pdfImprovementPct'),
+      annualRevenue: document.getElementById('pdfAnnualRevenue'),
+      annualPayroll: document.getElementById('pdfAnnualPayroll'),
+      employees: document.getElementById('pdfEmployees'),
+      keySalary: document.getElementById('pdfKeySalary'),
+      monthlyCost: document.getElementById('pdfMonthlyCost'),
+      annualPeaceWorksCost: document.getElementById('pdfAnnualPeaceWorksCost')
     };
 
     const fmtCurrency = (n) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n || 0);
@@ -1191,12 +1510,126 @@
       outputs.recoveredPct.textContent = `${fmtPercent(improvementPct, 0)} improvement modeled`;
       outputs.breakEvenValue.textContent = fmtPercent(breakEvenNeeded, 1);
       outputs.breakEvenNote.textContent = 'of total culture exposure';
+
+      syncPdfReport({
+        annualRevenue,
+        annualPayroll,
+        employees,
+        keySalary,
+        monthlyCost,
+        totalCultureCost,
+        netGain,
+        productivityCost,
+        absenteeCost,
+        turnoverCost,
+        productivityShare,
+        absenteeShare,
+        turnoverShare,
+        annualCost,
+        recoveredValue,
+        breakEvenNeeded,
+        maxRecoveryScale,
+        fteEquivalent,
+        avgHourlyRate,
+        notEngagedPct,
+        improvementPct
+      });
+    }
+
+    function syncPdfReport(data) {
+      pdf.totalCultureCost.textContent = fmtCurrency(data.totalCultureCost);
+      pdf.netGain.textContent = fmtCurrency(data.netGain);
+      pdf.productivityCost.textContent = fmtCurrency(data.productivityCost);
+      pdf.absenteeCost.textContent = fmtCurrency(data.absenteeCost);
+      pdf.turnoverCost.textContent = fmtCurrency(data.turnoverCost);
+
+      pdf.productivityBar.style.width = `${clampWidth(data.productivityShare * 100)}%`;
+      pdf.absenteeBar.style.width = `${clampWidth(data.absenteeShare * 100)}%`;
+      pdf.turnoverBar.style.width = `${clampWidth(data.turnoverShare * 100)}%`;
+      pdf.productivityPct.textContent = fmtPercent(data.productivityShare, 1);
+      pdf.absenteePct.textContent = fmtPercent(data.absenteeShare, 1);
+      pdf.turnoverPct.textContent = fmtPercent(data.turnoverShare, 1);
+
+      pdf.annualCostBar.style.width = `${clampWidth((data.annualCost / data.maxRecoveryScale) * 100)}%`;
+      pdf.recoveredBar.style.width = `${clampWidth((data.recoveredValue / data.maxRecoveryScale) * 100)}%`;
+      pdf.breakEvenBar.style.width = `${clampWidth(Math.min(data.breakEvenNeeded, 1) * 100)}%`;
+      pdf.annualCostLabel.textContent = fmtCurrency(data.annualCost);
+      pdf.recoveredLabel.textContent = fmtCurrency(data.recoveredValue);
+      pdf.breakEvenValue.textContent = fmtPercent(data.breakEvenNeeded, 1);
+
+      pdf.fteEquivalent.textContent = data.fteEquivalent.toFixed(1);
+      pdf.avgHourlyRate.textContent = fmtCurrency(data.avgHourlyRate);
+      pdf.notEngagedPct.textContent = fmtPercent(data.notEngagedPct, 0);
+      pdf.improvementPct.textContent = fmtPercent(data.improvementPct, 0);
+
+      pdf.annualRevenue.textContent = fmtCurrency(data.annualRevenue);
+      pdf.annualPayroll.textContent = fmtCurrency(data.annualPayroll);
+      pdf.employees.textContent = fmtNumber(data.employees);
+      pdf.keySalary.textContent = fmtCurrency(data.keySalary);
+      pdf.monthlyCost.textContent = fmtCurrency(data.monthlyCost);
+      pdf.annualPeaceWorksCost.textContent = fmtCurrency(data.annualCost);
+    }
+
+    async function downloadVisualPdf() {
+      calculate();
+
+      const button = document.getElementById('downloadPdf');
+      const originalText = button.textContent;
+      button.textContent = 'Preparing PDF...';
+      button.disabled = true;
+
+      const report = document.getElementById('pdfReport');
+
+      try {
+        if (!window.html2canvas || !window.jspdf) {
+          throw new Error('PDF libraries did not load.');
+        }
+
+        
+
+        if (document.fonts && document.fonts.ready) {
+          await document.fonts.ready;
+        }
+
+        await new Promise((resolve) => requestAnimationFrame(resolve));
+
+        const canvas = await html2canvas(report, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: '#ffffff',
+          logging: false,
+          windowWidth: 816,
+          windowHeight: 1056
+        });
+
+        const imgData = canvas.toDataURL('image/png');
+        const { jsPDF } = window.jspdf;
+        const pdfDoc = new jsPDF({
+          orientation: 'portrait',
+          unit: 'pt',
+          format: 'letter'
+        });
+
+        const pageWidth = 612;
+        const pageHeight = 792;
+
+        pdfDoc.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
+        pdfDoc.save('PeaceWorks-ROI-Report.pdf');
+      } catch (error) {
+        console.error('PDF download failed:', error);
+        alert('The PDF could not be created. Check that your page is online and that the html2canvas/jsPDF scripts are loading.');
+      } finally {
+        button.textContent = originalText;
+        button.disabled = false;
+      }
     }
 
     Object.values(state).forEach((el) => {
       el.addEventListener('input', calculate);
       el.addEventListener('change', calculate);
     });
+
+    document.getElementById('downloadPdf').addEventListener('click', downloadVisualPdf);
 
     calculate();
   </script>
