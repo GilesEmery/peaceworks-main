@@ -372,9 +372,17 @@
       transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
     }
     .answer-card:hover { transform: translateY(-2px); box-shadow: 0 18px 38px rgba(17,17,17,.08); border-color: rgba(90,122,92,.24); background: rgba(255,255,255,.82); }
-    .answer-card.selected { border-color: rgba(90,122,92,.55); background: linear-gradient(180deg, rgba(231,239,229,.92), rgba(255,255,255,.78)); box-shadow: 0 18px 44px rgba(90,122,92,.16); }
+    .answer-card.selected {
+      border-color: rgba(20,20,20,.78);
+      background: linear-gradient(135deg, #111 0%, #1a1f1a 100%);
+      box-shadow: 0 18px 48px rgba(17,17,17,.28), 0 0 0 6px rgba(20,20,20,.06);
+      transform: translateY(-2px);
+    }
+    .answer-card.selected:hover { background: linear-gradient(135deg, #111 0%, #1a1f1a 100%); border-color: rgba(20,20,20,.86); }
     .answer-letter { display: inline-flex; width: 28px; height: 28px; align-items: center; justify-content: center; border-radius: 50%; background: rgba(143,171,142,.16); color: var(--sage-dark); font-size: .9rem; font-weight: 700; margin-bottom: 10px; }
+    .answer-card.selected .answer-letter { background: rgba(246,243,238,.18); color: #f8f5f0; }
     .answer-text { display: block; color: var(--text); font-size: 1.22rem; line-height: 1.28; }
+    .answer-card.selected .answer-text { color: #f8f5f0; }
 
     .assessment-actions { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); padding-top: 22px; }
     .mini-note { color: var(--muted); font-size: 1.04rem; }
@@ -427,6 +435,12 @@
     .result-box { border-radius: 24px; background: rgba(255,255,255,.72); border: 1px solid rgba(20,20,20,.07); padding: 20px 22px; box-shadow: 0 14px 30px rgba(17,17,17,.05); }
     .result-box strong { display: block; color: var(--text); font-size: 1.34rem; line-height: 1.08; margin-bottom: 8px; font-weight: 700; }
     .result-box p { font-size: 1.12rem; line-height: 1.38; }
+    .result-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    .result-list li { position: relative; padding-left: 18px; font-size: 1.1rem; line-height: 1.35; color: var(--muted); }
+    .result-list li::before { content: ""; position: absolute; left: 0; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--sage); box-shadow: 0 0 0 4px rgba(143,171,142,.12); }
+    .result-callout { margin-top: 18px; padding: 18px 20px; border-radius: 22px; background: rgba(231,239,229,.68); border: 1px solid rgba(90,122,92,.16); }
+    .result-callout strong { display: block; color: var(--text); font-size: 1.24rem; line-height: 1.1; margin-bottom: 6px; }
+    .result-callout p { font-size: 1.08rem; line-height: 1.38; }
 
     .result-footer { display: flex; justify-content: space-between; align-items: center; gap: 14px; border-top: 1px solid var(--line); margin-top: 28px; padding-top: 22px; flex-wrap: wrap; }
 
@@ -438,19 +452,25 @@
       min-height: 1056px;
       background: #f8f5f0;
       color: var(--text);
-      padding: 54px;
+      padding: 50px;
       font-family: "Cormorant Garamond", Georgia, serif;
     }
-    .pdf-page .pdf-logo { width: 210px; margin-bottom: 44px; }
+    .pdf-page .pdf-logo { width: 200px; margin-bottom: 34px; }
     .pdf-page .pdf-label { color: var(--sage-dark); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 16px; margin-bottom: 14px; }
-    .pdf-page h1 { font-size: 68px; line-height: .92; letter-spacing: -.04em; font-weight: 500; margin-bottom: 16px; }
-    .pdf-page .pdf-combo { display: inline-block; padding: 8px 12px; border-radius: 999px; background: #e7efe5; color: var(--sage-dark); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 15px; margin-bottom: 26px; }
-    .pdf-page p { font-size: 24px; line-height: 1.38; color: var(--muted); }
-    .pdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 30px; }
-    .pdf-box { background: rgba(255,255,255,.86); border: 1px solid rgba(20,20,20,.08); border-radius: 20px; padding: 20px; }
-    .pdf-box strong { display: block; color: var(--text); font-size: 24px; line-height: 1.05; margin-bottom: 8px; }
-    .pdf-box p { font-size: 20px; line-height: 1.3; }
-    .pdf-bottom { margin-top: 32px; border-top: 1px solid rgba(20,20,20,.12); padding-top: 18px; font-size: 18px; color: var(--muted); }
+    .pdf-page h1 { font-size: 58px; line-height: .92; letter-spacing: -.04em; font-weight: 500; margin-bottom: 14px; }
+    .pdf-page .pdf-combo { display: inline-block; padding: 8px 12px; border-radius: 999px; background: #e7efe5; color: var(--sage-dark); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 15px; margin-bottom: 22px; }
+    .pdf-page p { font-size: 21px; line-height: 1.35; color: var(--muted); }
+    .pdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px; }
+    .pdf-box { background: rgba(255,255,255,.86); border: 1px solid rgba(20,20,20,.08); border-radius: 18px; padding: 18px; }
+    .pdf-box strong { display: block; color: var(--text); font-size: 22px; line-height: 1.05; margin-bottom: 8px; }
+    .pdf-box p { font-size: 18px; line-height: 1.28; }
+    .pdf-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .pdf-list li { position: relative; padding-left: 16px; font-size: 18px; line-height: 1.25; color: var(--muted); }
+    .pdf-list li::before { content: ""; position: absolute; left: 0; top: .55em; width: 6px; height: 6px; border-radius: 50%; background: var(--sage); }
+    .pdf-callout { margin-top: 20px; padding: 18px; border-radius: 18px; background: #e7efe5; border: 1px solid rgba(90,122,92,.18); }
+    .pdf-callout strong { display: block; color: var(--text); font-size: 22px; margin-bottom: 6px; }
+    .pdf-callout p { font-size: 18px; line-height: 1.28; }
+    .pdf-bottom { margin-top: 24px; border-top: 1px solid rgba(20,20,20,.12); padding-top: 16px; font-size: 17px; color: var(--muted); }
 
     .site-footer { padding: 28px 0 48px; }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 26px; border-top: 1px solid var(--line); }
@@ -533,7 +553,7 @@
             </div>
             <div class="hero-note">
               <strong>No perfect answers. Just honest reflection.</strong>
-              <span>You’ll move through real-life scenarios and choose the answer that feels most true most often. Your result will appear instantly with an option to download your one-page Peace Profile.</span>
+              <span>You’ll move through real-life scenarios and choose the answer that feels most true most often. Your result will appear instantly with an option to download your Peace Profile.</span>
             </div>
           </div>
 
@@ -568,14 +588,13 @@
                 <div class="assessment-kicker" id="sectionLabel">Peace Assessment</div>
                 <div class="assessment-count" id="questionCount">Question 1 of 46</div>
               </div>
-              <button class="btn btn-secondary" id="restartBtn" type="button">Restart</button>
             </div>
             <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
             <div class="question-card" id="questionCard"></div>
             <div class="toast" id="toast">Choose the option that feels most true most often.</div>
             <div class="assessment-actions">
               <button class="btn btn-secondary" id="backBtn" type="button">Back</button>
-              <span class="mini-note" id="miniNote">Your responses are scored privately to create your Peace Pattern.</span>
+              <button class="btn btn-secondary" id="restartBtn" type="button">Restart</button>
               <button class="btn btn-primary" id="nextBtn" type="button">Next</button>
             </div>
           </div>
@@ -870,99 +889,123 @@
     const resultProfiles = {
       "Performance|Push": {
         name: "The Controlling Achiever", combo: "Performance + Push",
-        description: "You tend to lose peace when things feel ineffective, disorganized, poorly executed, or out of control. Under pressure, you may become more direct, corrective, intense, or controlling because you want things to work and work well.",
-        strength: "You may make peace well by bringing clarity, action, responsibility, and direction.",
-        growth: "Peace may be harder when you take over too quickly, correct before listening, or make others feel pressured.",
-        internal: "Pause and ask, “What am I trying to control right now?”",
-        relational: "Ask one person, “Where do you experience my pressure as control?”"
+        description: "You tend to lose peace when things feel ineffective, disorganized, poorly executed, or out of control. Under pressure, you may become more direct, corrective, intense, or controlling because you want things to work and work well. Your desire for excellence can be a gift, but when pressure rises it may become urgency, correction, and a need to take over.",
+        invitation: "The Way of Peace for you is to practice trust before control. Peace does not mean lowering standards. It means leading from clarity without making people feel managed by your anxiety.",
+        strengths: ["You bring clarity when others feel scattered.", "You notice problems and move toward action quickly.", "You can help teams regain direction when things are drifting.", "You often carry a strong sense of responsibility for outcomes."],
+        watch: ["You may correct before you fully listen.", "Your urgency may create pressure in others.", "You may confuse control with care.", "You may take responsibility that should be shared."],
+        internal: "Pause before acting and ask, “What am I trying to control right now?” Then name one thing that truly belongs to you and one thing that belongs to someone else.",
+        relational: "Ask one person, “Where do you experience my pressure as control?” Listen without explaining first.",
+        next: "This week, practice asking two curious questions before giving direction in one tense situation."
       },
       "Performance|Prove": {
         name: "The Driven Overfunctioner", combo: "Performance + Prove",
-        description: "You tend to lose peace when you feel behind, ineffective, responsible, or unable to keep things moving. Under pressure, you may work harder, carry more, fix quickly, and try to prove you can handle it.",
-        strength: "You may make peace well by being dependable, committed, responsible, and willing to help.",
-        growth: "Peace may be harder when you overcarry, struggle to rest, or measure your value by productivity.",
-        internal: "Name what is yours to carry and what is not yours to carry.",
-        relational: "Ask one person, “Where do I take too much responsibility instead of sharing it?”"
+        description: "You tend to lose peace when you feel behind, ineffective, responsible, or unable to keep things moving. Under pressure, you may work harder, carry more, fix quickly, and try to prove you can handle it. Your dependability is a gift, but peace becomes fragile when your worth rises and falls with productivity.",
+        invitation: "The Way of Peace for you is to practice enoughness before effort. You can work with excellence without needing work to prove your value.",
+        strengths: ["You are dependable and willing to help.", "You bring energy and follow-through when things matter.", "You often notice what needs to be done and step in quickly.", "People may trust you because you carry responsibility seriously."],
+        watch: ["You may overcarry what belongs to the team.", "You may struggle to rest without guilt.", "You may measure your value by how useful you are.", "You may create pressure by doing too much yourself."],
+        internal: "Name what is yours to carry and what is not yours to carry. Let one responsibility remain shared instead of silently taking it all.",
+        relational: "Ask one person, “Where do I take too much responsibility instead of sharing it?” Then choose one thing to release or delegate.",
+        next: "This week, practice completing one task at a healthy level instead of an exhausting level."
       },
       "Performance|Please": {
         name: "The Capable Accommodator", combo: "Performance + Please",
-        description: "You tend to lose peace when you feel responsible to perform well and keep others satisfied. Under pressure, you may overdeliver, say yes too often, hide frustration, or try to be both effective and liked.",
-        strength: "You may make peace well by being helpful, capable, responsive, and relationally aware.",
-        growth: "Peace may be harder when you ignore limits, avoid honesty, or become quietly resentful.",
-        internal: "Before saying yes, ask, “Do I have the capacity to do this with peace?”",
-        relational: "Practice one honest no or one honest limit this week."
+        description: "You tend to lose peace when you feel responsible to perform well and keep others satisfied. Under pressure, you may overdeliver, say yes too often, hide frustration, or try to be both effective and liked. You are often capable and relationally aware, but peace becomes fragile when you believe you must meet every expectation and keep everyone pleased.",
+        invitation: "The Way of Peace for you is to practice honest limits. Peace grows when you can serve well without disappearing under the expectations of others.",
+        strengths: ["You are responsive and attentive to what people need.", "You often bring both competence and care.", "You help things move forward without creating unnecessary tension.", "People may experience you as helpful and easy to work with."],
+        watch: ["You may say yes when you need to say no.", "You may hide frustration until resentment builds.", "You may overdeliver to avoid disappointing others.", "You may confuse being liked with being at peace."],
+        internal: "Before saying yes, ask, “Do I have the capacity to do this with peace?” Let your answer include your limits, not just the need in front of you.",
+        relational: "Practice one honest limit this week. Keep it simple, kind, and clear.",
+        next: "Choose one request where you would normally overextend and respond with a truthful boundary."
       },
       "Performance|PullAway": {
         name: "The Burdened Withdrawer", combo: "Performance + Pull Away",
-        description: "You tend to lose peace when expectations feel too high or failure feels likely. Under pressure, you may shut down, delay, procrastinate, or pull back because the burden feels too heavy.",
-        strength: "You may make peace well by thinking carefully, avoiding impulsive reactions, and noticing when things need space.",
-        growth: "Peace may be harder when you avoid responsibility, delay hard conversations, or disappear when your presence is needed.",
-        internal: "Ask, “What is one small step I can take instead of avoiding the whole thing?”",
-        relational: "Tell one person, “I have been overwhelmed, but I want to re-engage.”"
+        description: "You tend to lose peace when expectations feel too high, failure feels likely, or the burden feels too heavy. Under pressure, you may shut down, delay, procrastinate, or pull back because engaging the whole thing feels overwhelming. Your desire to do things well is real, but peace becomes fragile when the fear of not doing enough keeps you from taking the next step.",
+        invitation: "The Way of Peace for you is to practice one faithful step. Peace grows when you stop waiting for the whole burden to feel manageable before you re-engage.",
+        strengths: ["You can think carefully before reacting.", "You notice when a situation needs space.", "You may avoid impulsive decisions that create more harm.", "You often care deeply about doing things well."],
+        watch: ["You may disappear when your presence is needed.", "You may delay until pressure grows larger.", "You may mistake avoidance for rest.", "You may carry shame privately instead of asking for help."],
+        internal: "Ask, “What is one small step I can take instead of avoiding the whole thing?” Then take only that step.",
+        relational: "Tell one person, “I have been overwhelmed, but I want to re-engage.”",
+        next: "Choose one avoided responsibility and take a ten-minute action toward it today."
       },
       "Prestige|Push": {
         name: "The Defensive Influencer", combo: "Prestige + Push",
-        description: "You tend to lose peace when your reputation, respect, or influence feels threatened. Under pressure, you may become persuasive, defensive, forceful, or quick to protect how others see you.",
-        strength: "You may make peace well by bringing confidence, relational energy, communication, and influence.",
-        growth: "Peace may be harder when you defend your image before listening to impact.",
-        internal: "Ask, “Am I protecting truth or protecting my image?”",
-        relational: "Ask one person, “What did you experience from me before I explained myself?”"
+        description: "You tend to lose peace when your reputation, respect, influence, or how others see you feels threatened. Under pressure, you may become persuasive, defensive, forceful, or quick to protect your image. Your voice and influence can be gifts, but peace becomes fragile when being understood or respected becomes something you must secure immediately.",
+        invitation: "The Way of Peace for you is to practice listening before defending. Peace grows when you can stay present long enough to hear impact without first protecting image.",
+        strengths: ["You bring confidence and relational energy.", "You can communicate with conviction.", "You often know how to move a room or restore momentum.", "You care about influence and how people experience leadership."],
+        watch: ["You may explain before listening.", "You may protect image more than truth.", "You may become forceful when you feel misunderstood.", "You may miss how others experienced your response."],
+        internal: "Ask, “Am I protecting truth or protecting my image?” Let the answer slow you down before you respond.",
+        relational: "Ask one person, “What did you experience from me before I explained myself?”",
+        next: "In one tense conversation this week, summarize the other person’s concern before offering your view."
       },
       "Prestige|Prove": {
         name: "The Recognition Striver", combo: "Prestige + Prove",
-        description: "You tend to lose peace when you feel unseen, unappreciated, or not valued. Under pressure, you may work harder to be noticed, affirmed, respected, or recognized.",
-        strength: "You may make peace well by encouraging excellence, inspiring others, and bringing energy to relationships.",
-        growth: "Peace may be harder when you depend on recognition to feel settled.",
-        internal: "Name one good thing you did today that no one else noticed.",
-        relational: "Ask, “Where am I working for approval instead of working from peace?”"
+        description: "You tend to lose peace when you feel unseen, unappreciated, overlooked, or not valued. Under pressure, you may work harder to be noticed, affirmed, respected, or recognized. Your desire to contribute meaningfully is a gift, but peace becomes fragile when recognition becomes the evidence that you matter.",
+        invitation: "The Way of Peace for you is to practice hidden faithfulness. Peace grows when good work remains good even when it is unseen.",
+        strengths: ["You often bring energy and excellence to what you do.", "You can inspire others toward meaningful contribution.", "You care about impact and being useful to the larger whole.", "You may be highly attentive to what earns trust or respect."],
+        watch: ["You may work for approval instead of from peace.", "You may feel unsettled when your effort is not named.", "You may compare your contribution to others.", "You may overperform when you feel unnoticed."],
+        internal: "Name one good thing you did today that no one else noticed. Let it be enough without needing applause.",
+        relational: "Ask, “Where am I working for approval instead of working from peace?” Share that honestly with someone you trust.",
+        next: "Choose one act of service or excellence this week and intentionally keep it quiet."
       },
       "Prestige|Please": {
         name: "The Approval Keeper", combo: "Prestige + Please",
-        description: "You tend to lose peace when others are disappointed, distant, upset, or unhappy with you. Under pressure, you may adapt, appease, smooth things over, or manage relationships to keep approval.",
-        strength: "You may make peace well by being relationally sensitive, thoughtful, warm, and aware of others.",
-        growth: "Peace may be harder when you lose your own voice to keep others okay.",
-        internal: "Ask, “What do I actually think or need here?”",
-        relational: "Share one honest thought you would normally soften or hide."
+        description: "You tend to lose peace when others are disappointed, distant, upset, or unhappy with you. Under pressure, you may adapt, appease, smooth things over, or manage relationships to keep approval. Your relational sensitivity is a gift, but peace becomes fragile when keeping people okay costs you honesty.",
+        invitation: "The Way of Peace for you is to practice truthful presence. Peace grows when you can stay connected without surrendering your voice.",
+        strengths: ["You notice relational tension quickly.", "You often bring warmth, care, and attentiveness.", "You can help people feel seen and considered.", "You may be gifted at reducing unnecessary friction."],
+        watch: ["You may lose your own voice to keep others okay.", "You may smooth over tension instead of repairing it.", "You may carry hidden resentment after adapting too much.", "You may confuse approval with peace."],
+        internal: "Ask, “What do I actually think or need here?” Write the answer before you edit it for others.",
+        relational: "Share one honest thought you would normally soften or hide. Keep it kind and direct.",
+        next: "This week, practice telling the truth gently before you try to make everyone comfortable."
       },
       "Prestige|PullAway": {
         name: "The Hidden Image Protector", combo: "Prestige + Pull Away",
-        description: "You tend to lose peace when you feel exposed, rejected, embarrassed, or misunderstood. Under pressure, you may withdraw, hide, replay conversations, or privately protect yourself from further shame.",
-        strength: "You may make peace well by being thoughtful, self-aware, and careful with how you affect others.",
-        growth: "Peace may be harder when you disappear instead of letting yourself be known.",
-        internal: "Ask, “What am I afraid people will see?”",
-        relational: "Tell one trusted person what felt hard instead of hiding it."
+        description: "You tend to lose peace when you feel exposed, rejected, embarrassed, criticized, or misunderstood. Under pressure, you may withdraw, hide, replay conversations, or privately protect yourself from further shame. Your thoughtfulness is a gift, but peace becomes fragile when hiding feels safer than being known.",
+        invitation: "The Way of Peace for you is to practice being known in small, safe ways. Peace grows when you let trusted people see what you would normally hide.",
+        strengths: ["You are often thoughtful and self-aware.", "You may be careful with words and sensitive to relational nuance.", "You can notice what feels emotionally important beneath the surface.", "You may avoid careless reactions that make things worse."],
+        watch: ["You may disappear instead of asking for reassurance or repair.", "You may replay what happened without letting anyone help.", "You may protect image by staying hidden.", "You may assume rejection before checking reality."],
+        internal: "Ask, “What am I afraid people will see?” Name it without judging it.",
+        relational: "Tell one trusted person what felt hard instead of hiding it.",
+        next: "Choose one recent moment you have been replaying and bring it into a safe conversation."
       },
       "Prosperity|Push": {
         name: "The Protective Controller", combo: "Prosperity + Push",
-        description: "You tend to lose peace when safety, stability, resources, or control feel threatened. Under pressure, you may tighten control, resist risk, become forceful, or push to protect what matters.",
-        strength: "You may make peace well by creating stability, protecting people, preparing wisely, and noticing risks.",
-        growth: "Peace may be harder when protection becomes control.",
-        internal: "Ask, “What am I protecting, and is control the only way?”",
-        relational: "Ask one person, “Where do you need me to trust rather than control?”"
+        description: "You tend to lose peace when safety, stability, resources, control, or what matters most feels threatened. Under pressure, you may tighten control, resist risk, become forceful, or push to protect what feels vulnerable. Your protective instinct is a gift, but peace becomes fragile when protection turns into control.",
+        invitation: "The Way of Peace for you is to practice trust with clear responsibility. Peace grows when you can protect what matters without overpowering the people around you.",
+        strengths: ["You notice risks others may miss.", "You care about stability and protecting what matters.", "You can act decisively when things feel uncertain.", "People may rely on you to guard important outcomes."],
+        watch: ["You may tighten control when trust is needed.", "You may resist risk even when growth requires it.", "You may become forceful when you feel unsafe.", "You may make others feel managed rather than trusted."],
+        internal: "Ask, “What am I protecting, and is control the only way?” Then identify one place where trust can share the burden.",
+        relational: "Ask one person, “Where do you need me to trust rather than control?”",
+        next: "This week, release one decision or detail that someone else can responsibly carry."
       },
       "Prosperity|Prove": {
         name: "The Prepared Stabilizer", combo: "Prosperity + Prove",
-        description: "You tend to lose peace when the future feels uncertain or unstable. Under pressure, you may overprepare, overplan, overwork, and try to create security through responsibility.",
-        strength: "You may make peace well by bringing steadiness, planning, wisdom, and follow-through.",
-        growth: "Peace may be harder when preparation becomes anxiety in disguise.",
+        description: "You tend to lose peace when the future feels uncertain, unstable, under-resourced, or unprepared. Under pressure, you may overprepare, overplan, overwork, and try to create security through responsibility. Your steadiness is a gift, but peace becomes fragile when preparation becomes anxiety in disguise.",
+        invitation: "The Way of Peace for you is to practice enough for today. Peace grows when wise preparation serves presence instead of feeding fear.",
+        strengths: ["You bring planning, steadiness, and follow-through.", "You can help others prepare wisely.", "You often notice practical needs before they become problems.", "You may create a sense of stability for people around you."],
+        watch: ["You may prepare for every possible problem.", "You may overwork to feel safe.", "You may struggle to stop once you have done enough.", "You may transmit anxiety through excessive planning."],
         internal: "Name what is actually needed today, not everything that could go wrong tomorrow.",
-        relational: "Ask one person, “Where does my preparation help, and where does it create pressure?”"
+        relational: "Ask one person, “Where does my preparation help, and where does it create pressure?”",
+        next: "Choose one future concern and write down the next responsible step only. Stop there."
       },
       "Prosperity|Please": {
         name: "The Security Negotiator", combo: "Prosperity + Please",
-        description: "You tend to lose peace when belonging, comfort, or stability feels fragile. Under pressure, you may keep people calm, avoid disruption, maintain comfort, or negotiate peace by keeping everyone okay.",
-        strength: "You may make peace well by creating comfort, hospitality, steadiness, and relational calm.",
-        growth: "Peace may be harder when you avoid truth in order to preserve comfort.",
-        internal: "Ask, “Am I keeping peace or making peace?”",
-        relational: "Name one truth gently instead of smoothing it over."
+        description: "You tend to lose peace when belonging, comfort, stability, or the emotional temperature around you feels fragile. Under pressure, you may keep people calm, avoid disruption, maintain comfort, or negotiate peace by keeping everyone okay. Your ability to create calm is a gift, but peace becomes fragile when comfort replaces truth.",
+        invitation: "The Way of Peace for you is to practice gentle truth. Peace grows when you move beyond keeping peace into making peace.",
+        strengths: ["You can create comfort and relational calm.", "You often notice when people feel unsettled.", "You may be skilled at lowering tension in a room.", "People may experience you as steady, hospitable, or easy to be around."],
+        watch: ["You may avoid truth to preserve comfort.", "You may keep people calm while important issues remain unnamed.", "You may confuse low tension with real peace.", "You may negotiate around conflict instead of moving through it."],
+        internal: "Ask, “Am I keeping peace or making peace?” Let that question reveal whether truth is being avoided.",
+        relational: "Name one truth gently instead of smoothing it over.",
+        next: "This week, have one honest conversation that protects dignity without avoiding reality."
       },
       "Prosperity|PullAway": {
         name: "The Guarded Retreater", combo: "Prosperity + Pull Away",
-        description: "You tend to lose peace when life feels unstable, demanding, uncertain, or unsafe. Under pressure, your instinct may be to pull back, protect your energy, avoid risk, or create distance until you feel more secure.",
-        strength: "You may make peace well by staying calm, avoiding unnecessary drama, thinking carefully, and creating stability.",
-        growth: "Peace may be harder when you withdraw instead of engaging, avoid conversations that need to happen, or mistake comfort for peace.",
-        internal: "Pause and ask, “What feels unsafe right now?”",
-        relational: "Choose one trusted person and say, “When I feel overwhelmed, I tend to pull back. I am trying to learn how to stay more present.”"
+        description: "You tend to lose peace when life feels unstable, demanding, uncertain, or unsafe. Under pressure, your instinct may be to pull back, protect your energy, avoid risk, or create distance until you feel more secure. You may look calm on the outside while carrying a lot internally. Your steadiness is a gift, but peace becomes fragile when retreat becomes your main strategy for safety.",
+        invitation: "The Way of Peace for you is to practice courageous presence. Peace does not require you to disappear until everything feels safe. Peace grows when you remain gently engaged.",
+        strengths: ["You may stay calm when others become emotionally intense.", "You often avoid unnecessary drama.", "You can think carefully before reacting.", "You may create stability by slowing down and protecting what matters."],
+        watch: ["You may withdraw instead of engaging what needs attention.", "You may avoid conversations that need to happen.", "You may mistake comfort for peace.", "You may become hard to read when others need clarity from you."],
+        internal: "Pause and ask, “What feels unsafe right now?” Then ask, “What is one small way I can stay present instead of fully retreating?”",
+        relational: "Choose one trusted person and say, “When I feel overwhelmed, I tend to pull back. I am trying to learn how to stay more present.”",
+        next: "Identify one place where you have been retreating and take one small step toward engagement."
       }
     };
 
@@ -981,12 +1024,29 @@
     const nextBtn = document.getElementById("nextBtn");
     const toast = document.getElementById("toast");
 
+    function scrollToAssessmentTop() {
+      const header = document.querySelector(".site-header");
+      const offset = header ? header.offsetHeight + 12 : 0;
+      const y = assessment.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+    }
+
+    function goToNextQuestion() {
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+        scrollToAssessmentTop();
+      } else {
+        submitAssessment();
+      }
+    }
+
     document.getElementById("startAssessment").addEventListener("click", () => {
       intro.style.display = "none";
       marquee.style.display = "none";
       assessment.classList.add("active");
       renderQuestion();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      scrollToAssessmentTop();
     });
 
     document.getElementById("restartBtn").addEventListener("click", () => {
@@ -994,12 +1054,14 @@
       currentIndex = 0;
       Object.keys(answers).forEach(key => delete answers[key]);
       renderQuestion();
+      scrollToAssessmentTop();
     });
 
     backBtn.addEventListener("click", () => {
       if (currentIndex > 0) {
         currentIndex--;
         renderQuestion();
+        scrollToAssessmentTop();
       }
     });
 
@@ -1010,12 +1072,7 @@
         return;
       }
       toast.classList.remove("show");
-      if (currentIndex < questions.length - 1) {
-        currentIndex++;
-        renderQuestion();
-      } else {
-        submitAssessment();
-      }
+      goToNextQuestion();
     });
 
     function renderQuestion() {
@@ -1047,6 +1104,7 @@
           document.querySelectorAll(".answer-card").forEach(c => c.classList.remove("selected"));
           card.classList.add("selected");
           toast.classList.remove("show");
+          window.setTimeout(goToNextQuestion, 240);
         });
       });
     }
@@ -1105,6 +1163,10 @@
       document.getElementById("closeResultBtn").addEventListener("click", () => overlay.classList.remove("active"));
     }
 
+    function renderList(items, className = "result-list") {
+      return `<ul class="${className}">${items.map(item => `<li>${item}</li>`).join("")}</ul>`;
+    }
+
     function resultHTML(profile) {
       return `
         <div class="result-header">
@@ -1116,14 +1178,16 @@
           <img class="result-logo" src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
         </div>
         <p class="result-desc">${profile.description}</p>
+        <div class="result-callout"><strong>The Way of Peace</strong><p>${profile.invitation}</p></div>
         <div class="result-grid">
-          <div class="result-box"><strong>Where you may make peace well</strong><p>${profile.strength}</p></div>
-          <div class="result-box"><strong>Where peace may be harder</strong><p>${profile.growth}</p></div>
+          <div class="result-box"><strong>Where you may make peace well</strong>${renderList(profile.strengths)}</div>
+          <div class="result-box"><strong>Where peace may be harder</strong>${renderList(profile.watch)}</div>
           <div class="result-box"><strong>Internal practice</strong><p>${profile.internal}</p></div>
           <div class="result-box"><strong>Relational practice</strong><p>${profile.relational}</p></div>
         </div>
+        <div class="result-callout"><strong>One next step</strong><p>${profile.next}</p></div>
         <div class="result-footer">
-          <p style="font-size:1.08rem; line-height:1.35; max-width:540px;">Your Peace Pattern is not a label. It is a starting point for noticing what happens when peace breaks down and practicing one small way of making peace.</p>
+          <p style="font-size:1.08rem; line-height:1.35; max-width:560px;">Your Peace Pattern is not a label. It is a starting point for noticing what happens when peace breaks down and practicing one small way of making peace.</p>
           <div class="btn-row">
             <button class="btn btn-secondary" id="closeResultBtn" type="button">Close</button>
             <button class="btn btn-primary" id="downloadPdfBtn" type="button">Download Results</button>
@@ -1139,12 +1203,14 @@
         <h1>${profile.name}</h1>
         <div class="pdf-combo">${profile.combo}</div>
         <p>${profile.description}</p>
+        <div class="pdf-callout"><strong>The Way of Peace</strong><p>${profile.invitation}</p></div>
         <div class="pdf-grid">
-          <div class="pdf-box"><strong>Where you may make peace well</strong><p>${profile.strength}</p></div>
-          <div class="pdf-box"><strong>Where peace may be harder</strong><p>${profile.growth}</p></div>
+          <div class="pdf-box"><strong>Where you may make peace well</strong>${renderList(profile.strengths, "pdf-list")}</div>
+          <div class="pdf-box"><strong>Where peace may be harder</strong>${renderList(profile.watch, "pdf-list")}</div>
           <div class="pdf-box"><strong>Internal practice</strong><p>${profile.internal}</p></div>
           <div class="pdf-box"><strong>Relational practice</strong><p>${profile.relational}</p></div>
         </div>
+        <div class="pdf-callout"><strong>One next step</strong><p>${profile.next}</p></div>
         <div class="pdf-bottom">Your Peace Pattern is not a label. It is a starting point for noticing what happens when peace breaks down and practicing one small way of making peace.</div>
       `;
     }
@@ -1164,7 +1230,22 @@
         const imgData = canvas.toDataURL("image/png");
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({ orientation: "portrait", unit: "in", format: "letter" });
-        pdf.addImage(imgData, "PNG", 0, 0, 8.5, 11);
+        const pageWidth = 8.5;
+        const pageHeight = 11;
+        const imgHeight = canvas.height * pageWidth / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        pdf.addImage(imgData, "PNG", 0, position, pageWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft > 0) {
+          position -= pageHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, "PNG", 0, position, pageWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
         pdf.save(`PeaceWorks-${lastResult.profile.name.replace(/\s+/g, "-")}.pdf`);
       } catch (error) {
         alert("The PDF could not be created. Please try again.");
