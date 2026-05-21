@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PeaceWorks Peace Assessment</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="https://gilesemery.github.io/peaceworks-main/PeaceWorksCircle.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --bg-soft: #fbf9f6;
+      --panel: rgba(255,255,255,0.64);
+      --panel-strong: rgba(255,255,255,0.82);
+      --text: #141414;
+      --muted: #5f625f;
+      --line: rgba(20,20,20,0.10);
+      --line-soft: rgba(20,20,20,0.06);
+      --sage: #8fab8e;
+      --sage-light: #b8ccb7;
+      --sage-pale: #e7efe5;
+      --sage-dark: #5a7a5c;
+      --shadow: 0 18px 50px rgba(17,17,17,0.08);
+      --shadow-lg: 0 28px 90px rgba(17,17,17,0.12);
+      --radius: 28px;
+      --radius-sm: 20px;
+      --max: 1320px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(184,204,183,0.22), transparent 26%),
+        radial-gradient(circle at 88% 12%, rgba(143,171,142,0.20), transparent 24%),
+        linear-gradient(180deg, #f8f5f0 0%, #f4f1eb 100%);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font-family: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      padding: 16px 0 0;
+      background: linear-gradient(180deg, rgba(246,243,238,0.92) 0%, rgba(246,243,238,0.72) 72%, rgba(246,243,238,0) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .page {
+      position: relative;
+      overflow: hidden;
+      min-height: 100svh;
+    }
+
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.05;
+      background-image: radial-gradient(rgba(0,0,0,.35) .6px, transparent .7px);
+      background-size: 10px 10px;
+      z-index: 0;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 16px 22px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.56);
+      border: 1px solid rgba(255,255,255,0.72);
+      box-shadow: 0 16px 40px rgba(17,17,17,0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .brand { display: inline-flex; align-items: center; min-width: 0; }
+    .brand img { width: clamp(180px, 20vw, 260px); height: auto; display: block; }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .site-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      transition: background .2s ease, transform .2s ease, color .2s ease;
+    }
+
+    .site-nav a:hover {
+      background: rgba(20,20,20,0.05);
+      color: var(--sage-dark);
+      transform: translateY(-1px);
+    }
+
+    .section { padding: 88px 0; position: relative; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.86rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      margin-bottom: 22px;
+      font-weight: 600;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.8;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+    .display { font-weight: 500; letter-spacing: -0.03em; line-height: 0.95; text-wrap: balance; }
+    .lede, p, li { font-size: 1.3rem; line-height: 1.58; color: var(--muted); letter-spacing: 0.005em; }
+
+    .btn-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+    .btn {
+      border: 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+      padding: 0 24px;
+      border-radius: 999px;
+      font-size: 1rem;
+      line-height: 1;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: transform .22s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease, color .22s ease, opacity .2s ease;
+      will-change: transform;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+    .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #111 0%, #1a1f1a 100%);
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(17,17,17,0.18);
+    }
+    .btn-primary:hover { box-shadow: 0 18px 36px rgba(17,17,17,0.22); }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.72);
+      color: var(--text);
+      border: 1px solid rgba(20,20,20,0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.88); border-color: rgba(20,20,20,0.20); }
+
+    .hero {
+      min-height: calc(100svh - 96px);
+      display: grid;
+      align-items: center;
+      padding: 56px 0 48px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.06fr 0.94fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .hero-copy { padding: 34px 0; }
+    .hero-title { font-size: clamp(4rem, 9vw, 8rem); max-width: 8.7ch; margin-bottom: 22px; }
+    .hero-sub { max-width: 730px; margin-bottom: 30px; }
+
+    .hero-note {
+      margin-top: 34px;
+      padding: 20px 22px;
+      border: 1px solid rgba(255,255,255,0.68);
+      background: rgba(255,255,255,0.54);
+      border-radius: var(--radius-sm);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      max-width: 660px;
+    }
+
+    .hero-note strong { display: block; font-size: 1.18rem; line-height: 1.2; color: var(--text); margin-bottom: 6px; font-weight: 600; }
+    .hero-note span { display: block; font-size: 1.08rem; line-height: 1.45; color: var(--muted); }
+
+    .hero-visual { min-height: 680px; display: grid; place-items: center; position: relative; }
+    .hero-glow {
+      position: absolute;
+      width: 760px;
+      height: 760px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,204,183,0.34) 0%, rgba(143,171,142,0.14) 38%, transparent 70%);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    .orbits { position: relative; width: min(78vw, 620px); aspect-ratio: 1 / 1; display: grid; place-items: center; }
+    .orbit { position: absolute; border-radius: 50%; border: 1px solid rgba(143,171,142,0.28); }
+    .orbit::before, .orbit::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage-light), var(--sage-dark));
+      box-shadow: 0 0 20px rgba(143,171,142,0.36);
+    }
+    .orbit-1 { width: 100%; height: 100%; animation: spin 40s linear infinite; }
+    .orbit-1::before { top: 50%; left: -5px; transform: translateY(-50%); }
+    .orbit-1::after { top: 14%; right: 15%; }
+    .orbit-2 { width: 76%; height: 76%; border-color: rgba(143,171,142,0.40); animation: spinReverse 28s linear infinite; }
+    .orbit-2::before { top: -5px; left: 50%; transform: translateX(-50%); }
+    .orbit-2::after { right: -5px; top: 60%; }
+    .orbit-3 { width: 54%; height: 54%; border-color: rgba(90,122,92,0.46); animation: spin 18s linear infinite; }
+    .orbit-3::before { left: 14%; bottom: 10%; }
+    .orbit-3::after { right: 12%; top: 12%; }
+
+    .logo-wrap { position: relative; width: 52%; aspect-ratio: 1 / 1; display: grid; place-items: center; z-index: 2; }
+    .logo-wrap img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 42px rgba(17,17,17,0.12)); }
+
+    .floating-card {
+      position: absolute;
+      max-width: 210px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.52);
+      border: 1px solid rgba(255,255,255,0.72);
+      box-shadow: 0 14px 32px rgba(17,17,17,0.07);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .floating-card strong { display: block; font-size: 1.06rem; color: var(--text); margin-bottom: 4px; font-weight: 600; }
+    .floating-card span { display: block; font-size: 1rem; line-height: 1.36; color: var(--muted); }
+    .float-1 { left: -2%; top: 16%; }
+    .float-2 { right: -1%; top: 21%; }
+    .float-3 { left: 2%; bottom: 14%; }
+
+    .marquee-wrap { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.34); overflow: hidden; }
+    .marquee { display: flex; width: max-content; animation: marquee 28s linear infinite; white-space: nowrap; }
+    .marquee span { display: inline-flex; align-items: center; gap: 18px; padding: 16px 22px; font-size: 0.96rem; text-transform: uppercase; letter-spacing: 0.12em; color: #3f423f; font-weight: 600; }
+    .marquee i { font-style: normal; color: var(--sage-dark); opacity: .8; }
+
+    .assessment-shell {
+      display: none;
+      min-height: calc(100svh - 96px);
+      align-items: center;
+      padding: 56px 0 72px;
+    }
+    .assessment-shell.active { display: grid; }
+
+    .assessment-panel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 38px;
+      padding: clamp(26px, 4vw, 48px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.62));
+      border: 1px solid rgba(255,255,255,0.76);
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .assessment-panel::before {
+      content: "";
+      position: absolute;
+      right: -120px;
+      top: -140px;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,204,183,0.34), transparent 70%);
+      pointer-events: none;
+    }
+
+    .assessment-top {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    .assessment-kicker { color: var(--sage-dark); text-transform: uppercase; letter-spacing: .12em; font-weight: 700; font-size: .96rem; }
+    .assessment-count { color: var(--muted); font-size: 1.06rem; }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: rgba(20,20,20,.06);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 18px 0 28px;
+      position: relative;
+      z-index: 1;
+    }
+    .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--sage), var(--sage-dark)); border-radius: 999px; transition: width .35s ease; }
+
+    .question-card { position: relative; z-index: 1; }
+    .scenario {
+      color: var(--muted);
+      font-size: clamp(1.32rem, 2.4vw, 1.78rem);
+      line-height: 1.35;
+      max-width: 980px;
+      margin-bottom: 22px;
+    }
+    .question-title {
+      color: var(--text);
+      font-size: clamp(2.3rem, 5vw, 4.3rem);
+      line-height: .98;
+      letter-spacing: -.03em;
+      font-weight: 500;
+      max-width: 980px;
+      margin-bottom: 28px;
+      text-wrap: balance;
+    }
+
+    .answers-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 28px 0 26px; }
+    .answer-card {
+      width: 100%;
+      min-height: 116px;
+      text-align: left;
+      cursor: pointer;
+      border: 1px solid rgba(20,20,20,0.08);
+      background: rgba(255,255,255,0.66);
+      border-radius: 24px;
+      padding: 20px 22px;
+      box-shadow: 0 12px 28px rgba(17,17,17,.05);
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .answer-card:hover { transform: translateY(-2px); box-shadow: 0 18px 38px rgba(17,17,17,.08); border-color: rgba(90,122,92,.24); background: rgba(255,255,255,.82); }
+    .answer-card.selected { border-color: rgba(90,122,92,.55); background: linear-gradient(180deg, rgba(231,239,229,.92), rgba(255,255,255,.78)); box-shadow: 0 18px 44px rgba(90,122,92,.16); }
+    .answer-letter { display: inline-flex; width: 28px; height: 28px; align-items: center; justify-content: center; border-radius: 50%; background: rgba(143,171,142,.16); color: var(--sage-dark); font-size: .9rem; font-weight: 700; margin-bottom: 10px; }
+    .answer-text { display: block; color: var(--text); font-size: 1.22rem; line-height: 1.28; }
+
+    .assessment-actions { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); padding-top: 22px; }
+    .mini-note { color: var(--muted); font-size: 1.04rem; }
+
+    .toast {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(20,20,20,.08);
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .toast.show { display: block; }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(12,14,12,.62);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .modal-overlay.active { display: grid; place-items: center; }
+
+    .result-modal {
+      width: min(980px, 100%);
+      border-radius: 36px;
+      background:
+        radial-gradient(circle at 84% 10%, rgba(184,204,183,.28), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,.94), rgba(248,246,242,.94));
+      border: 1px solid rgba(255,255,255,.82);
+      box-shadow: 0 40px 120px rgba(0,0,0,.28);
+      overflow: hidden;
+    }
+
+    .result-content { padding: clamp(26px, 5vw, 48px); }
+    .result-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
+    .result-logo { width: 180px; height: auto; }
+    .result-pattern-label { color: var(--sage-dark); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: .86rem; margin-bottom: 10px; }
+    .result-title { font-size: clamp(3rem, 6vw, 5rem); line-height: .92; letter-spacing: -.04em; font-weight: 500; margin-bottom: 12px; }
+    .result-combo { display: inline-flex; padding: 8px 12px; border-radius: 999px; background: rgba(143,171,142,.16); color: var(--sage-dark); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: .86rem; }
+    .result-desc { max-width: 780px; margin-top: 18px; }
+
+    .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+    .result-box { border-radius: 24px; background: rgba(255,255,255,.72); border: 1px solid rgba(20,20,20,.07); padding: 20px 22px; box-shadow: 0 14px 30px rgba(17,17,17,.05); }
+    .result-box strong { display: block; color: var(--text); font-size: 1.34rem; line-height: 1.08; margin-bottom: 8px; font-weight: 700; }
+    .result-box p { font-size: 1.12rem; line-height: 1.38; }
+
+    .result-footer { display: flex; justify-content: space-between; align-items: center; gap: 14px; border-top: 1px solid var(--line); margin-top: 28px; padding-top: 22px; flex-wrap: wrap; }
+
+    .pdf-page {
+      position: fixed;
+      left: -10000px;
+      top: 0;
+      width: 816px;
+      min-height: 1056px;
+      background: #f8f5f0;
+      color: var(--text);
+      padding: 54px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+    }
+    .pdf-page .pdf-logo { width: 210px; margin-bottom: 44px; }
+    .pdf-page .pdf-label { color: var(--sage-dark); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 16px; margin-bottom: 14px; }
+    .pdf-page h1 { font-size: 68px; line-height: .92; letter-spacing: -.04em; font-weight: 500; margin-bottom: 16px; }
+    .pdf-page .pdf-combo { display: inline-block; padding: 8px 12px; border-radius: 999px; background: #e7efe5; color: var(--sage-dark); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; font-size: 15px; margin-bottom: 26px; }
+    .pdf-page p { font-size: 24px; line-height: 1.38; color: var(--muted); }
+    .pdf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 30px; }
+    .pdf-box { background: rgba(255,255,255,.86); border: 1px solid rgba(20,20,20,.08); border-radius: 20px; padding: 20px; }
+    .pdf-box strong { display: block; color: var(--text); font-size: 24px; line-height: 1.05; margin-bottom: 8px; }
+    .pdf-box p { font-size: 20px; line-height: 1.3; }
+    .pdf-bottom { margin-top: 32px; border-top: 1px solid rgba(20,20,20,.12); padding-top: 18px; font-size: 18px; color: var(--muted); }
+
+    .site-footer { padding: 28px 0 48px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 26px; border-top: 1px solid var(--line); }
+    .footer-branding img { width: clamp(170px, 18vw, 240px); height: auto; }
+    .footer-links { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    .footer-links a { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 0 14px; border-radius: 999px; color: var(--text); font-size: .98rem; letter-spacing: .04em; transition: background .2s ease, color .2s ease, transform .2s ease; }
+    .footer-links a:hover { background: rgba(20,20,20,0.05); color: var(--sage-dark); transform: translateY(-1px); }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes spinReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    @media (max-width: 1180px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .hero-copy { max-width: 860px; }
+    }
+
+    @media (max-width: 860px) {
+      .site-header { padding-top: 10px; }
+      .header-inner { border-radius: 28px; padding: 16px; align-items: flex-start; flex-direction: column; }
+      .site-nav { width: 100%; justify-content: flex-start; gap: 8px; }
+      .site-nav a { min-height: 40px; padding: 0 12px; font-size: .94rem; }
+      .container { width: min(var(--max), calc(100% - 24px)); }
+      .hero { min-height: auto; padding-top: 34px; }
+      .hero-title { max-width: none; }
+      .answers-grid, .result-grid { grid-template-columns: 1fr; }
+      .assessment-top, .assessment-actions, .result-header { flex-direction: column; align-items: flex-start; }
+      .result-logo { width: 150px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-links { width: 100%; justify-content: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .brand img { width: 190px; }
+      .hero-title { font-size: clamp(3.2rem, 16vw, 4.8rem); }
+      .btn-row { flex-direction: column; align-items: stretch; }
+      .btn { width: 100%; }
+      .lede, p, li { font-size: 1.18rem; line-height: 1.48; }
+      .answer-card { min-height: auto; padding: 18px; }
+      .answer-text { font-size: 1.12rem; }
+      .modal-overlay { padding: 12px; }
+      .result-content { padding: 24px 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="https://www.peaceworks.network/" aria-label="PeaceWorks home">
+        <img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="https://www.peaceworks.network/join">Join</a>
+        <a href="https://www.peaceworks.network/roi-calculator">ROI Calculator</a>
+        <a href="https://www.peaceworks.network/contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page">
+    <main>
+      <section id="intro" class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy reveal visible">
+            <div class="eyebrow">PeaceWorks • Peace Assessment</div>
+            <h1 class="display hero-title">What happens when peace breaks down?</h1>
+            <p class="hero-sub">The Peace Assessment helps you discover your Peace Pattern: what tends to steal your peace, what you reach for under pressure, and how you can begin practicing peace internally and relationally.</p>
+            <div class="btn-row">
+              <button class="btn btn-primary" id="startAssessment">Take Peace Assessment</button>
+              <a class="btn btn-secondary" href="https://www.peaceworks.network/contact">Ask a Question</a>
+            </div>
+            <div class="hero-note">
+              <strong>No perfect answers. Just honest reflection.</strong>
+              <span>You’ll move through real-life scenarios and choose the answer that feels most true most often. Your result will appear instantly with an option to download your one-page Peace Profile.</span>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal visible" aria-hidden="true">
+            <div class="hero-glow"></div>
+            <div class="orbits">
+              <div class="orbit orbit-1"></div>
+              <div class="orbit orbit-2"></div>
+              <div class="orbit orbit-3"></div>
+              <div class="floating-card float-1"><strong>Notice</strong><span>What steals your peace?</span></div>
+              <div class="floating-card float-2"><strong>Name</strong><span>What do you do under pressure?</span></div>
+              <div class="floating-card float-3"><strong>Practice</strong><span>What would peace do here?</span></div>
+              <div class="logo-wrap"><img src="https://gilesemery.github.io/peaceworks-main/PeaceWorksCircle.svg" alt="PeaceWorks circle logo"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="marquee-wrap" id="marquee">
+        <div class="marquee">
+          <span>Pressure response <i>•</i> Peace patterns <i>•</i> Internal practice <i>•</i> Relational repair <i>•</i> Calm leadership <i>•</i></span>
+          <span>Pressure response <i>•</i> Peace patterns <i>•</i> Internal practice <i>•</i> Relational repair <i>•</i> Calm leadership <i>•</i></span>
+          <span>Pressure response <i>•</i> Peace patterns <i>•</i> Internal practice <i>•</i> Relational repair <i>•</i> Calm leadership <i>•</i></span>
+        </div>
+      </div>
+
+      <section id="assessment" class="assessment-shell">
+        <div class="container">
+          <div class="assessment-panel">
+            <div class="assessment-top">
+              <div>
+                <div class="assessment-kicker" id="sectionLabel">Peace Assessment</div>
+                <div class="assessment-count" id="questionCount">Question 1 of 46</div>
+              </div>
+              <button class="btn btn-secondary" id="restartBtn" type="button">Restart</button>
+            </div>
+            <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+            <div class="question-card" id="questionCard"></div>
+            <div class="toast" id="toast">Choose the option that feels most true most often.</div>
+            <div class="assessment-actions">
+              <button class="btn btn-secondary" id="backBtn" type="button">Back</button>
+              <span class="mini-note" id="miniNote">Your responses are scored privately to create your Peace Pattern.</span>
+              <button class="btn btn-primary" id="nextBtn" type="button">Next</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-branding"><img src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks"></div>
+        <div class="footer-links" aria-label="Footer navigation">
+          <a href="https://www.peaceworks.network/join">Join</a>
+          <a href="https://www.peaceworks.network/roi-calculator">ROI Calculator</a>
+          <a href="https://www.peaceworks.network/contact">Contact</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="modal-overlay" id="resultOverlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+    <div class="result-modal">
+      <div class="result-content" id="resultContent"></div>
+    </div>
+  </div>
+
+  <div class="pdf-page" id="pdfPage"></div>
+
+  <script>
+    const GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+
+    const questions = [
+      { id: 1, section: "Identity Posture", scenario: "You are leading a project, and it is starting to fall behind. A few people have missed deadlines, the plan is unclear, and others are beginning to notice.", prompt: "What would most likely steal your peace?", options: [
+        { letter: "A", text: "Feeling like the work may not get done well.", score: "Performance" },
+        { letter: "B", text: "Wondering if people will think I failed or dropped the ball.", score: "Prestige" },
+        { letter: "C", text: "Feeling like things are becoming unstable, uncertain, or out of control.", score: "Prosperity" }
+      ]},
+      { id: 2, section: "Identity Posture", scenario: "You made a decision you thought was best, but someone questions it in front of others.", prompt: "What would bother you most?", options: [
+        { letter: "A", text: "That my decision may have been wrong or ineffective.", score: "Performance" },
+        { letter: "B", text: "That others may now see me differently.", score: "Prestige" },
+        { letter: "C", text: "That the situation now feels less secure or predictable.", score: "Prosperity" }
+      ]},
+      { id: 3, section: "Identity Posture", scenario: "Someone important to you seems disappointed in how you handled something.", prompt: "What would most likely get under your skin?", options: [
+        { letter: "A", text: "I did not handle it as well as I should have.", score: "Performance" },
+        { letter: "B", text: "They may think less of me now.", score: "Prestige" },
+        { letter: "C", text: "This could create tension, distance, or instability.", score: "Prosperity" }
+      ]},
+      { id: 4, section: "Identity Posture", scenario: "You had a plan for the day, but something unexpected changes everything.", prompt: "What would most likely disrupt your peace?", options: [
+        { letter: "A", text: "Losing momentum and not getting things done.", score: "Performance" },
+        { letter: "B", text: "How others may react to the change.", score: "Prestige" },
+        { letter: "C", text: "Not knowing what will happen next.", score: "Prosperity" }
+      ]},
+      { id: 5, section: "Identity Posture", scenario: "Several people need something from you at the same time, and you are already stretched thin.", prompt: "What feels hardest in that moment?", options: [
+        { letter: "A", text: "Not being able to keep up or do everything well.", score: "Performance" },
+        { letter: "B", text: "Possibly disappointing people who are counting on me.", score: "Prestige" },
+        { letter: "C", text: "Feeling like I do not have enough time, space, or capacity.", score: "Prosperity" }
+      ]},
+      { id: 6, section: "Identity Posture", scenario: "Someone says, “We need to talk about how things are going,” but they do not explain what they mean.", prompt: "What would most likely bother you?", options: [
+        { letter: "A", text: "Wondering what I did wrong or need to fix.", score: "Performance" },
+        { letter: "B", text: "Wondering if they are upset with me or think poorly of me.", score: "Prestige" },
+        { letter: "C", text: "Feeling uncertain because I do not know what is coming.", score: "Prosperity" }
+      ]},
+      { id: 7, section: "Identity Posture", scenario: "Someone you were counting on does not follow through.", prompt: "What most affects your peace?", options: [
+        { letter: "A", text: "The work may suffer because it was not done well.", score: "Performance" },
+        { letter: "B", text: "I may look bad because I trusted them.", score: "Prestige" },
+        { letter: "C", text: "I now feel like I cannot rely on the situation or the person.", score: "Prosperity" }
+      ]},
+      { id: 8, section: "Identity Posture", scenario: "You find out a conversation happened that affected you, but you were not included.", prompt: "What would bother you most?", options: [
+        { letter: "A", text: "I could not contribute or help shape the outcome.", score: "Performance" },
+        { letter: "B", text: "I wonder why I was not valued enough to be included.", score: "Prestige" },
+        { letter: "C", text: "I feel unsettled not knowing what was said or decided.", score: "Prosperity" }
+      ]},
+      { id: 9, section: "Identity Posture", scenario: "A situation requires you to rely on another person, and you cannot fully control the outcome.", prompt: "What feels most difficult?", options: [
+        { letter: "A", text: "I cannot make sure it is done the way it needs to be done.", score: "Performance" },
+        { letter: "B", text: "Their actions could affect how others see me.", score: "Prestige" },
+        { letter: "C", text: "I feel vulnerable because the outcome is uncertain.", score: "Prosperity" }
+      ]},
+      { id: 10, section: "Identity Posture", scenario: "A mistake happens, and now other people know about it.", prompt: "What would feel hardest?", options: [
+        { letter: "A", text: "Knowing something was not done correctly.", score: "Performance" },
+        { letter: "B", text: "Knowing people may judge me for it.", score: "Prestige" },
+        { letter: "C", text: "Wondering what consequences may come from it.", score: "Prosperity" }
+      ]},
+      { id: 11, section: "Identity Posture", scenario: "A meeting gets tense, and people start disagreeing.", prompt: "What most threatens your peace?", options: [
+        { letter: "A", text: "The group may not make progress or solve the issue well.", score: "Performance" },
+        { letter: "B", text: "People may be upset with me or see me differently.", score: "Prestige" },
+        { letter: "C", text: "The tension may create instability or damage trust.", score: "Prosperity" }
+      ]},
+      { id: 12, section: "Identity Posture", scenario: "You unexpectedly have a slower day with fewer tasks than normal.", prompt: "What feels most uncomfortable?", options: [
+        { letter: "A", text: "I feel like I should be accomplishing more.", score: "Performance" },
+        { letter: "B", text: "I wonder if others think I am not contributing enough.", score: "Prestige" },
+        { letter: "C", text: "I feel uneasy without structure or something secure to focus on.", score: "Prosperity" }
+      ]},
+      { id: 13, section: "Identity Posture", scenario: "Someone else is praised for work you contributed to or cared about.", prompt: "What would most likely bother you?", options: [
+        { letter: "A", text: "The actual work or effort may not be understood accurately.", score: "Performance" },
+        { letter: "B", text: "I feel unseen or unappreciated.", score: "Prestige" },
+        { letter: "C", text: "I wonder if my place or value is less secure than I thought.", score: "Prosperity" }
+      ]},
+      { id: 14, section: "Identity Posture", scenario: "An opportunity comes up, but it requires risk, uncertainty, and possible failure.", prompt: "What feels hardest?", options: [
+        { letter: "A", text: "I may not be able to execute it well.", score: "Performance" },
+        { letter: "B", text: "People may see me fail.", score: "Prestige" },
+        { letter: "C", text: "I may lose stability, comfort, or security.", score: "Prosperity" }
+      ]},
+      { id: 15, section: "Identity Posture", scenario: "You meant well, but someone takes your words or actions the wrong way.", prompt: "What most disrupts your peace?", options: [
+        { letter: "A", text: "I want to correct it and make sure it is handled properly.", score: "Performance" },
+        { letter: "B", text: "I hate that they may now think poorly of me.", score: "Prestige" },
+        { letter: "C", text: "I feel unsettled because the relationship no longer feels stable.", score: "Prosperity" }
+      ]},
+      { id: 16, section: "Identity Posture", scenario: "A decision that affects you is being made by someone else.", prompt: "What bothers you most?", options: [
+        { letter: "A", text: "They may not make the best or most effective decision.", score: "Performance" },
+        { letter: "B", text: "They may not consider how this affects me or my reputation.", score: "Prestige" },
+        { letter: "C", text: "I feel unsafe not knowing what will happen.", score: "Prosperity" }
+      ]},
+      { id: 17, section: "Identity Posture", scenario: "You are tired, but there are still things to do and people depending on you.", prompt: "What feels hardest?", options: [
+        { letter: "A", text: "Not being able to keep producing at the level I expect.", score: "Performance" },
+        { letter: "B", text: "Letting people down.", score: "Prestige" },
+        { letter: "C", text: "Feeling like I do not have enough energy or margin.", score: "Prosperity" }
+      ]},
+      { id: 18, section: "Identity Tie-Breaker", scenario: "If you had to choose one, the hardest thing for you to lose would be:", prompt: "Choose the one that feels most true.", options: [
+        { letter: "A", text: "A sense of effectiveness.", score: "Performance" },
+        { letter: "B", text: "A sense of being valued.", score: "Prestige" },
+        { letter: "C", text: "A sense of security.", score: "Prosperity" }
+      ]},
+      { id: 19, section: "Pressure Response", scenario: "A conversation in a meeting becomes tense. Someone pushes back on your idea, and the room feels uncomfortable.", prompt: "What would you most naturally do?", options: [
+        { letter: "A", text: "Become more direct and try to take control of the conversation.", score: "Push" },
+        { letter: "B", text: "Work harder to explain, fix, or prove the idea is still good.", score: "Prove" },
+        { letter: "C", text: "Try to smooth things over and keep everyone okay.", score: "Please" },
+        { letter: "D", text: "Pull back, get quiet, or process it later on your own.", score: "PullAway" }
+      ]},
+      { id: 20, section: "Pressure Response", scenario: "Someone gives you feedback that feels critical.", prompt: "What is your first instinct?", options: [
+        { letter: "A", text: "Push back or defend your position.", score: "Push" },
+        { letter: "B", text: "Work harder to show you can improve.", score: "Prove" },
+        { letter: "C", text: "Try to make sure they are not upset with you.", score: "Please" },
+        { letter: "D", text: "Withdraw and think about it privately.", score: "PullAway" }
+      ]},
+      { id: 21, section: "Pressure Response", scenario: "A deadline is coming, and things are not where they need to be.", prompt: "What are you most likely to do?", options: [
+        { letter: "A", text: "Take charge and tell people what needs to happen.", score: "Push" },
+        { letter: "B", text: "Carry more of the work yourself.", score: "Prove" },
+        { letter: "C", text: "Check in with people to keep everyone calm and cooperative.", score: "Please" },
+        { letter: "D", text: "Feel overwhelmed and delay engaging until you have more space.", score: "PullAway" }
+      ]},
+      { id: 22, section: "Pressure Response", scenario: "You can tell someone is frustrated or disappointed with you.", prompt: "What do you most naturally do?", options: [
+        { letter: "A", text: "Address it directly and try to settle it quickly.", score: "Push" },
+        { letter: "B", text: "Try to make up for it through effort or follow-through.", score: "Prove" },
+        { letter: "C", text: "Apologize, explain, or try to restore their approval.", score: "Please" },
+        { letter: "D", text: "Avoid the person or wait for things to cool down.", score: "PullAway" }
+      ]},
+      { id: 23, section: "Pressure Response", scenario: "Something you were counting on does not work out.", prompt: "What do you usually do first?", options: [
+        { letter: "A", text: "Start making decisions quickly to regain control.", score: "Push" },
+        { letter: "B", text: "Work harder to create a new solution.", score: "Prove" },
+        { letter: "C", text: "Try to keep people from getting upset.", score: "Please" },
+        { letter: "D", text: "Step back because it feels like too much.", score: "PullAway" }
+      ]},
+      { id: 24, section: "Pressure Response", scenario: "Someone misunderstands what you meant.", prompt: "What is your most natural response?", options: [
+        { letter: "A", text: "Correct them firmly.", score: "Push" },
+        { letter: "B", text: "Explain more so they can see you were right or responsible.", score: "Prove" },
+        { letter: "C", text: "Reassure them and try to keep the relationship okay.", score: "Please" },
+        { letter: "D", text: "Stop trying to explain and retreat inwardly.", score: "PullAway" }
+      ]},
+      { id: 25, section: "Pressure Response", scenario: "Several people are asking for things at the same time.", prompt: "What do you tend to do?", options: [
+        { letter: "A", text: "Set a firm direction and push through.", score: "Push" },
+        { letter: "B", text: "Try to handle as much as possible yourself.", score: "Prove" },
+        { letter: "C", text: "Say yes or adapt so people are not disappointed.", score: "Please" },
+        { letter: "D", text: "Shut down or avoid responding for a while.", score: "PullAway" }
+      ]},
+      { id: 26, section: "Pressure Response", scenario: "Someone questions your leadership, judgment, or role.", prompt: "What is your first instinct?", options: [
+        { letter: "A", text: "Assert yourself more clearly.", score: "Push" },
+        { letter: "B", text: "Prove your credibility through work or results.", score: "Prove" },
+        { letter: "C", text: "Try to win them back or reduce tension.", score: "Please" },
+        { letter: "D", text: "Disengage or avoid the confrontation.", score: "PullAway" }
+      ]},
+      { id: 27, section: "Pressure Response", scenario: "You can feel that a hard conversation is coming.", prompt: "What do you most naturally do?", options: [
+        { letter: "A", text: "Move toward it directly.", score: "Push" },
+        { letter: "B", text: "Prepare your points and try to make sure you are ready.", score: "Prove" },
+        { letter: "C", text: "Think about how to keep the other person from getting upset.", score: "Please" },
+        { letter: "D", text: "Put it off as long as possible.", score: "PullAway" }
+      ]},
+      { id: 28, section: "Pressure Response", scenario: "A situation is unclear, and no one knows what will happen next.", prompt: "What do you tend to do?", options: [
+        { letter: "A", text: "Try to force clarity or make a decision.", score: "Push" },
+        { letter: "B", text: "Work harder to prepare for every possibility.", score: "Prove" },
+        { letter: "C", text: "Keep checking on people and managing emotions.", score: "Please" },
+        { letter: "D", text: "Pull back until things feel clearer.", score: "PullAway" }
+      ]},
+      { id: 29, section: "Pressure Response", scenario: "A mistake happens, and others know about it.", prompt: "What do you usually do?", options: [
+        { letter: "A", text: "Defend, correct, or take control of the situation.", score: "Push" },
+        { letter: "B", text: "Try to fix it quickly and prove it will not happen again.", score: "Prove" },
+        { letter: "C", text: "Worry about who is upset and try to repair their perception.", score: "Please" },
+        { letter: "D", text: "Feel embarrassed and want to disappear.", score: "PullAway" }
+      ]},
+      { id: 30, section: "Pressure Response", scenario: "You need something done, but another person is moving slower than you would like.", prompt: "What are you most likely to do?", options: [
+        { letter: "A", text: "Push them to move faster.", score: "Push" },
+        { letter: "B", text: "Do it yourself or take more responsibility.", score: "Prove" },
+        { letter: "C", text: "Encourage them while trying not to create tension.", score: "Please" },
+        { letter: "D", text: "Avoid dealing with it until it becomes necessary.", score: "PullAway" }
+      ]},
+      { id: 31, section: "Pressure Response", scenario: "You sense distance or tension in an important relationship.", prompt: "What do you tend to do?", options: [
+        { letter: "A", text: "Bring it up directly.", score: "Push" },
+        { letter: "B", text: "Try to improve things by doing more or being more useful.", score: "Prove" },
+        { letter: "C", text: "Adjust yourself to keep the relationship okay.", score: "Please" },
+        { letter: "D", text: "Pull back and wait to see what happens.", score: "PullAway" }
+      ]},
+      { id: 32, section: "Pressure Response", scenario: "You are carrying a lot internally.", prompt: "What is your most common response?", options: [
+        { letter: "A", text: "Become more intense or irritable.", score: "Push" },
+        { letter: "B", text: "Stay busy and keep producing.", score: "Prove" },
+        { letter: "C", text: "Focus on others so you do not have to feel it directly.", score: "Please" },
+        { letter: "D", text: "Numb out, disconnect, or retreat.", score: "PullAway" }
+      ]},
+      { id: 33, section: "Pressure Response", scenario: "Someone asks you for honest feedback, and you know the truth may be hard to hear.", prompt: "What do you usually do?", options: [
+        { letter: "A", text: "Say it directly, even if it is uncomfortable.", score: "Push" },
+        { letter: "B", text: "Frame it around what needs to improve or be fixed.", score: "Prove" },
+        { letter: "C", text: "Soften it so much that the truth may be unclear.", score: "Please" },
+        { letter: "D", text: "Avoid saying much unless absolutely necessary.", score: "PullAway" }
+      ]},
+      { id: 34, section: "Pressure Response", scenario: "People are watching how you respond in a stressful moment.", prompt: "What do you tend to do?", options: [
+        { letter: "A", text: "Take command and project strength.", score: "Push" },
+        { letter: "B", text: "Work harder to show competence.", score: "Prove" },
+        { letter: "C", text: "Manage how others are feeling about the situation.", score: "Please" },
+        { letter: "D", text: "Become quiet, guarded, or internally distant.", score: "PullAway" }
+      ]},
+      { id: 35, section: "Pressure Response", scenario: "Someone fails to meet your expectations.", prompt: "What do you usually do first?", options: [
+        { letter: "A", text: "Confront or correct them.", score: "Push" },
+        { letter: "B", text: "Pick up the slack yourself.", score: "Prove" },
+        { letter: "C", text: "Try to keep things pleasant while feeling frustrated inside.", score: "Please" },
+        { letter: "D", text: "Withdraw or lower your expectations without saying much.", score: "PullAway" }
+      ]},
+      { id: 36, section: "Pressure Response", scenario: "You are entering a situation where you do not feel ready.", prompt: "What is your most natural response?", options: [
+        { letter: "A", text: "Act confident and take control anyway.", score: "Push" },
+        { letter: "B", text: "Prepare intensely and try to compensate.", score: "Prove" },
+        { letter: "C", text: "Look for reassurance or approval from others.", score: "Please" },
+        { letter: "D", text: "Avoid the situation or hope it goes away.", score: "PullAway" }
+      ]},
+      { id: 37, section: "Pressure Response", scenario: "You sense that people may not be listening to you or following your lead.", prompt: "What do you tend to do?", options: [
+        { letter: "A", text: "Become stronger, clearer, or more forceful.", score: "Push" },
+        { letter: "B", text: "Work harder to earn back credibility.", score: "Prove" },
+        { letter: "C", text: "Try to reconnect relationally and regain trust.", score: "Please" },
+        { letter: "D", text: "Pull back and become less engaged.", score: "PullAway" }
+      ]},
+      { id: 38, section: "Pressure Tie-Breaker", scenario: "Under pressure, my most automatic response is to:", prompt: "Choose the one that feels most true.", options: [
+        { letter: "A", text: "Take control.", score: "Push" },
+        { letter: "B", text: "Work harder.", score: "Prove" },
+        { letter: "C", text: "Keep people okay with me.", score: "Please" },
+        { letter: "D", text: "Pull back.", score: "PullAway" }
+      ]},
+      { id: 39, section: "Peace Capacity", scenario: "When I realize I reacted poorly, I usually:", prompt: "Choose the option that feels most true.", options: [
+        { letter: "A", text: "Justify why I reacted that way.", score: "PeaceCapacity", points: 1 },
+        { letter: "B", text: "Feel bad but avoid bringing it back up.", score: "PeaceCapacity", points: 2 },
+        { letter: "C", text: "Eventually acknowledge my part.", score: "PeaceCapacity", points: 3 },
+        { letter: "D", text: "Return quickly and try to repair.", score: "PeaceCapacity", points: 4 }
+      ]},
+      { id: 40, section: "Peace Capacity", scenario: "When conflict gets tense, I usually:", prompt: "Choose the option that feels most true.", options: [
+        { letter: "A", text: "React before I realize what is happening.", score: "PeaceCapacity", points: 1 },
+        { letter: "B", text: "Notice later that I was not at my best.", score: "PeaceCapacity", points: 2 },
+        { letter: "C", text: "Sometimes pause before responding.", score: "PeaceCapacity", points: 3 },
+        { letter: "D", text: "Can often stay grounded and listen.", score: "PeaceCapacity", points: 4 }
+      ]},
+      { id: 41, section: "Peace Capacity", scenario: "When someone gives me difficult feedback, I usually:", prompt: "Choose the option that feels most true.", options: [
+        { letter: "A", text: "Defend myself quickly.", score: "PeaceCapacity", points: 1 },
+        { letter: "B", text: "Listen, but feel guarded inside.", score: "PeaceCapacity", points: 2 },
+        { letter: "C", text: "Try to understand what may be true.", score: "PeaceCapacity", points: 3 },
+        { letter: "D", text: "Stay open and ask clarifying questions.", score: "PeaceCapacity", points: 4 }
+      ]},
+      { id: 42, section: "Peace Capacity", scenario: "When I need something from someone, I usually:", prompt: "Choose the option that feels most true.", options: [
+        { letter: "A", text: "Expect them to figure it out or get frustrated when they do not.", score: "PeaceCapacity", points: 1 },
+        { letter: "B", text: "Avoid saying it clearly.", score: "PeaceCapacity", points: 2 },
+        { letter: "C", text: "Try to name it, even if it feels awkward.", score: "PeaceCapacity", points: 3 },
+        { letter: "D", text: "Communicate it honestly and respectfully.", score: "PeaceCapacity", points: 4 }
+      ]},
+      { id: 43, section: "Peace Capacity", scenario: "When someone says I hurt or affected them, I usually:", prompt: "Choose the option that feels most true.", options: [
+        { letter: "A", text: "Focus on why I did not mean it that way.", score: "PeaceCapacity", points: 1 },
+        { letter: "B", text: "Feel bad but struggle to respond clearly.", score: "PeaceCapacity", points: 2 },
+        { letter: "C", text: "Try to own my part.", score: "PeaceCapacity", points: 3 },
+        { letter: "D", text: "Listen, apologize, and ask what repair would look like.", score: "PeaceCapacity", points: 4 }
+      ]},
+      { id: 44, section: "Peace Capacity", scenario: "When life slows down, I usually:", prompt: "Choose the option that feels most true.", options: [
+        { letter: "A", text: "Feel uncomfortable and look for something to do.", score: "PeaceCapacity", points: 1 },
+        { letter: "B", text: "Try to rest but feel guilty or unsettled.", score: "PeaceCapacity", points: 2 },
+        { letter: "C", text: "Can sometimes receive the slower pace.", score: "PeaceCapacity", points: 3 },
+        { letter: "D", text: "Regularly practice rest and presence.", score: "PeaceCapacity", points: 4 }
+      ]},
+      { id: 45, section: "Peace Capacity", scenario: "When I am under pressure, I usually:", prompt: "Choose the option that feels most true.", options: [
+        { letter: "A", text: "Do not notice my stress until it spills out.", score: "PeaceCapacity", points: 1 },
+        { letter: "B", text: "Notice it but still react from it.", score: "PeaceCapacity", points: 2 },
+        { letter: "C", text: "Can sometimes pause and choose a better response.", score: "PeaceCapacity", points: 3 },
+        { letter: "D", text: "Often remain grounded enough to respond with peace.", score: "PeaceCapacity", points: 4 }
+      ]},
+      { id: 46, section: "Peace Capacity", scenario: "When peace breaks down in a relationship, I usually:", prompt: "Choose the option that feels most true.", options: [
+        { letter: "A", text: "Wait for the other person to make the first move.", score: "PeaceCapacity", points: 1 },
+        { letter: "B", text: "Avoid it unless it becomes unavoidable.", score: "PeaceCapacity", points: 2 },
+        { letter: "C", text: "Try to return to the conversation when I am ready.", score: "PeaceCapacity", points: 3 },
+        { letter: "D", text: "Move toward repair with honesty and humility.", score: "PeaceCapacity", points: 4 }
+      ]}
+    ];
+
+    const resultProfiles = {
+      "Performance|Push": {
+        name: "The Controlling Achiever", combo: "Performance + Push",
+        description: "You tend to lose peace when things feel ineffective, disorganized, poorly executed, or out of control. Under pressure, you may become more direct, corrective, intense, or controlling because you want things to work and work well.",
+        strength: "You may make peace well by bringing clarity, action, responsibility, and direction.",
+        growth: "Peace may be harder when you take over too quickly, correct before listening, or make others feel pressured.",
+        internal: "Pause and ask, “What am I trying to control right now?”",
+        relational: "Ask one person, “Where do you experience my pressure as control?”"
+      },
+      "Performance|Prove": {
+        name: "The Driven Overfunctioner", combo: "Performance + Prove",
+        description: "You tend to lose peace when you feel behind, ineffective, responsible, or unable to keep things moving. Under pressure, you may work harder, carry more, fix quickly, and try to prove you can handle it.",
+        strength: "You may make peace well by being dependable, committed, responsible, and willing to help.",
+        growth: "Peace may be harder when you overcarry, struggle to rest, or measure your value by productivity.",
+        internal: "Name what is yours to carry and what is not yours to carry.",
+        relational: "Ask one person, “Where do I take too much responsibility instead of sharing it?”"
+      },
+      "Performance|Please": {
+        name: "The Capable Accommodator", combo: "Performance + Please",
+        description: "You tend to lose peace when you feel responsible to perform well and keep others satisfied. Under pressure, you may overdeliver, say yes too often, hide frustration, or try to be both effective and liked.",
+        strength: "You may make peace well by being helpful, capable, responsive, and relationally aware.",
+        growth: "Peace may be harder when you ignore limits, avoid honesty, or become quietly resentful.",
+        internal: "Before saying yes, ask, “Do I have the capacity to do this with peace?”",
+        relational: "Practice one honest no or one honest limit this week."
+      },
+      "Performance|PullAway": {
+        name: "The Burdened Withdrawer", combo: "Performance + Pull Away",
+        description: "You tend to lose peace when expectations feel too high or failure feels likely. Under pressure, you may shut down, delay, procrastinate, or pull back because the burden feels too heavy.",
+        strength: "You may make peace well by thinking carefully, avoiding impulsive reactions, and noticing when things need space.",
+        growth: "Peace may be harder when you avoid responsibility, delay hard conversations, or disappear when your presence is needed.",
+        internal: "Ask, “What is one small step I can take instead of avoiding the whole thing?”",
+        relational: "Tell one person, “I have been overwhelmed, but I want to re-engage.”"
+      },
+      "Prestige|Push": {
+        name: "The Defensive Influencer", combo: "Prestige + Push",
+        description: "You tend to lose peace when your reputation, respect, or influence feels threatened. Under pressure, you may become persuasive, defensive, forceful, or quick to protect how others see you.",
+        strength: "You may make peace well by bringing confidence, relational energy, communication, and influence.",
+        growth: "Peace may be harder when you defend your image before listening to impact.",
+        internal: "Ask, “Am I protecting truth or protecting my image?”",
+        relational: "Ask one person, “What did you experience from me before I explained myself?”"
+      },
+      "Prestige|Prove": {
+        name: "The Recognition Striver", combo: "Prestige + Prove",
+        description: "You tend to lose peace when you feel unseen, unappreciated, or not valued. Under pressure, you may work harder to be noticed, affirmed, respected, or recognized.",
+        strength: "You may make peace well by encouraging excellence, inspiring others, and bringing energy to relationships.",
+        growth: "Peace may be harder when you depend on recognition to feel settled.",
+        internal: "Name one good thing you did today that no one else noticed.",
+        relational: "Ask, “Where am I working for approval instead of working from peace?”"
+      },
+      "Prestige|Please": {
+        name: "The Approval Keeper", combo: "Prestige + Please",
+        description: "You tend to lose peace when others are disappointed, distant, upset, or unhappy with you. Under pressure, you may adapt, appease, smooth things over, or manage relationships to keep approval.",
+        strength: "You may make peace well by being relationally sensitive, thoughtful, warm, and aware of others.",
+        growth: "Peace may be harder when you lose your own voice to keep others okay.",
+        internal: "Ask, “What do I actually think or need here?”",
+        relational: "Share one honest thought you would normally soften or hide."
+      },
+      "Prestige|PullAway": {
+        name: "The Hidden Image Protector", combo: "Prestige + Pull Away",
+        description: "You tend to lose peace when you feel exposed, rejected, embarrassed, or misunderstood. Under pressure, you may withdraw, hide, replay conversations, or privately protect yourself from further shame.",
+        strength: "You may make peace well by being thoughtful, self-aware, and careful with how you affect others.",
+        growth: "Peace may be harder when you disappear instead of letting yourself be known.",
+        internal: "Ask, “What am I afraid people will see?”",
+        relational: "Tell one trusted person what felt hard instead of hiding it."
+      },
+      "Prosperity|Push": {
+        name: "The Protective Controller", combo: "Prosperity + Push",
+        description: "You tend to lose peace when safety, stability, resources, or control feel threatened. Under pressure, you may tighten control, resist risk, become forceful, or push to protect what matters.",
+        strength: "You may make peace well by creating stability, protecting people, preparing wisely, and noticing risks.",
+        growth: "Peace may be harder when protection becomes control.",
+        internal: "Ask, “What am I protecting, and is control the only way?”",
+        relational: "Ask one person, “Where do you need me to trust rather than control?”"
+      },
+      "Prosperity|Prove": {
+        name: "The Prepared Stabilizer", combo: "Prosperity + Prove",
+        description: "You tend to lose peace when the future feels uncertain or unstable. Under pressure, you may overprepare, overplan, overwork, and try to create security through responsibility.",
+        strength: "You may make peace well by bringing steadiness, planning, wisdom, and follow-through.",
+        growth: "Peace may be harder when preparation becomes anxiety in disguise.",
+        internal: "Name what is actually needed today, not everything that could go wrong tomorrow.",
+        relational: "Ask one person, “Where does my preparation help, and where does it create pressure?”"
+      },
+      "Prosperity|Please": {
+        name: "The Security Negotiator", combo: "Prosperity + Please",
+        description: "You tend to lose peace when belonging, comfort, or stability feels fragile. Under pressure, you may keep people calm, avoid disruption, maintain comfort, or negotiate peace by keeping everyone okay.",
+        strength: "You may make peace well by creating comfort, hospitality, steadiness, and relational calm.",
+        growth: "Peace may be harder when you avoid truth in order to preserve comfort.",
+        internal: "Ask, “Am I keeping peace or making peace?”",
+        relational: "Name one truth gently instead of smoothing it over."
+      },
+      "Prosperity|PullAway": {
+        name: "The Guarded Retreater", combo: "Prosperity + Pull Away",
+        description: "You tend to lose peace when life feels unstable, demanding, uncertain, or unsafe. Under pressure, your instinct may be to pull back, protect your energy, avoid risk, or create distance until you feel more secure.",
+        strength: "You may make peace well by staying calm, avoiding unnecessary drama, thinking carefully, and creating stability.",
+        growth: "Peace may be harder when you withdraw instead of engaging, avoid conversations that need to happen, or mistake comfort for peace.",
+        internal: "Pause and ask, “What feels unsafe right now?”",
+        relational: "Choose one trusted person and say, “When I feel overwhelmed, I tend to pull back. I am trying to learn how to stay more present.”"
+      }
+    };
+
+    let currentIndex = 0;
+    const answers = {};
+    let lastResult = null;
+
+    const intro = document.getElementById("intro");
+    const marquee = document.getElementById("marquee");
+    const assessment = document.getElementById("assessment");
+    const questionCard = document.getElementById("questionCard");
+    const questionCount = document.getElementById("questionCount");
+    const sectionLabel = document.getElementById("sectionLabel");
+    const progressBar = document.getElementById("progressBar");
+    const backBtn = document.getElementById("backBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const toast = document.getElementById("toast");
+
+    document.getElementById("startAssessment").addEventListener("click", () => {
+      intro.style.display = "none";
+      marquee.style.display = "none";
+      assessment.classList.add("active");
+      renderQuestion();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    document.getElementById("restartBtn").addEventListener("click", () => {
+      if (!confirm("Restart the assessment? Your current responses will be cleared.")) return;
+      currentIndex = 0;
+      Object.keys(answers).forEach(key => delete answers[key]);
+      renderQuestion();
+    });
+
+    backBtn.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      const currentQuestion = questions[currentIndex];
+      if (!answers[currentQuestion.id]) {
+        toast.classList.add("show");
+        return;
+      }
+      toast.classList.remove("show");
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        submitAssessment();
+      }
+    });
+
+    function renderQuestion() {
+      const q = questions[currentIndex];
+      sectionLabel.textContent = q.section;
+      questionCount.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
+      progressBar.style.width = `${((currentIndex + 1) / questions.length) * 100}%`;
+      backBtn.disabled = currentIndex === 0;
+      nextBtn.textContent = currentIndex === questions.length - 1 ? "See My Result" : "Next";
+      toast.classList.remove("show");
+
+      questionCard.innerHTML = `
+        <p class="scenario">${q.scenario}</p>
+        <h2 class="question-title">${q.prompt}</h2>
+        <div class="answers-grid">
+          ${q.options.map(option => `
+            <button class="answer-card ${answers[q.id]?.letter === option.letter ? "selected" : ""}" type="button" data-letter="${option.letter}">
+              <span class="answer-letter">${option.letter}</span>
+              <span class="answer-text">${option.text}</span>
+            </button>
+          `).join("")}
+        </div>
+      `;
+
+      document.querySelectorAll(".answer-card").forEach(card => {
+        card.addEventListener("click", () => {
+          const selected = q.options.find(option => option.letter === card.dataset.letter);
+          answers[q.id] = selected;
+          document.querySelectorAll(".answer-card").forEach(c => c.classList.remove("selected"));
+          card.classList.add("selected");
+          toast.classList.remove("show");
+        });
+      });
+    }
+
+    function calculateScores() {
+      const scores = {
+        Performance: 0,
+        Prestige: 0,
+        Prosperity: 0,
+        Push: 0,
+        Prove: 0,
+        Please: 0,
+        PullAway: 0,
+        PeaceCapacity: 0
+      };
+
+      Object.entries(answers).forEach(([questionId, answer]) => {
+        if (answer.score === "PeaceCapacity") {
+          scores.PeaceCapacity += answer.points || 0;
+        } else if (scores.hasOwnProperty(answer.score)) {
+          scores[answer.score] += 1;
+        }
+      });
+
+      return scores;
+    }
+
+    function pickTop(scores, keys, tieBreakerQuestionId) {
+      const values = keys.map(key => ({ key, value: scores[key] }));
+      const max = Math.max(...values.map(item => item.value));
+      const tied = values.filter(item => item.value === max).map(item => item.key);
+      if (tied.length === 1) return tied[0];
+      const tieBreaker = answers[tieBreakerQuestionId]?.score;
+      if (tied.includes(tieBreaker)) return tieBreaker;
+      return tied[0];
+    }
+
+    function submitAssessment() {
+      const scores = calculateScores();
+      const primaryIdentity = pickTop(scores, ["Performance", "Prestige", "Prosperity"], 18);
+      const primaryResponse = pickTop(scores, ["Push", "Prove", "Please", "PullAway"], 38);
+      const resultKey = `${primaryIdentity}|${primaryResponse}`;
+      const profile = resultProfiles[resultKey];
+
+      lastResult = { scores, primaryIdentity, primaryResponse, resultKey, profile, answers };
+      showResult(profile, primaryIdentity, primaryResponse, scores);
+      sendToGoogleSheet(lastResult);
+    }
+
+    function showResult(profile, primaryIdentity, primaryResponse, scores) {
+      const overlay = document.getElementById("resultOverlay");
+      const content = document.getElementById("resultContent");
+      content.innerHTML = resultHTML(profile);
+      overlay.classList.add("active");
+      document.getElementById("downloadPdfBtn").addEventListener("click", downloadPdf);
+      document.getElementById("closeResultBtn").addEventListener("click", () => overlay.classList.remove("active"));
+    }
+
+    function resultHTML(profile) {
+      return `
+        <div class="result-header">
+          <div>
+            <div class="result-pattern-label">Your Peace Pattern</div>
+            <h2 class="result-title" id="resultTitle">${profile.name}</h2>
+            <span class="result-combo">${profile.combo}</span>
+          </div>
+          <img class="result-logo" src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
+        </div>
+        <p class="result-desc">${profile.description}</p>
+        <div class="result-grid">
+          <div class="result-box"><strong>Where you may make peace well</strong><p>${profile.strength}</p></div>
+          <div class="result-box"><strong>Where peace may be harder</strong><p>${profile.growth}</p></div>
+          <div class="result-box"><strong>Internal practice</strong><p>${profile.internal}</p></div>
+          <div class="result-box"><strong>Relational practice</strong><p>${profile.relational}</p></div>
+        </div>
+        <div class="result-footer">
+          <p style="font-size:1.08rem; line-height:1.35; max-width:540px;">Your Peace Pattern is not a label. It is a starting point for noticing what happens when peace breaks down and practicing one small way of making peace.</p>
+          <div class="btn-row">
+            <button class="btn btn-secondary" id="closeResultBtn" type="button">Close</button>
+            <button class="btn btn-primary" id="downloadPdfBtn" type="button">Download Results</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function buildPdfHTML(profile) {
+      return `
+        <img class="pdf-logo" src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
+        <div class="pdf-label">Your Peace Pattern</div>
+        <h1>${profile.name}</h1>
+        <div class="pdf-combo">${profile.combo}</div>
+        <p>${profile.description}</p>
+        <div class="pdf-grid">
+          <div class="pdf-box"><strong>Where you may make peace well</strong><p>${profile.strength}</p></div>
+          <div class="pdf-box"><strong>Where peace may be harder</strong><p>${profile.growth}</p></div>
+          <div class="pdf-box"><strong>Internal practice</strong><p>${profile.internal}</p></div>
+          <div class="pdf-box"><strong>Relational practice</strong><p>${profile.relational}</p></div>
+        </div>
+        <div class="pdf-bottom">Your Peace Pattern is not a label. It is a starting point for noticing what happens when peace breaks down and practicing one small way of making peace.</div>
+      `;
+    }
+
+    async function downloadPdf() {
+      if (!lastResult) return;
+      const btn = document.getElementById("downloadPdfBtn");
+      const oldText = btn.textContent;
+      btn.textContent = "Preparing PDF...";
+      btn.disabled = true;
+
+      try {
+        const pdfPage = document.getElementById("pdfPage");
+        pdfPage.innerHTML = buildPdfHTML(lastResult.profile);
+        await new Promise(resolve => setTimeout(resolve, 250));
+        const canvas = await html2canvas(pdfPage, { scale: 2, useCORS: true, backgroundColor: "#f8f5f0" });
+        const imgData = canvas.toDataURL("image/png");
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: "portrait", unit: "in", format: "letter" });
+        pdf.addImage(imgData, "PNG", 0, 0, 8.5, 11);
+        pdf.save(`PeaceWorks-${lastResult.profile.name.replace(/\s+/g, "-")}.pdf`);
+      } catch (error) {
+        alert("The PDF could not be created. Please try again.");
+        console.error(error);
+      } finally {
+        btn.textContent = oldText;
+        btn.disabled = false;
+      }
+    }
+
+    async function sendToGoogleSheet(result) {
+      if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")) return;
+
+      const payload = {
+        submittedAt: new Date().toISOString(),
+        peacePattern: result.profile.name,
+        identity: result.primaryIdentity,
+        response: result.primaryResponse,
+        scores: result.scores,
+        answers: Object.fromEntries(Object.entries(result.answers).map(([id, answer]) => [id, answer.letter]))
+      };
+
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      } catch (error) {
+        console.warn("Google Sheet submission failed.", error);
+      }
+    }
+
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.16 });
+    reveals.forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>
