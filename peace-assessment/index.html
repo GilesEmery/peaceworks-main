@@ -384,6 +384,88 @@
     .answer-text { display: block; color: var(--text); font-size: 1.22rem; line-height: 1.28; }
     .answer-card.selected .answer-text { color: #f8f5f0; }
 
+
+    .choose-note, .slider-note {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.36;
+      margin-top: -10px;
+      margin-bottom: 18px;
+    }
+
+    .slider-shell {
+      margin: 28px 0 30px;
+      padding: 26px;
+      border-radius: 28px;
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(20,20,20,.08);
+      box-shadow: 0 14px 32px rgba(17,17,17,.05);
+    }
+
+    .slider-labels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .slider-label {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(246,243,238,.76);
+      border: 1px solid rgba(20,20,20,.06);
+    }
+
+    .slider-label strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.18rem;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    .slider-label span {
+      display: block;
+      color: var(--muted);
+      font-size: 1.04rem;
+      line-height: 1.34;
+    }
+
+    .peace-slider {
+      width: 100%;
+      accent-color: #111;
+    }
+
+    .slider-value {
+      margin-top: 14px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .completion-card {
+      margin: 28px 0 26px;
+      padding: 26px;
+      border-radius: 28px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(20,20,20,.08);
+      box-shadow: 0 14px 32px rgba(17,17,17,.05);
+    }
+
+    .completion-card strong {
+      display: block;
+      color: var(--text);
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      line-height: 1;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .completion-card p {
+      font-size: 1.18rem;
+      line-height: 1.45;
+    }
+
     .assessment-actions { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid var(--line); padding-top: 22px; }
     .mini-note { color: var(--muted); font-size: 1.04rem; }
 
@@ -451,6 +533,11 @@
     .result-callout { margin-top: 18px; padding: 18px 20px; border-radius: 22px; background: rgba(231,239,229,.68); border: 1px solid rgba(90,122,92,.16); }
     .result-callout strong { display: block; color: var(--text); font-size: 1.24rem; line-height: 1.1; margin-bottom: 6px; }
     .result-callout p { font-size: 1.08rem; line-height: 1.42; }
+    .join-circle-box { margin-top: 18px; padding: 22px 24px; border-radius: 24px; background: linear-gradient(135deg, #101110 0%, #191d1a 100%); color: #fff; box-shadow: 0 20px 56px rgba(8,8,8,.18); border: 1px solid rgba(255,255,255,.10); }
+    .join-circle-box strong { display:block; font-size: 1.46rem; line-height: 1.05; margin-bottom: 8px; font-weight: 700; color:#fff; }
+    .join-circle-box p { color: rgba(255,255,255,.76); font-size: 1.1rem; line-height: 1.42; max-width: 780px; }
+    .join-circle-box .btn { margin-top: 16px; background: rgba(255,255,255,.92); color: #111; box-shadow: none; }
+    .join-circle-box .btn:hover { background: #fff; }
 
     .result-footer { display: flex; justify-content: space-between; align-items: center; gap: 14px; border-top: 1px solid var(--line); margin-top: 28px; padding-top: 22px; flex-wrap: wrap; background: rgba(255,255,255,.78); }
 
@@ -489,6 +576,10 @@
     .pdf-callout { margin-top: 16px; padding: 16px; border-radius: 16px; background: #e7efe5; border: 1px solid rgba(90,122,92,.18); }
     .pdf-callout strong { display: block; color: var(--text); font-size: 21px; margin-bottom: 6px; }
     .pdf-callout p { font-size: 17px; line-height: 1.28; }
+    .pdf-join-box { margin-top: 12px; padding: 14px 16px; border-radius: 16px; background: #111411; color: #fff; border: 1px solid rgba(20,20,20,.16); }
+    .pdf-join-box strong { display: block; font-size: 20px; line-height: 1.05; margin-bottom: 6px; color: #fff; }
+    .pdf-join-box p { font-size: 15.5px; line-height: 1.22; color: rgba(255,255,255,.76); }
+    .pdf-join-box .pdf-link { display: inline-block; margin-top: 8px; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: #fff; }
     .pdf-bottom { position: absolute; left: 48px; right: 48px; bottom: 34px; border-top: 1px solid rgba(20,20,20,.12); padding-top: 12px; font-size: 14px; color: var(--muted); }
     .pdf-page-number { position: absolute; right: 48px; bottom: 34px; font-size: 13px; color: var(--muted); }
 
@@ -506,6 +597,40 @@
     @keyframes spinReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
     @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
+
+
+    .choose-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .answer-card.choose-card {
+      min-height: 104px;
+      border-style: dashed;
+      background: rgba(255,255,255,.58);
+    }
+    .answer-card.choose-card .answer-letter {
+      background: rgba(20,20,20,.07);
+      color: var(--muted);
+    }
+    .answer-card.choose-card.selected {
+      border-style: solid;
+      background: linear-gradient(135deg, #111 0%, #1a1f1a 100%);
+    }
+    .tf-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 28px 0 26px;
+    }
+    .tf-card {
+      min-height: 132px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border-radius: 28px;
+      background: rgba(255,255,255,.70);
+    }
+    .tf-card .answer-text { font-size: 1.32rem; line-height: 1.22; }
+    .tf-card.selected { background: linear-gradient(135deg, #111 0%, #1a1f1a 100%); }
+    .tf-card.selected .answer-text { color: #f8f5f0; }
+
     @media (max-width: 1180px) {
       .hero-grid { grid-template-columns: 1fr; }
       .hero-visual { display: none; }
@@ -520,7 +645,7 @@
       .container { width: min(var(--max), calc(100% - 24px)); }
       .hero { min-height: auto; padding-top: 34px; }
       .hero-title { max-width: none; }
-      .answers-grid, .result-grid { grid-template-columns: 1fr; }
+      .answers-grid, .result-grid, .slider-labels { grid-template-columns: 1fr; }
       .assessment-top, .assessment-actions, .result-header { flex-direction: column; align-items: flex-start; }
       .result-logo { width: 150px; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -536,6 +661,12 @@
       .answer-card { min-height: auto; padding: 18px; }
       .answer-text { font-size: 1.12rem; }
       .modal-overlay { padding: 10px; }
+
+      .choose-grid, .tf-grid { grid-template-columns: 1fr; }
+      .assessment-actions { display: flex; }
+      #nextBtn { order: 1; }
+      #backBtn { order: 2; }
+      #restartBtn { order: 3; }
       .result-modal { max-height: calc(100dvh - 20px); border-radius: 22px; }
       .result-content { max-height: calc(100dvh - 20px); padding: 24px 18px; }
       .result-content { padding: 24px 18px; }
@@ -575,7 +706,7 @@
             </div>
             <div class="hero-note">
               <strong>No perfect answers. Just honest reflection.</strong>
-              <span>You’ll move through real-life scenarios and choose the answer that feels most true most often. Your result will appear instantly with an option to download your Peace Profile.</span>
+              <span>You’ll move through real-life scenarios, pick-two prompts, true/false choices, and simple sliders. At the end, click Get My Assessment to see and download your Peace Profile.</span>
             </div>
           </div>
 
@@ -608,7 +739,7 @@
             <div class="assessment-top">
               <div>
                 <div class="assessment-kicker" id="sectionLabel">Peace Assessment</div>
-                <div class="assessment-count" id="questionCount">Question 1 of 46</div>
+                <div class="assessment-count" id="questionCount">Question 1 of 40</div>
               </div>
             </div>
             <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
@@ -648,422 +779,290 @@
     const GOOGLE_SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
 
     const questions = [
-      { id: 1, section: "Identity Posture", scenario: "You are leading a project, and it is starting to fall behind. A few people have missed deadlines, the plan is unclear, and others are beginning to notice.", prompt: "What would most likely steal your peace?", options: [
-        { letter: "A", text: "Feeling like the work may not get done well.", score: "Performance" },
-        { letter: "B", text: "Wondering if people will think I failed or dropped the ball.", score: "Prestige" },
-        { letter: "C", text: "Feeling like things are becoming unstable, uncertain, or out of control.", score: "Prosperity" }
+      { id: 1, type: "single", section: "What Steals Your Peace?", scenario: "A project you care about is falling behind. Deadlines are slipping, the plan feels unclear, and people are starting to notice.", prompt: "What would most likely steal your peace?", options: [
+        { id: "q1a", text: "The work may not be done well.", scores: { Performance: 1 } },
+        { id: "q1b", text: "People may think I dropped the ball.", scores: { Prestige: 1 } },
+        { id: "q1c", text: "Things feel unstable or uncertain.", scores: { Prosperity: 1 } }
       ]},
-      { id: 2, section: "Identity Posture", scenario: "You made a decision you thought was best, but someone questions it in front of others.", prompt: "What would bother you most?", options: [
-        { letter: "A", text: "That my decision may have been wrong or ineffective.", score: "Performance" },
-        { letter: "B", text: "That others may now see me differently.", score: "Prestige" },
-        { letter: "C", text: "That the situation now feels less secure or predictable.", score: "Prosperity" }
+      { id: 2, type: "single", section: "What Steals Your Peace?", scenario: "You made a decision you thought was best, but someone questions it in front of others.", prompt: "What bothers you most?", options: [
+        { id: "q2a", text: "I may have made the wrong or ineffective decision.", scores: { Performance: 1 } },
+        { id: "q2b", text: "Others may now see me differently.", scores: { Prestige: 1 } },
+        { id: "q2c", text: "The situation now feels less secure or predictable.", scores: { Prosperity: 1 } }
       ]},
-      { id: 3, section: "Identity Posture", scenario: "Someone important to you seems disappointed in how you handled something.", prompt: "What would most likely get under your skin?", options: [
-        { letter: "A", text: "I did not handle it as well as I should have.", score: "Performance" },
-        { letter: "B", text: "They may think less of me now.", score: "Prestige" },
-        { letter: "C", text: "This could create tension, distance, or instability.", score: "Prosperity" }
+      { id: 3, type: "single", section: "What Steals Your Peace?", scenario: "Someone important to you seems disappointed in how you handled something.", prompt: "What gets under your skin first?", options: [
+        { id: "q3a", text: "I did not handle it as well as I should have.", scores: { Performance: 1 } },
+        { id: "q3b", text: "They may think less of me now.", scores: { Prestige: 1 } },
+        { id: "q3c", text: "This could create tension, distance, or instability.", scores: { Prosperity: 1 } }
       ]},
-      { id: 4, section: "Identity Posture", scenario: "You had a plan for the day, but something unexpected changes everything.", prompt: "What would most likely disrupt your peace?", options: [
-        { letter: "A", text: "Losing momentum and not getting things done.", score: "Performance" },
-        { letter: "B", text: "How others may react to the change.", score: "Prestige" },
-        { letter: "C", text: "Not knowing what will happen next.", score: "Prosperity" }
+      { id: 4, type: "single", section: "What Steals Your Peace?", scenario: "You had a clear plan for the day, but something unexpected changes everything.", prompt: "What most disrupts your peace?", options: [
+        { id: "q4a", text: "Losing momentum and not getting things done.", scores: { Performance: 1 } },
+        { id: "q4b", text: "How others may react to the change.", scores: { Prestige: 1 } },
+        { id: "q4c", text: "Not knowing what will happen next.", scores: { Prosperity: 1 } }
       ]},
-      { id: 5, section: "Identity Posture", scenario: "Several people need something from you at the same time, and you are already stretched thin.", prompt: "What feels hardest in that moment?", options: [
-        { letter: "A", text: "Not being able to keep up or do everything well.", score: "Performance" },
-        { letter: "B", text: "Possibly disappointing people who are counting on me.", score: "Prestige" },
-        { letter: "C", text: "Feeling like I do not have enough time, space, or capacity.", score: "Prosperity" }
+      { id: 5, type: "single", section: "What Steals Your Peace?", scenario: "Several people need something from you at the same time, and you are already stretched thin.", prompt: "What feels hardest in that moment?", options: [
+        { id: "q5a", text: "Not being able to keep up or do everything well.", scores: { Performance: 1 } },
+        { id: "q5b", text: "Possibly disappointing people who are counting on me.", scores: { Prestige: 1 } },
+        { id: "q5c", text: "Feeling like I do not have enough time, space, or capacity.", scores: { Prosperity: 1 } }
       ]},
-      { id: 6, section: "Identity Posture", scenario: "Someone says, “We need to talk about how things are going,” but they do not explain what they mean.", prompt: "What would most likely bother you?", options: [
-        { letter: "A", text: "Wondering what I did wrong or need to fix.", score: "Performance" },
-        { letter: "B", text: "Wondering if they are upset with me or think poorly of me.", score: "Prestige" },
-        { letter: "C", text: "Feeling uncertain because I do not know what is coming.", score: "Prosperity" }
+      { id: 6, type: "single", section: "What Steals Your Peace?", scenario: "Someone says, 'We need to talk about how things are going,' but they do not explain what they mean.", prompt: "What would most likely bother you?", options: [
+        { id: "q6a", text: "Wondering what I did wrong or need to fix.", scores: { Performance: 1 } },
+        { id: "q6b", text: "Wondering if they are upset with me or think poorly of me.", scores: { Prestige: 1 } },
+        { id: "q6c", text: "Feeling uncertain because I do not know what is coming.", scores: { Prosperity: 1 } }
       ]},
-      { id: 7, section: "Identity Posture", scenario: "Someone you were counting on does not follow through.", prompt: "What most affects your peace?", options: [
-        { letter: "A", text: "The work may suffer because it was not done well.", score: "Performance" },
-        { letter: "B", text: "I may look bad because I trusted them.", score: "Prestige" },
-        { letter: "C", text: "I now feel like I cannot rely on the situation or the person.", score: "Prosperity" }
+      { id: 7, type: "single", section: "What Steals Your Peace?", scenario: "Someone you were counting on does not follow through.", prompt: "What most affects your peace?", options: [
+        { id: "q7a", text: "The work may suffer because it was not done well.", scores: { Performance: 1 } },
+        { id: "q7b", text: "I may look bad because I trusted them.", scores: { Prestige: 1 } },
+        { id: "q7c", text: "I now feel like I cannot rely on the situation or the person.", scores: { Prosperity: 1 } }
       ]},
-      { id: 8, section: "Identity Posture", scenario: "You find out a conversation happened that affected you, but you were not included.", prompt: "What would bother you most?", options: [
-        { letter: "A", text: "I could not contribute or help shape the outcome.", score: "Performance" },
-        { letter: "B", text: "I wonder why I was not valued enough to be included.", score: "Prestige" },
-        { letter: "C", text: "I feel unsettled not knowing what was said or decided.", score: "Prosperity" }
+      { id: 8, type: "single", section: "What Steals Your Peace?", scenario: "An opportunity comes up, but it requires risk, uncertainty, and possible failure.", prompt: "What feels hardest?", options: [
+        { id: "q8a", text: "I may not be able to execute it well.", scores: { Performance: 1 } },
+        { id: "q8b", text: "People may see me fail.", scores: { Prestige: 1 } },
+        { id: "q8c", text: "I may lose stability, comfort, or security.", scores: { Prosperity: 1 } }
       ]},
-      { id: 9, section: "Identity Posture", scenario: "A situation requires you to rely on another person, and you cannot fully control the outcome.", prompt: "What feels most difficult?", options: [
-        { letter: "A", text: "I cannot make sure it is done the way it needs to be done.", score: "Performance" },
-        { letter: "B", text: "Their actions could affect how others see me.", score: "Prestige" },
-        { letter: "C", text: "I feel vulnerable because the outcome is uncertain.", score: "Prosperity" }
+      { id: 9, type: "choose2", max: 2, section: "What Steals Your Peace?", scenario: "Think about a recent moment when you felt unsettled.", prompt: "Choose two things that would most likely make peace harder for you.", options: [
+        { id: "q9a", text: "Feeling ineffective or behind.", scores: { Performance: 1 } },
+        { id: "q9b", text: "Feeling responsible for too much.", scores: { Performance: 1 } },
+        { id: "q9c", text: "Feeling unseen or unappreciated.", scores: { Prestige: 1 } },
+        { id: "q9d", text: "Feeling misunderstood or judged.", scores: { Prestige: 1 } },
+        { id: "q9e", text: "Feeling uncertain about what will happen.", scores: { Prosperity: 1 } },
+        { id: "q9f", text: "Feeling like your stability or capacity is threatened.", scores: { Prosperity: 1 } }
       ]},
-      { id: 10, section: "Identity Posture", scenario: "A mistake happens, and now other people know about it.", prompt: "What would feel hardest?", options: [
-        { letter: "A", text: "Knowing something was not done correctly.", score: "Performance" },
-        { letter: "B", text: "Knowing people may judge me for it.", score: "Prestige" },
-        { letter: "C", text: "Wondering what consequences may come from it.", score: "Prosperity" }
+      { id: 10, type: "truefalse", section: "What Steals Your Peace?", scenario: "Sometimes peace breaks down because something deeper feels at stake.", prompt: "I often feel most unsettled when I cannot tell whether I am doing enough, valued enough, or secure enough.", options: [
+        { id: "q10t", text: "True: that sounds like me.", scores: { Performance: .34, Prestige: .33, Prosperity: .33 } },
+        { id: "q10f", text: "False: that does not usually describe me.", scores: {} }
       ]},
-      { id: 11, section: "Identity Posture", scenario: "A meeting gets tense, and people start disagreeing.", prompt: "What most threatens your peace?", options: [
-        { letter: "A", text: "The group may not make progress or solve the issue well.", score: "Performance" },
-        { letter: "B", text: "People may be upset with me or see me differently.", score: "Prestige" },
-        { letter: "C", text: "The tension may create instability or damage trust.", score: "Prosperity" }
+      { id: 11, type: "single", section: "What Steals Your Peace?", scenario: "You are tired, but there are still things to do and people depending on you.", prompt: "What feels hardest?", options: [
+        { id: "q11a", text: "Not being able to keep producing at the level I expect.", scores: { Performance: 1 } },
+        { id: "q11b", text: "Letting people down.", scores: { Prestige: 1 } },
+        { id: "q11c", text: "Feeling like I do not have enough energy or margin.", scores: { Prosperity: 1 } }
       ]},
-      { id: 12, section: "Identity Posture", scenario: "You unexpectedly have a slower day with fewer tasks than normal.", prompt: "What feels most uncomfortable?", options: [
-        { letter: "A", text: "I feel like I should be accomplishing more.", score: "Performance" },
-        { letter: "B", text: "I wonder if others think I am not contributing enough.", score: "Prestige" },
-        { letter: "C", text: "I feel uneasy without structure or something secure to focus on.", score: "Prosperity" }
+      { id: 12, type: "single", tieBreaker: true, section: "Identity Tie-Breaker", scenario: "If you had to choose one, the hardest thing for you to lose would be:", prompt: "Choose the one that feels most true.", options: [
+        { id: "q12a", text: "A sense of effectiveness.", scores: { Performance: 2 } },
+        { id: "q12b", text: "A sense of being valued.", scores: { Prestige: 2 } },
+        { id: "q12c", text: "A sense of security.", scores: { Prosperity: 2 } }
       ]},
-      { id: 13, section: "Identity Posture", scenario: "Someone else is praised for work you contributed to or cared about.", prompt: "What would most likely bother you?", options: [
-        { letter: "A", text: "The actual work or effort may not be understood accurately.", score: "Performance" },
-        { letter: "B", text: "I feel unseen or unappreciated.", score: "Prestige" },
-        { letter: "C", text: "I wonder if my place or value is less secure than I thought.", score: "Prosperity" }
+
+      { id: 13, type: "single", section: "What Do You Do Under Pressure?", scenario: "A conversation in a meeting becomes tense. Someone pushes back on your idea, and the room feels uncomfortable.", prompt: "What would you most naturally do?", options: [
+        { id: "q13a", text: "Become more direct and try to take control of the conversation.", scores: { Push: 1 } },
+        { id: "q13b", text: "Work harder to explain, fix, or prove the idea is still good.", scores: { Prove: 1 } },
+        { id: "q13c", text: "Try to smooth things over and keep everyone okay.", scores: { Please: 1 } },
+        { id: "q13d", text: "Pull back, get quiet, or process it later on your own.", scores: { PullAway: 1 } }
       ]},
-      { id: 14, section: "Identity Posture", scenario: "An opportunity comes up, but it requires risk, uncertainty, and possible failure.", prompt: "What feels hardest?", options: [
-        { letter: "A", text: "I may not be able to execute it well.", score: "Performance" },
-        { letter: "B", text: "People may see me fail.", score: "Prestige" },
-        { letter: "C", text: "I may lose stability, comfort, or security.", score: "Prosperity" }
+      { id: 14, type: "single", section: "What Do You Do Under Pressure?", scenario: "Someone gives you feedback that feels critical.", prompt: "What is your first instinct?", options: [
+        { id: "q14a", text: "Push back or defend your position.", scores: { Push: 1 } },
+        { id: "q14b", text: "Work harder to show you can improve.", scores: { Prove: 1 } },
+        { id: "q14c", text: "Try to make sure they are not upset with me.", scores: { Please: 1 } },
+        { id: "q14d", text: "Withdraw and think about it privately.", scores: { PullAway: 1 } }
       ]},
-      { id: 15, section: "Identity Posture", scenario: "You meant well, but someone takes your words or actions the wrong way.", prompt: "What most disrupts your peace?", options: [
-        { letter: "A", text: "I want to correct it and make sure it is handled properly.", score: "Performance" },
-        { letter: "B", text: "I hate that they may now think poorly of me.", score: "Prestige" },
-        { letter: "C", text: "I feel unsettled because the relationship no longer feels stable.", score: "Prosperity" }
+      { id: 15, type: "single", section: "What Do You Do Under Pressure?", scenario: "A deadline is coming, and things are not where they need to be.", prompt: "What are you most likely to do?", options: [
+        { id: "q15a", text: "Take charge and tell people what needs to happen.", scores: { Push: 1 } },
+        { id: "q15b", text: "Carry more of the work myself.", scores: { Prove: 1 } },
+        { id: "q15c", text: "Check in with people to keep everyone calm and cooperative.", scores: { Please: 1 } },
+        { id: "q15d", text: "Delay engaging until I have more space or clarity.", scores: { PullAway: 1 } }
       ]},
-      { id: 16, section: "Identity Posture", scenario: "A decision that affects you is being made by someone else.", prompt: "What bothers you most?", options: [
-        { letter: "A", text: "They may not make the best or most effective decision.", score: "Performance" },
-        { letter: "B", text: "They may not consider how this affects me or my reputation.", score: "Prestige" },
-        { letter: "C", text: "I feel unsafe not knowing what will happen.", score: "Prosperity" }
+      { id: 16, type: "single", section: "What Do You Do Under Pressure?", scenario: "You can tell someone is frustrated or disappointed with you.", prompt: "What do you most naturally do?", options: [
+        { id: "q16a", text: "Address it directly and try to settle it quickly.", scores: { Push: 1 } },
+        { id: "q16b", text: "Try to make up for it through effort or follow-through.", scores: { Prove: 1 } },
+        { id: "q16c", text: "Apologize, explain, or try to restore their approval.", scores: { Please: 1 } },
+        { id: "q16d", text: "Avoid the person or wait for things to cool down.", scores: { PullAway: 1 } }
       ]},
-      { id: 17, section: "Identity Posture", scenario: "You are tired, but there are still things to do and people depending on you.", prompt: "What feels hardest?", options: [
-        { letter: "A", text: "Not being able to keep producing at the level I expect.", score: "Performance" },
-        { letter: "B", text: "Letting people down.", score: "Prestige" },
-        { letter: "C", text: "Feeling like I do not have enough energy or margin.", score: "Prosperity" }
+      { id: 17, type: "single", section: "What Do You Do Under Pressure?", scenario: "Something you were counting on does not work out.", prompt: "What do you usually do first?", options: [
+        { id: "q17a", text: "Start making decisions quickly to regain control.", scores: { Push: 1 } },
+        { id: "q17b", text: "Work harder to create a new solution.", scores: { Prove: 1 } },
+        { id: "q17c", text: "Try to keep people from getting upset.", scores: { Please: 1 } },
+        { id: "q17d", text: "Step back because it feels like too much.", scores: { PullAway: 1 } }
       ]},
-      { id: 18, section: "Identity Tie-Breaker", scenario: "If you had to choose one, the hardest thing for you to lose would be:", prompt: "Choose the one that feels most true.", options: [
-        { letter: "A", text: "A sense of effectiveness.", score: "Performance" },
-        { letter: "B", text: "A sense of being valued.", score: "Prestige" },
-        { letter: "C", text: "A sense of security.", score: "Prosperity" }
+      { id: 18, type: "choose2", max: 2, section: "What Do You Do Under Pressure?", scenario: "Pressure rises quickly and you do not have much time to think.", prompt: "Choose two responses that sound most like you.", options: [
+        { id: "q18a", text: "Take control of what is happening.", scores: { Push: 1 } },
+        { id: "q18b", text: "Become more direct or forceful.", scores: { Push: 1 } },
+        { id: "q18c", text: "Work harder or carry more.", scores: { Prove: 1 } },
+        { id: "q18d", text: "Try to fix or prove the solution.", scores: { Prove: 1 } },
+        { id: "q18e", text: "Smooth things over or keep people okay.", scores: { Please: 1 } },
+        { id: "q18f", text: "Pull back, delay, or retreat inwardly.", scores: { PullAway: 1 } }
       ]},
-      { id: 19, section: "Pressure Response", scenario: "A conversation in a meeting becomes tense. Someone pushes back on your idea, and the room feels uncomfortable.", prompt: "What would you most naturally do?", options: [
-        { letter: "A", text: "Become more direct and try to take control of the conversation.", score: "Push" },
-        { letter: "B", text: "Work harder to explain, fix, or prove the idea is still good.", score: "Prove" },
-        { letter: "C", text: "Try to smooth things over and keep everyone okay.", score: "Please" },
-        { letter: "D", text: "Pull back, get quiet, or process it later on your own.", score: "PullAway" }
+      { id: 19, type: "single", section: "What Do You Do Under Pressure?", scenario: "You sense distance or tension in an important relationship.", prompt: "What do you tend to do?", options: [
+        { id: "q19a", text: "Bring it up directly.", scores: { Push: 1 } },
+        { id: "q19b", text: "Try to improve things by doing more or being more useful.", scores: { Prove: 1 } },
+        { id: "q19c", text: "Adjust myself to keep the relationship okay.", scores: { Please: 1 } },
+        { id: "q19d", text: "Pull back and wait to see what happens.", scores: { PullAway: 1 } }
       ]},
-      { id: 20, section: "Pressure Response", scenario: "Someone gives you feedback that feels critical.", prompt: "What is your first instinct?", options: [
-        { letter: "A", text: "Push back or defend your position.", score: "Push" },
-        { letter: "B", text: "Work harder to show you can improve.", score: "Prove" },
-        { letter: "C", text: "Try to make sure they are not upset with you.", score: "Please" },
-        { letter: "D", text: "Withdraw and think about it privately.", score: "PullAway" }
+      { id: 20, type: "single", section: "What Do You Do Under Pressure?", scenario: "You are carrying a lot internally.", prompt: "What is your most common response?", options: [
+        { id: "q20a", text: "Become more intense or irritable.", scores: { Push: 1 } },
+        { id: "q20b", text: "Stay busy and keep producing.", scores: { Prove: 1 } },
+        { id: "q20c", text: "Focus on others so I do not have to feel it directly.", scores: { Please: 1 } },
+        { id: "q20d", text: "Numb out, disconnect, or retreat.", scores: { PullAway: 1 } }
       ]},
-      { id: 21, section: "Pressure Response", scenario: "A deadline is coming, and things are not where they need to be.", prompt: "What are you most likely to do?", options: [
-        { letter: "A", text: "Take charge and tell people what needs to happen.", score: "Push" },
-        { letter: "B", text: "Carry more of the work yourself.", score: "Prove" },
-        { letter: "C", text: "Check in with people to keep everyone calm and cooperative.", score: "Please" },
-        { letter: "D", text: "Feel overwhelmed and delay engaging until you have more space.", score: "PullAway" }
+      { id: 21, type: "truefalse", section: "What Do You Do Under Pressure?", scenario: "Think about your most automatic stress response.", prompt: "When I am unsettled, people around me can usually feel it.", options: [
+        { id: "q21t", text: "True: my pressure usually becomes visible.", scores: { Push: .5, Prove: .5, External: .5 } },
+        { id: "q21f", text: "False: I usually carry pressure privately.", scores: { PullAway: .5, Internal: .5 } }
       ]},
-      { id: 22, section: "Pressure Response", scenario: "You can tell someone is frustrated or disappointed with you.", prompt: "What do you most naturally do?", options: [
-        { letter: "A", text: "Address it directly and try to settle it quickly.", score: "Push" },
-        { letter: "B", text: "Try to make up for it through effort or follow-through.", score: "Prove" },
-        { letter: "C", text: "Apologize, explain, or try to restore their approval.", score: "Please" },
-        { letter: "D", text: "Avoid the person or wait for things to cool down.", score: "PullAway" }
+      { id: 22, type: "choose2", max: 2, section: "What Do You Do Under Pressure?", scenario: "When something feels off, different people try to restore peace in different ways.", prompt: "Choose two that sound most familiar.", options: [
+        { id: "q22a", text: "I correct or challenge what feels wrong.", scores: { Push: 1 } },
+        { id: "q22b", text: "I organize, solve, or produce my way through it.", scores: { Prove: 1 } },
+        { id: "q22c", text: "I check on people and manage the relational temperature.", scores: { Please: 1 } },
+        { id: "q22d", text: "I create space so I can think or recover.", scores: { PullAway: 1 } },
+        { id: "q22e", text: "I get louder or clearer than usual.", scores: { Push: 1 } },
+        { id: "q22f", text: "I quietly disappear into my own head.", scores: { PullAway: 1 } }
       ]},
-      { id: 23, section: "Pressure Response", scenario: "Something you were counting on does not work out.", prompt: "What do you usually do first?", options: [
-        { letter: "A", text: "Start making decisions quickly to regain control.", score: "Push" },
-        { letter: "B", text: "Work harder to create a new solution.", score: "Prove" },
-        { letter: "C", text: "Try to keep people from getting upset.", score: "Please" },
-        { letter: "D", text: "Step back because it feels like too much.", score: "PullAway" }
+      { id: 23, type: "single", section: "What Do You Do Under Pressure?", scenario: "Someone fails to meet your expectations.", prompt: "What do you usually do first?", options: [
+        { id: "q23a", text: "Confront or correct them.", scores: { Push: 1 } },
+        { id: "q23b", text: "Pick up the slack myself.", scores: { Prove: 1 } },
+        { id: "q23c", text: "Keep things pleasant while feeling frustrated inside.", scores: { Please: 1 } },
+        { id: "q23d", text: "Withdraw or lower my expectations without saying much.", scores: { PullAway: 1 } }
       ]},
-      { id: 24, section: "Pressure Response", scenario: "Someone misunderstands what you meant.", prompt: "What is your most natural response?", options: [
-        { letter: "A", text: "Correct them firmly.", score: "Push" },
-        { letter: "B", text: "Explain more so they can see you were right or responsible.", score: "Prove" },
-        { letter: "C", text: "Reassure them and try to keep the relationship okay.", score: "Please" },
-        { letter: "D", text: "Stop trying to explain and retreat inwardly.", score: "PullAway" }
+      { id: 24, type: "single", tieBreaker: true, section: "Pressure Response Tie-Breaker", scenario: "Under pressure, my most automatic response is to:", prompt: "Choose the one that feels most true.", options: [
+        { id: "q24a", text: "Take control.", scores: { Push: 2 } },
+        { id: "q24b", text: "Work harder.", scores: { Prove: 2 } },
+        { id: "q24c", text: "Keep people okay with me.", scores: { Please: 2 } },
+        { id: "q24d", text: "Pull back.", scores: { PullAway: 2 } }
       ]},
-      { id: 25, section: "Pressure Response", scenario: "Several people are asking for things at the same time.", prompt: "What do you tend to do?", options: [
-        { letter: "A", text: "Set a firm direction and push through.", score: "Push" },
-        { letter: "B", text: "Try to handle as much as possible yourself.", score: "Prove" },
-        { letter: "C", text: "Say yes or adapt so people are not disappointed.", score: "Please" },
-        { letter: "D", text: "Shut down or avoid responding for a while.", score: "PullAway" }
+
+      { id: 25, type: "slider", section: "Where Does Pressure Go?", scenario: "When pressure rises, people tend to process it in different directions.", prompt: "Where does your energy usually go first?", left: { title: "Inward", text: "I think, analyze, replay, or process privately." }, right: { title: "Outward", text: "I talk, act, organize, or move toward people." } },
+      { id: 26, type: "slider", section: "Where Does Pressure Go?", scenario: "Something uncertain is developing, and you do not yet know how it will turn out.", prompt: "What helps you feel more settled?", left: { title: "Space to understand", text: "I want quiet, information, and time to think." }, right: { title: "Movement toward clarity", text: "I want conversation, action, and visible next steps." } },
+      { id: 27, type: "slider", section: "Where Does Pressure Go?", scenario: "You leave a tense conversation and still feel unsettled.", prompt: "What are you more likely to do next?", left: { title: "Replay it privately", text: "I sort it out internally before I re-engage." }, right: { title: "Process it externally", text: "I talk it out, ask questions, or try to resolve it." } },
+      { id: 28, type: "slider", section: "Where Does Pressure Go?", scenario: "A problem has no obvious solution yet.", prompt: "Which direction feels more natural?", left: { title: "Withdraw to think", text: "I need to reduce input before acting." }, right: { title: "Move to create options", text: "I need to generate possibilities and momentum." } },
+      { id: 29, type: "slider", section: "Where Does Pressure Go?", scenario: "When stress rises, others may or may not notice it right away.", prompt: "How visible is your pressure?", left: { title: "Mostly hidden", text: "Others may not know how much I am carrying." }, right: { title: "Usually visible", text: "Others can often feel my energy, urgency, or concern." } },
+      { id: 30, type: "slider", section: "Where Does Pressure Go?", scenario: "You need to make sense of something difficult.", prompt: "What usually helps first?", left: { title: "Reflection", text: "I need solitude, notes, or quiet analysis." }, right: { title: "Interaction", text: "I need dialogue, movement, or collaborative problem-solving." } },
+      { id: 31, type: "truefalse", section: "Where Does Pressure Go?", scenario: "Some people carry pressure quietly while others move pressure into words or action.", prompt: "I often need to say something out loud or take action before I know what I really think.", options: [
+        { id: "q31t", text: "True: movement or conversation helps me discover clarity.", scores: { External: 1 } },
+        { id: "q31f", text: "False: I usually need to understand it internally first.", scores: { Internal: 1 } }
       ]},
-      { id: 26, section: "Pressure Response", scenario: "Someone questions your leadership, judgment, or role.", prompt: "What is your first instinct?", options: [
-        { letter: "A", text: "Assert yourself more clearly.", score: "Push" },
-        { letter: "B", text: "Prove your credibility through work or results.", score: "Prove" },
-        { letter: "C", text: "Try to win them back or reduce tension.", score: "Please" },
-        { letter: "D", text: "Disengage or avoid the confrontation.", score: "PullAway" }
+      { id: 32, type: "truefalse", section: "Where Does Pressure Go?", scenario: "Think about the first few minutes after you feel unsettled.", prompt: "My first move is usually to get quiet inside before I move outward.", options: [
+        { id: "q32t", text: "True: I usually turn inward first.", scores: { Internal: 1 } },
+        { id: "q32f", text: "False: I usually move outward first.", scores: { External: 1 } }
       ]},
-      { id: 27, section: "Pressure Response", scenario: "You can feel that a hard conversation is coming.", prompt: "What do you most naturally do?", options: [
-        { letter: "A", text: "Move toward it directly.", score: "Push" },
-        { letter: "B", text: "Prepare your points and try to make sure you are ready.", score: "Prove" },
-        { letter: "C", text: "Think about how to keep the other person from getting upset.", score: "Please" },
-        { letter: "D", text: "Put it off as long as possible.", score: "PullAway" }
+
+      { id: 33, type: "single", section: "Peace Capacity", scenario: "When I realize I reacted poorly, I usually:", prompt: "Choose the most honest answer.", options: [
+        { id: "q33a", text: "Justify why I reacted that way.", scores: { PeaceCapacity: 1 } },
+        { id: "q33b", text: "Feel bad but avoid bringing it back up.", scores: { PeaceCapacity: 2 } },
+        { id: "q33c", text: "Eventually acknowledge my part.", scores: { PeaceCapacity: 3 } },
+        { id: "q33d", text: "Return quickly and try to repair.", scores: { PeaceCapacity: 4 } }
       ]},
-      { id: 28, section: "Pressure Response", scenario: "A situation is unclear, and no one knows what will happen next.", prompt: "What do you tend to do?", options: [
-        { letter: "A", text: "Try to force clarity or make a decision.", score: "Push" },
-        { letter: "B", text: "Work harder to prepare for every possibility.", score: "Prove" },
-        { letter: "C", text: "Keep checking on people and managing emotions.", score: "Please" },
-        { letter: "D", text: "Pull back until things feel clearer.", score: "PullAway" }
+      { id: 34, type: "single", section: "Peace Capacity", scenario: "When someone gives me difficult feedback, I usually:", prompt: "Choose the most honest answer.", options: [
+        { id: "q34a", text: "Defend myself quickly.", scores: { PeaceCapacity: 1 } },
+        { id: "q34b", text: "Listen, but feel guarded inside.", scores: { PeaceCapacity: 2 } },
+        { id: "q34c", text: "Try to understand what may be true.", scores: { PeaceCapacity: 3 } },
+        { id: "q34d", text: "Stay open and ask clarifying questions.", scores: { PeaceCapacity: 4 } }
       ]},
-      { id: 29, section: "Pressure Response", scenario: "A mistake happens, and others know about it.", prompt: "What do you usually do?", options: [
-        { letter: "A", text: "Defend, correct, or take control of the situation.", score: "Push" },
-        { letter: "B", text: "Try to fix it quickly and prove it will not happen again.", score: "Prove" },
-        { letter: "C", text: "Worry about who is upset and try to repair their perception.", score: "Please" },
-        { letter: "D", text: "Feel embarrassed and want to disappear.", score: "PullAway" }
+      { id: 35, type: "slider", section: "Peace Capacity", scenario: "Conflict gets tense and your body wants to react quickly.", prompt: "How able are you to pause before responding?", left: { title: "React quickly", text: "I often respond before I know what is happening." }, right: { title: "Pause and choose", text: "I can often slow down and respond with intention." }, capacity: true },
+      { id: 36, type: "truefalse", section: "Peace Capacity", scenario: "Repair often matters more than never reacting.", prompt: "When peace breaks down, I am usually willing to return and repair.", options: [
+        { id: "q36t", text: "True: I am learning to move toward repair.", scores: { PeaceCapacity: 3 } },
+        { id: "q36f", text: "False: repair is still hard for me to initiate.", scores: { PeaceCapacity: 1 } }
       ]},
-      { id: 30, section: "Pressure Response", scenario: "You need something done, but another person is moving slower than you would like.", prompt: "What are you most likely to do?", options: [
-        { letter: "A", text: "Push them to move faster.", score: "Push" },
-        { letter: "B", text: "Do it yourself or take more responsibility.", score: "Prove" },
-        { letter: "C", text: "Encourage them while trying not to create tension.", score: "Please" },
-        { letter: "D", text: "Avoid dealing with it until it becomes necessary.", score: "PullAway" }
+      { id: 37, type: "single", section: "Peace Capacity", scenario: "When someone says I hurt or affected them, I usually:", prompt: "Choose the most honest answer.", options: [
+        { id: "q37a", text: "Focus on why I did not mean it that way.", scores: { PeaceCapacity: 1 } },
+        { id: "q37b", text: "Feel bad but struggle to respond clearly.", scores: { PeaceCapacity: 2 } },
+        { id: "q37c", text: "Try to own my part.", scores: { PeaceCapacity: 3 } },
+        { id: "q37d", text: "Listen, apologize, and ask what repair would look like.", scores: { PeaceCapacity: 4 } }
       ]},
-      { id: 31, section: "Pressure Response", scenario: "You sense distance or tension in an important relationship.", prompt: "What do you tend to do?", options: [
-        { letter: "A", text: "Bring it up directly.", score: "Push" },
-        { letter: "B", text: "Try to improve things by doing more or being more useful.", score: "Prove" },
-        { letter: "C", text: "Adjust yourself to keep the relationship okay.", score: "Please" },
-        { letter: "D", text: "Pull back and wait to see what happens.", score: "PullAway" }
+      { id: 38, type: "slider", section: "Peace Capacity", scenario: "Sometimes peace requires telling the truth gently instead of avoiding discomfort.", prompt: "How willing are you to name what is true when it could create tension?", left: { title: "Avoid discomfort", text: "I tend to wait, soften, or avoid." }, right: { title: "Tell the truth gently", text: "I can move toward honest conversation." }, capacity: true },
+      { id: 39, type: "choose2", max: 2, section: "Peace Capacity", scenario: "When you are trying to make peace after tension, what helps most?", prompt: "Choose two practices you are most ready to try.", options: [
+        { id: "q39a", text: "Pause before explaining myself.", scores: { PeaceCapacity: 2 } },
+        { id: "q39b", text: "Ask what the other person experienced.", scores: { PeaceCapacity: 3 } },
+        { id: "q39c", text: "Name what felt threatened in me.", scores: { PeaceCapacity: 2 } },
+        { id: "q39d", text: "Apologize without defending my intention first.", scores: { PeaceCapacity: 3 } },
+        { id: "q39e", text: "Take space and never bring it up again.", scores: { PeaceCapacity: 1 } },
+        { id: "q39f", text: "Return with one clear next step.", scores: { PeaceCapacity: 3 } }
       ]},
-      { id: 32, section: "Pressure Response", scenario: "You are carrying a lot internally.", prompt: "What is your most common response?", options: [
-        { letter: "A", text: "Become more intense or irritable.", score: "Push" },
-        { letter: "B", text: "Stay busy and keep producing.", score: "Prove" },
-        { letter: "C", text: "Focus on others so you do not have to feel it directly.", score: "Please" },
-        { letter: "D", text: "Numb out, disconnect, or retreat.", score: "PullAway" }
-      ]},
-      { id: 33, section: "Pressure Response", scenario: "Someone asks you for honest feedback, and you know the truth may be hard to hear.", prompt: "What do you usually do?", options: [
-        { letter: "A", text: "Say it directly, even if it is uncomfortable.", score: "Push" },
-        { letter: "B", text: "Frame it around what needs to improve or be fixed.", score: "Prove" },
-        { letter: "C", text: "Soften it so much that the truth may be unclear.", score: "Please" },
-        { letter: "D", text: "Avoid saying much unless absolutely necessary.", score: "PullAway" }
-      ]},
-      { id: 34, section: "Pressure Response", scenario: "People are watching how you respond in a stressful moment.", prompt: "What do you tend to do?", options: [
-        { letter: "A", text: "Take command and project strength.", score: "Push" },
-        { letter: "B", text: "Work harder to show competence.", score: "Prove" },
-        { letter: "C", text: "Manage how others are feeling about the situation.", score: "Please" },
-        { letter: "D", text: "Become quiet, guarded, or internally distant.", score: "PullAway" }
-      ]},
-      { id: 35, section: "Pressure Response", scenario: "Someone fails to meet your expectations.", prompt: "What do you usually do first?", options: [
-        { letter: "A", text: "Confront or correct them.", score: "Push" },
-        { letter: "B", text: "Pick up the slack yourself.", score: "Prove" },
-        { letter: "C", text: "Try to keep things pleasant while feeling frustrated inside.", score: "Please" },
-        { letter: "D", text: "Withdraw or lower your expectations without saying much.", score: "PullAway" }
-      ]},
-      { id: 36, section: "Pressure Response", scenario: "You are entering a situation where you do not feel ready.", prompt: "What is your most natural response?", options: [
-        { letter: "A", text: "Act confident and take control anyway.", score: "Push" },
-        { letter: "B", text: "Prepare intensely and try to compensate.", score: "Prove" },
-        { letter: "C", text: "Look for reassurance or approval from others.", score: "Please" },
-        { letter: "D", text: "Avoid the situation or hope it goes away.", score: "PullAway" }
-      ]},
-      { id: 37, section: "Pressure Response", scenario: "You sense that people may not be listening to you or following your lead.", prompt: "What do you tend to do?", options: [
-        { letter: "A", text: "Become stronger, clearer, or more forceful.", score: "Push" },
-        { letter: "B", text: "Work harder to earn back credibility.", score: "Prove" },
-        { letter: "C", text: "Try to reconnect relationally and regain trust.", score: "Please" },
-        { letter: "D", text: "Pull back and become less engaged.", score: "PullAway" }
-      ]},
-      { id: 38, section: "Pressure Tie-Breaker", scenario: "Under pressure, my most automatic response is to:", prompt: "Choose the one that feels most true.", options: [
-        { letter: "A", text: "Take control.", score: "Push" },
-        { letter: "B", text: "Work harder.", score: "Prove" },
-        { letter: "C", text: "Keep people okay with me.", score: "Please" },
-        { letter: "D", text: "Pull back.", score: "PullAway" }
-      ]},
-      { id: 39, section: "Peace Capacity", scenario: "When I realize I reacted poorly, I usually:", prompt: "Choose the option that feels most true.", options: [
-        { letter: "A", text: "Justify why I reacted that way.", score: "PeaceCapacity", points: 1 },
-        { letter: "B", text: "Feel bad but avoid bringing it back up.", score: "PeaceCapacity", points: 2 },
-        { letter: "C", text: "Eventually acknowledge my part.", score: "PeaceCapacity", points: 3 },
-        { letter: "D", text: "Return quickly and try to repair.", score: "PeaceCapacity", points: 4 }
-      ]},
-      { id: 40, section: "Peace Capacity", scenario: "When conflict gets tense, I usually:", prompt: "Choose the option that feels most true.", options: [
-        { letter: "A", text: "React before I realize what is happening.", score: "PeaceCapacity", points: 1 },
-        { letter: "B", text: "Notice later that I was not at my best.", score: "PeaceCapacity", points: 2 },
-        { letter: "C", text: "Sometimes pause before responding.", score: "PeaceCapacity", points: 3 },
-        { letter: "D", text: "Can often stay grounded and listen.", score: "PeaceCapacity", points: 4 }
-      ]},
-      { id: 41, section: "Peace Capacity", scenario: "When someone gives me difficult feedback, I usually:", prompt: "Choose the option that feels most true.", options: [
-        { letter: "A", text: "Defend myself quickly.", score: "PeaceCapacity", points: 1 },
-        { letter: "B", text: "Listen, but feel guarded inside.", score: "PeaceCapacity", points: 2 },
-        { letter: "C", text: "Try to understand what may be true.", score: "PeaceCapacity", points: 3 },
-        { letter: "D", text: "Stay open and ask clarifying questions.", score: "PeaceCapacity", points: 4 }
-      ]},
-      { id: 42, section: "Peace Capacity", scenario: "When I need something from someone, I usually:", prompt: "Choose the option that feels most true.", options: [
-        { letter: "A", text: "Expect them to figure it out or get frustrated when they do not.", score: "PeaceCapacity", points: 1 },
-        { letter: "B", text: "Avoid saying it clearly.", score: "PeaceCapacity", points: 2 },
-        { letter: "C", text: "Try to name it, even if it feels awkward.", score: "PeaceCapacity", points: 3 },
-        { letter: "D", text: "Communicate it honestly and respectfully.", score: "PeaceCapacity", points: 4 }
-      ]},
-      { id: 43, section: "Peace Capacity", scenario: "When someone says I hurt or affected them, I usually:", prompt: "Choose the option that feels most true.", options: [
-        { letter: "A", text: "Focus on why I did not mean it that way.", score: "PeaceCapacity", points: 1 },
-        { letter: "B", text: "Feel bad but struggle to respond clearly.", score: "PeaceCapacity", points: 2 },
-        { letter: "C", text: "Try to own my part.", score: "PeaceCapacity", points: 3 },
-        { letter: "D", text: "Listen, apologize, and ask what repair would look like.", score: "PeaceCapacity", points: 4 }
-      ]},
-      { id: 44, section: "Peace Capacity", scenario: "When life slows down, I usually:", prompt: "Choose the option that feels most true.", options: [
-        { letter: "A", text: "Feel uncomfortable and look for something to do.", score: "PeaceCapacity", points: 1 },
-        { letter: "B", text: "Try to rest but feel guilty or unsettled.", score: "PeaceCapacity", points: 2 },
-        { letter: "C", text: "Can sometimes receive the slower pace.", score: "PeaceCapacity", points: 3 },
-        { letter: "D", text: "Regularly practice rest and presence.", score: "PeaceCapacity", points: 4 }
-      ]},
-      { id: 45, section: "Peace Capacity", scenario: "When I am under pressure, I usually:", prompt: "Choose the option that feels most true.", options: [
-        { letter: "A", text: "Do not notice my stress until it spills out.", score: "PeaceCapacity", points: 1 },
-        { letter: "B", text: "Notice it but still react from it.", score: "PeaceCapacity", points: 2 },
-        { letter: "C", text: "Can sometimes pause and choose a better response.", score: "PeaceCapacity", points: 3 },
-        { letter: "D", text: "Often remain grounded enough to respond with peace.", score: "PeaceCapacity", points: 4 }
-      ]},
-      { id: 46, section: "Peace Capacity", scenario: "When peace breaks down in a relationship, I usually:", prompt: "Choose the option that feels most true.", options: [
-        { letter: "A", text: "Wait for the other person to make the first move.", score: "PeaceCapacity", points: 1 },
-        { letter: "B", text: "Avoid it unless it becomes unavoidable.", score: "PeaceCapacity", points: 2 },
-        { letter: "C", text: "Try to return to the conversation when I am ready.", score: "PeaceCapacity", points: 3 },
-        { letter: "D", text: "Move toward repair with honesty and humility.", score: "PeaceCapacity", points: 4 }
+      { id: 40, type: "truefalse", section: "Peace Capacity", scenario: "Peace grows through practice, not perfection.", prompt: "I am ready to try one small practice that helps me make peace internally or relationally.", options: [
+        { id: "q40t", text: "True: I am ready to practice one step.", scores: { PeaceCapacity: 3 } },
+        { id: "q40f", text: "False: I am still mostly just noticing my patterns.", scores: { PeaceCapacity: 1 } }
       ]}
     ];
 
-    const resultProfiles = {
-      "Performance|Push": {
-        name: "The Controlling Achiever", combo: "Performance + Push",
-        description: "You tend to lose peace when things feel ineffective, disorganized, poorly executed, or out of control. Under pressure, you may become more direct, corrective, intense, or controlling because you want things to work and work well. Your desire for excellence can be a gift, but when pressure rises it may become urgency, correction, and a need to take over.",
-        invitation: "The Way of Peace for you is to practice trust before control. Peace does not mean lowering standards. It means leading from clarity without making people feel managed by your anxiety.",
-        strengths: ["You bring clarity when others feel scattered.", "You notice problems and move toward action quickly.", "You can help teams regain direction when things are drifting.", "You often carry a strong sense of responsibility for outcomes."],
-        watch: ["You may correct before you fully listen.", "Your urgency may create pressure in others.", "You may confuse control with care.", "You may take responsibility that should be shared."],
-        internal: "Pause before acting and ask, “What am I trying to control right now?” Then name one thing that truly belongs to you and one thing that belongs to someone else.",
-        relational: "Ask one person, “Where do you experience my pressure as control?” Listen without explaining first.",
-        next: "This week, practice asking two curious questions before giving direction in one tense situation."
+    const baseProfiles = {
+      "Performance|Push": { baseName: "Direct Achiever", way: "Practice shared clarity instead of control.", desc: "You tend to lose peace when things feel ineffective, disorganized, poorly executed, or out of control. Under pressure, you may become direct, corrective, intense, or quick to take over because you want things to work and work well.", strengths: ["You bring clarity when things are confusing.", "You help people move from talk to action.", "You often notice what is not working before others do.", "You can create needed structure in messy situations."], watch: ["You may correct before you listen.", "You may mistake control for peace.", "Others may feel pressure from your urgency.", "You may carry more responsibility than is actually yours."], others: "Others may experience you as capable, decisive, and helpful, but they may also feel managed, corrected, or rushed when your peace depends on things being done right.", internal: "Pause and ask, 'What am I trying to control right now, and what am I actually responsible for?'", relational: "Ask one person, 'Where do you experience my pressure as control?' Then listen without explaining.", next: "Before giving direction, ask two curious questions. Let clarity emerge through listening before you move into action." },
+      "Performance|Prove": { baseName: "Committed Builder", way: "Practice enoughness and shared responsibility.", desc: "You tend to lose peace when you feel behind, ineffective, responsible, or unable to keep things moving. Under pressure, you may work harder, carry more, fix quickly, or try to prove you can handle it.", strengths: ["You are dependable and committed.", "You often follow through when others do not.", "You bring energy to important work.", "You care deeply about meaningful contribution."], watch: ["You may overcarry responsibility.", "You may struggle to rest without guilt.", "You may measure your worth by productivity.", "You may take on what others need to own."], others: "Others may experience you as reliable and impressive, but they may also feel your pace, pressure, or hidden exhaustion. Your effort can inspire people, but it can also unintentionally teach them that peace requires constant output.", internal: "Name what is yours to carry and what is not yours to carry.", relational: "Ask one person, 'Where do I take too much responsibility instead of sharing it?'", next: "Choose one responsibility this week to share, delegate, or release instead of silently carrying it alone." },
+      "Performance|Please": { baseName: "Responsive Contributor", way: "Practice honest limits instead of over-accommodation.", desc: "You tend to lose peace when you feel responsible to perform well and keep others satisfied. Under pressure, you may overdeliver, say yes too often, hide frustration, or try to be both effective and liked.", strengths: ["You are responsive and helpful.", "You care about doing good work for people.", "You notice what others need.", "You can create cooperation through attentiveness."], watch: ["You may ignore limits to keep others satisfied.", "You may say yes when peace would require honesty.", "You may hide frustration until it becomes resentment.", "You may confuse usefulness with worth."], others: "Others may experience you as capable, kind, and available, but they may not realize when your yes is costing you peace. Over time, hidden resentment can create distance even when you appear agreeable.", internal: "Before saying yes, ask, 'Do I have the capacity to do this with peace?'", relational: "Practice one honest no or one honest limit this week.", next: "Choose one small boundary and communicate it clearly before resentment has time to grow." },
+      "Performance|PullAway": { baseName: "Burdened Processor", way: "Practice small engagement instead of silent avoidance.", desc: "You tend to lose peace when expectations feel too high or failure feels likely. Under pressure, you may shut down, delay, procrastinate, or pull back because the burden feels too heavy.", strengths: ["You think carefully before acting.", "You may avoid impulsive reactions.", "You notice when the load is becoming too much.", "You can bring thoughtfulness once you re-engage."], watch: ["You may avoid responsibility when the burden feels too large.", "You may delay hard conversations.", "You may disappear when your presence is needed.", "You may wait until you feel fully ready before taking any step."], others: "Others may experience you as thoughtful and careful, but also hard to read when the pressure rises. They may not know whether you are processing, overwhelmed, or disengaged.", internal: "Ask, 'What is one small step I can take instead of avoiding the whole thing?'", relational: "Tell one person, 'I have been overwhelmed, but I want to re-engage.'", next: "Take one small visible step toward the thing you have been avoiding." },
+      "Prestige|Push": { baseName: "Assertive Influencer", way: "Practice receiving impact before defending intention.", desc: "You tend to lose peace when your reputation, respect, influence, or perceived value feels threatened. Under pressure, you may become persuasive, defensive, forceful, or quick to protect how others see you.", strengths: ["You communicate with energy.", "You can advocate strongly for what matters.", "You often understand relational dynamics quickly.", "You can influence movement when people feel stuck."], watch: ["You may defend your image before listening to impact.", "You may push for agreement instead of understanding.", "You may become persuasive when peace requires humility.", "You may hear feedback as a threat to identity."], others: "Others may experience you as engaging and compelling, but they may also feel convinced, managed, or overpowered when your peace depends on being understood or respected.", internal: "Ask, 'Am I protecting truth or protecting my image?'", relational: "Ask one person, 'What did you experience from me before I explained myself?'", next: "In one tense conversation, summarize what you heard before giving your perspective." },
+      "Prestige|Prove": { baseName: "Recognition Striver", way: "Practice hidden faithfulness instead of working for approval.", desc: "You tend to lose peace when you feel unseen, unappreciated, overlooked, or not valued. Under pressure, you may work harder to be noticed, affirmed, respected, or recognized.", strengths: ["You bring energy and excellence to what you do.", "You can inspire others toward meaningful contribution.", "You care about impact and being useful to the people around you.", "You are often attentive to what earns trust or respect."], watch: ["You may work for approval instead of from peace.", "You may feel unsettled when your effort is not named.", "You may compare your contribution to others.", "You may overperform when you feel unnoticed."], others: "Others may experience you as energetic, impressive, and committed, but they may also sense when your peace depends on being noticed or valued. Your drive can inspire, but it can also become a quiet request for affirmation.", internal: "Name one good thing you did today that no one else noticed. Let it be enough without applause.", relational: "Ask, 'Where am I working for approval instead of working from peace?' Share that honestly with someone you trust.", next: "Choose one act of service or excellence this week and intentionally keep it quiet." },
+      "Prestige|Please": { baseName: "Relational Harmonizer", way: "Practice honest presence instead of managing everyone's approval.", desc: "You tend to lose peace when others are disappointed, distant, upset, or unhappy with you. Under pressure, you may adapt, appease, smooth things over, or manage relationships to keep approval.", strengths: ["You are relationally sensitive.", "You notice emotional dynamics quickly.", "You often bring warmth and care.", "You want relationships to feel safe and connected."], watch: ["You may lose your voice to keep others okay.", "You may avoid hard truth.", "You may over-adapt to disappointment.", "You may confuse approval with peace."], others: "Others may experience you as warm, thoughtful, and safe, but they may not always know what you really think or need. Your desire to preserve connection can keep peace on the surface while truth remains unspoken underneath.", internal: "Ask, 'What do I actually think or need here?'", relational: "Share one honest thought you would normally soften or hide.", next: "Tell the truth kindly in one low-risk conversation." },
+      "Prestige|PullAway": { baseName: "Image Protector", way: "Practice being known instead of disappearing when you feel exposed.", desc: "You tend to lose peace when you feel exposed, rejected, embarrassed, or misunderstood. Under pressure, you may withdraw, hide, replay conversations, or privately protect yourself from further shame.", strengths: ["You are thoughtful about how you affect others.", "You notice social nuance.", "You can be careful and self-aware.", "You often want to honor relationships well."], watch: ["You may disappear when you feel exposed.", "You may replay moments privately instead of seeking clarity.", "You may hide the very parts that need care.", "Others may not know how to reach you."], others: "Others may experience you as thoughtful and considerate, but when you feel exposed they may also experience distance, silence, or uncertainty. They may not know what is happening inside you.", internal: "Ask, 'What am I afraid people will see?'", relational: "Tell one trusted person what felt hard instead of hiding it.", next: "Name one vulnerable truth to someone safe." },
+      "Prosperity|Push": { baseName: "Protective Guardian", way: "Practice trust instead of tightening control around what feels unsafe.", desc: "You tend to lose peace when safety, stability, resources, or control feel threatened. Under pressure, you may tighten control, resist risk, become forceful, or push to protect what matters.", strengths: ["You notice risks others miss.", "You protect what matters.", "You bring strength during uncertainty.", "You help create stability when things feel fragile."], watch: ["Protection may become control.", "You may resist needed risk.", "You may assume safety depends on your grip.", "Others may feel limited by your caution."], others: "Others may experience you as strong, protective, and prepared, but they may also feel restricted when your desire for safety becomes control. Your care can stabilize people when it is paired with trust.", internal: "Ask, 'What am I protecting, and is control the only way?'", relational: "Ask one person, 'Where do you need me to trust rather than control?'", next: "Release one small decision to someone else this week." },
+      "Prosperity|Prove": { baseName: "Prepared Stabilizer", way: "Practice preparation without letting tomorrow steal today's peace.", desc: "You tend to lose peace when the future feels uncertain or unstable. Under pressure, you may overprepare, overplan, overwork, and try to create security through responsibility.", strengths: ["You bring steadiness and follow-through.", "You prepare well and think ahead.", "You help others feel supported.", "You can bring order to uncertainty."], watch: ["Preparation may become anxiety in disguise.", "You may try to solve tomorrow too early.", "You may carry pressure others do not see.", "You may confuse readiness with peace."], others: "Others may experience you as steady, thoughtful, and dependable, but they may also feel the weight of your preparation when it becomes urgency, overplanning, or pressure to prevent every possible problem.", internal: "Name what is actually needed today, not everything that could go wrong tomorrow.", relational: "Ask one person, 'Where does my preparation help, and where does it create pressure?'", next: "Choose one future worry and translate it into one faithful action for today." },
+      "Prosperity|Please": { baseName: "Security Keeper", way: "Practice truth that repairs instead of comfort that avoids.", desc: "You tend to lose peace when belonging, comfort, or stability feels fragile. Under pressure, you may keep people calm, avoid disruption, maintain comfort, or negotiate peace by keeping everyone okay.", strengths: ["You create comfort and hospitality.", "You help reduce unnecessary tension.", "You notice when people feel unsettled.", "You value stable and trustworthy environments."], watch: ["You may avoid truth to preserve comfort.", "You may lower tension without repairing the real issue.", "You may keep peace instead of making peace.", "You may protect stability at the cost of honesty."], others: "Others may experience you as calming, steady, and considerate, but they may also sense when important truth is being softened or avoided. Your gift for calm becomes stronger when it includes honest repair.", internal: "Ask, 'Am I keeping peace or making peace?'", relational: "Name one gentle truth instead of smoothing it over.", next: "Bring one honest but calming sentence into a conversation you would normally avoid." },
+      "Prosperity|PullAway": { baseName: "Guarded Retreater", way: "Practice presence instead of protection.", desc: "You tend to lose peace when life feels unstable, demanding, uncertain, or unsafe. Under pressure, your instinct may be to pull back, protect your energy, avoid risk, or create distance until you feel more secure.", strengths: ["You can stay calm when others are intense.", "You avoid unnecessary drama.", "You think carefully before reacting.", "You often help create steadiness and stability."], watch: ["You may withdraw instead of engaging.", "You may avoid conversations that need to happen.", "You may mistake comfort for peace.", "You may stay quiet when your voice is needed."], others: "Others may experience you as calm, thoughtful, and steady, but they may also feel distance when you retreat. They may not know whether you are processing, overwhelmed, uninterested, or protecting yourself.", internal: "Pause and ask, 'What feels unsafe right now?'", relational: "Tell one trusted person, 'When I feel overwhelmed, I tend to pull back. I am trying to stay more present.'", next: "Identify one place where you have been retreating and take one small step toward engagement." }
+    };
+
+    const expressionNames = {
+      "Performance|Push": { Internal: "The Focused Achiever", External: "The Driving Achiever" },
+      "Performance|Prove": { Internal: "The Quiet Builder", External: "The Active Builder" },
+      "Performance|Please": { Internal: "The Thoughtful Contributor", External: "The Responsive Contributor" },
+      "Performance|PullAway": { Internal: "The Private Burden Bearer", External: "The Strategic Delayer" },
+      "Prestige|Push": { Internal: "The Guarded Influencer", External: "The Assertive Influencer" },
+      "Prestige|Prove": { Internal: "The Hidden Striver", External: "The Recognition Striver" },
+      "Prestige|Please": { Internal: "The Careful Harmonizer", External: "The Relational Harmonizer" },
+      "Prestige|PullAway": { Internal: "The Private Image Protector", External: "The Retreating Image Protector" },
+      "Prosperity|Push": { Internal: "The Watchful Guardian", External: "The Protective Guardian" },
+      "Prosperity|Prove": { Internal: "The Private Stabilizer", External: "The Active Stabilizer" },
+      "Prosperity|Please": { Internal: "The Quiet Security Keeper", External: "The Relational Security Keeper" },
+      "Prosperity|PullAway": { Internal: "The Quiet Protector", External: "The Guarded Retreater" }
+    };
+
+    const processingProfiles = {
+      Internal: {
+        label: "Internal Processing Style",
+        short: "Your pressure often moves inward first.",
+        description: "When peace breaks down, you may first turn inward to think, analyze, replay, anticipate, or privately carry what is happening. Others may not immediately know how much pressure you are holding.",
+        strength: "This can help you slow down, consider carefully, and avoid impulsive reactions.",
+        growth: "Your growth is letting trusted people into your process sooner, before internal pressure becomes distance, delay, or isolation."
       },
-      "Performance|Prove": {
-        name: "The Driven Overfunctioner", combo: "Performance + Prove",
-        description: "You tend to lose peace when you feel behind, ineffective, responsible, or unable to keep things moving. Under pressure, you may work harder, carry more, fix quickly, and try to prove you can handle it. Your dependability is a gift, but peace becomes fragile when your worth rises and falls with productivity.",
-        invitation: "The Way of Peace for you is to practice enoughness before effort. You can work with excellence without needing work to prove your value.",
-        strengths: ["You are dependable and willing to help.", "You bring energy and follow-through when things matter.", "You often notice what needs to be done and step in quickly.", "People may trust you because you carry responsibility seriously."],
-        watch: ["You may overcarry what belongs to the team.", "You may struggle to rest without guilt.", "You may measure your value by how useful you are.", "You may create pressure by doing too much yourself."],
-        internal: "Name what is yours to carry and what is not yours to carry. Let one responsibility remain shared instead of silently taking it all.",
-        relational: "Ask one person, “Where do I take too much responsibility instead of sharing it?” Then choose one thing to release or delegate.",
-        next: "This week, practice completing one task at a healthy level instead of an exhausting level."
-      },
-      "Performance|Please": {
-        name: "The Capable Accommodator", combo: "Performance + Please",
-        description: "You tend to lose peace when you feel responsible to perform well and keep others satisfied. Under pressure, you may overdeliver, say yes too often, hide frustration, or try to be both effective and liked. You are often capable and relationally aware, but peace becomes fragile when you believe you must meet every expectation and keep everyone pleased.",
-        invitation: "The Way of Peace for you is to practice honest limits. Peace grows when you can serve well without disappearing under the expectations of others.",
-        strengths: ["You are responsive and attentive to what people need.", "You often bring both competence and care.", "You help things move forward without creating unnecessary tension.", "People may experience you as helpful and easy to work with."],
-        watch: ["You may say yes when you need to say no.", "You may hide frustration until resentment builds.", "You may overdeliver to avoid disappointing others.", "You may confuse being liked with being at peace."],
-        internal: "Before saying yes, ask, “Do I have the capacity to do this with peace?” Let your answer include your limits, not just the need in front of you.",
-        relational: "Practice one honest limit this week. Keep it simple, kind, and clear.",
-        next: "Choose one request where you would normally overextend and respond with a truthful boundary."
-      },
-      "Performance|PullAway": {
-        name: "The Burdened Withdrawer", combo: "Performance + Pull Away",
-        description: "You tend to lose peace when expectations feel too high, failure feels likely, or the burden feels too heavy. Under pressure, you may shut down, delay, procrastinate, or pull back because engaging the whole thing feels overwhelming. Your desire to do things well is real, but peace becomes fragile when the fear of not doing enough keeps you from taking the next step.",
-        invitation: "The Way of Peace for you is to practice one faithful step. Peace grows when you stop waiting for the whole burden to feel manageable before you re-engage.",
-        strengths: ["You can think carefully before reacting.", "You notice when a situation needs space.", "You may avoid impulsive decisions that create more harm.", "You often care deeply about doing things well."],
-        watch: ["You may disappear when your presence is needed.", "You may delay until pressure grows larger.", "You may mistake avoidance for rest.", "You may carry shame privately instead of asking for help."],
-        internal: "Ask, “What is one small step I can take instead of avoiding the whole thing?” Then take only that step.",
-        relational: "Tell one person, “I have been overwhelmed, but I want to re-engage.”",
-        next: "Choose one avoided responsibility and take a ten-minute action toward it today."
-      },
-      "Prestige|Push": {
-        name: "The Defensive Influencer", combo: "Prestige + Push",
-        description: "You tend to lose peace when your reputation, respect, influence, or how others see you feels threatened. Under pressure, you may become persuasive, defensive, forceful, or quick to protect your image. Your voice and influence can be gifts, but peace becomes fragile when being understood or respected becomes something you must secure immediately.",
-        invitation: "The Way of Peace for you is to practice listening before defending. Peace grows when you can stay present long enough to hear impact without first protecting image.",
-        strengths: ["You bring confidence and relational energy.", "You can communicate with conviction.", "You often know how to move a room or restore momentum.", "You care about influence and how people experience leadership."],
-        watch: ["You may explain before listening.", "You may protect image more than truth.", "You may become forceful when you feel misunderstood.", "You may miss how others experienced your response."],
-        internal: "Ask, “Am I protecting truth or protecting my image?” Let the answer slow you down before you respond.",
-        relational: "Ask one person, “What did you experience from me before I explained myself?”",
-        next: "In one tense conversation this week, summarize the other person’s concern before offering your view."
-      },
-      "Prestige|Prove": {
-        name: "The Recognition Striver", combo: "Prestige + Prove",
-        description: "You tend to lose peace when you feel unseen, unappreciated, overlooked, or not valued. Under pressure, you may work harder to be noticed, affirmed, respected, or recognized. Your desire to contribute meaningfully is a gift, but peace becomes fragile when recognition becomes the evidence that you matter.",
-        invitation: "The Way of Peace for you is to practice hidden faithfulness. Peace grows when good work remains good even when it is unseen.",
-        strengths: ["You often bring energy and excellence to what you do.", "You can inspire others toward meaningful contribution.", "You care about impact and being useful to the larger whole.", "You may be highly attentive to what earns trust or respect."],
-        watch: ["You may work for approval instead of from peace.", "You may feel unsettled when your effort is not named.", "You may compare your contribution to others.", "You may overperform when you feel unnoticed."],
-        internal: "Name one good thing you did today that no one else noticed. Let it be enough without needing applause.",
-        relational: "Ask, “Where am I working for approval instead of working from peace?” Share that honestly with someone you trust.",
-        next: "Choose one act of service or excellence this week and intentionally keep it quiet."
-      },
-      "Prestige|Please": {
-        name: "The Approval Keeper", combo: "Prestige + Please",
-        description: "You tend to lose peace when others are disappointed, distant, upset, or unhappy with you. Under pressure, you may adapt, appease, smooth things over, or manage relationships to keep approval. Your relational sensitivity is a gift, but peace becomes fragile when keeping people okay costs you honesty.",
-        invitation: "The Way of Peace for you is to practice truthful presence. Peace grows when you can stay connected without surrendering your voice.",
-        strengths: ["You notice relational tension quickly.", "You often bring warmth, care, and attentiveness.", "You can help people feel seen and considered.", "You may be gifted at reducing unnecessary friction."],
-        watch: ["You may lose your own voice to keep others okay.", "You may smooth over tension instead of repairing it.", "You may carry hidden resentment after adapting too much.", "You may confuse approval with peace."],
-        internal: "Ask, “What do I actually think or need here?” Write the answer before you edit it for others.",
-        relational: "Share one honest thought you would normally soften or hide. Keep it kind and direct.",
-        next: "This week, practice telling the truth gently before you try to make everyone comfortable."
-      },
-      "Prestige|PullAway": {
-        name: "The Hidden Image Protector", combo: "Prestige + Pull Away",
-        description: "You tend to lose peace when you feel exposed, rejected, embarrassed, criticized, or misunderstood. Under pressure, you may withdraw, hide, replay conversations, or privately protect yourself from further shame. Your thoughtfulness is a gift, but peace becomes fragile when hiding feels safer than being known.",
-        invitation: "The Way of Peace for you is to practice being known in small, safe ways. Peace grows when you let trusted people see what you would normally hide.",
-        strengths: ["You are often thoughtful and self-aware.", "You may be careful with words and sensitive to relational nuance.", "You can notice what feels emotionally important beneath the surface.", "You may avoid careless reactions that make things worse."],
-        watch: ["You may disappear instead of asking for reassurance or repair.", "You may replay what happened without letting anyone help.", "You may protect image by staying hidden.", "You may assume rejection before checking reality."],
-        internal: "Ask, “What am I afraid people will see?” Name it without judging it.",
-        relational: "Tell one trusted person what felt hard instead of hiding it.",
-        next: "Choose one recent moment you have been replaying and bring it into a safe conversation."
-      },
-      "Prosperity|Push": {
-        name: "The Protective Controller", combo: "Prosperity + Push",
-        description: "You tend to lose peace when safety, stability, resources, control, or what matters most feels threatened. Under pressure, you may tighten control, resist risk, become forceful, or push to protect what feels vulnerable. Your protective instinct is a gift, but peace becomes fragile when protection turns into control.",
-        invitation: "The Way of Peace for you is to practice trust with clear responsibility. Peace grows when you can protect what matters without overpowering the people around you.",
-        strengths: ["You notice risks others may miss.", "You care about stability and protecting what matters.", "You can act decisively when things feel uncertain.", "People may rely on you to guard important outcomes."],
-        watch: ["You may tighten control when trust is needed.", "You may resist risk even when growth requires it.", "You may become forceful when you feel unsafe.", "You may make others feel managed rather than trusted."],
-        internal: "Ask, “What am I protecting, and is control the only way?” Then identify one place where trust can share the burden.",
-        relational: "Ask one person, “Where do you need me to trust rather than control?”",
-        next: "This week, release one decision or detail that someone else can responsibly carry."
-      },
-      "Prosperity|Prove": {
-        name: "The Prepared Stabilizer", combo: "Prosperity + Prove",
-        description: "You tend to lose peace when the future feels uncertain, unstable, under-resourced, or unprepared. Under pressure, you may overprepare, overplan, overwork, and try to create security through responsibility. Your steadiness is a gift, but peace becomes fragile when preparation becomes anxiety in disguise.",
-        invitation: "The Way of Peace for you is to practice enough for today. Peace grows when wise preparation serves presence instead of feeding fear.",
-        strengths: ["You bring planning, steadiness, and follow-through.", "You can help others prepare wisely.", "You often notice practical needs before they become problems.", "You may create a sense of stability for people around you."],
-        watch: ["You may prepare for every possible problem.", "You may overwork to feel safe.", "You may struggle to stop once you have done enough.", "You may transmit anxiety through excessive planning."],
-        internal: "Name what is actually needed today, not everything that could go wrong tomorrow.",
-        relational: "Ask one person, “Where does my preparation help, and where does it create pressure?”",
-        next: "Choose one future concern and write down the next responsible step only. Stop there."
-      },
-      "Prosperity|Please": {
-        name: "The Security Negotiator", combo: "Prosperity + Please",
-        description: "You tend to lose peace when belonging, comfort, stability, or the emotional temperature around you feels fragile. Under pressure, you may keep people calm, avoid disruption, maintain comfort, or negotiate peace by keeping everyone okay. Your ability to create calm is a gift, but peace becomes fragile when comfort replaces truth.",
-        invitation: "The Way of Peace for you is to practice gentle truth. Peace grows when you move beyond keeping peace into making peace.",
-        strengths: ["You can create comfort and relational calm.", "You often notice when people feel unsettled.", "You may be skilled at lowering tension in a room.", "People may experience you as steady, hospitable, or easy to be around."],
-        watch: ["You may avoid truth to preserve comfort.", "You may keep people calm while important issues remain unnamed.", "You may confuse low tension with real peace.", "You may negotiate around conflict instead of moving through it."],
-        internal: "Ask, “Am I keeping peace or making peace?” Let that question reveal whether truth is being avoided.",
-        relational: "Name one truth gently instead of smoothing it over.",
-        next: "This week, have one honest conversation that protects dignity without avoiding reality."
-      },
-      "Prosperity|PullAway": {
-        name: "The Guarded Retreater", combo: "Prosperity + Pull Away",
-        description: "You tend to lose peace when life feels unstable, demanding, uncertain, or unsafe. Under pressure, your instinct may be to pull back, protect your energy, avoid risk, or create distance until you feel more secure. You may look calm on the outside while carrying a lot internally. Your steadiness is a gift, but peace becomes fragile when retreat becomes your main strategy for safety.",
-        invitation: "The Way of Peace for you is to practice courageous presence. Peace does not require you to disappear until everything feels safe. Peace grows when you remain gently engaged.",
-        strengths: ["You may stay calm when others become emotionally intense.", "You often avoid unnecessary drama.", "You can think carefully before reacting.", "You may create stability by slowing down and protecting what matters."],
-        watch: ["You may withdraw instead of engaging what needs attention.", "You may avoid conversations that need to happen.", "You may mistake comfort for peace.", "You may become hard to read when others need clarity from you."],
-        internal: "Pause and ask, “What feels unsafe right now?” Then ask, “What is one small way I can stay present instead of fully retreating?”",
-        relational: "Choose one trusted person and say, “When I feel overwhelmed, I tend to pull back. I am trying to learn how to stay more present.”",
-        next: "Identify one place where you have been retreating and take one small step toward engagement."
+      External: {
+        label: "External Processing Style",
+        short: "Your pressure often moves outward first.",
+        description: "When peace breaks down, you may first move outward through words, action, planning, organizing, problem-solving, or visible energy. Others may feel your pressure before they understand what is happening inside you.",
+        strength: "This can help create movement, clarity, and momentum when things feel stuck.",
+        growth: "Your growth is slowing down enough to notice what is driving the movement, so action becomes peaceful rather than reactive."
       }
     };
 
+    const capacityText = {
+      Emerging: "Your responses suggest that you may often recognize your lack of peace after it has already shaped your response. Start with noticing rather than judging. The first practice is simply learning to pause long enough to name what feels threatened.",
+      Developing: "Your responses suggest that you are beginning to notice your patterns and may be ready for small practices that help you pause, own, and repair. The next step is to practice peace in one real relationship, not just understand it privately.",
+      Strengthening: "Your responses suggest a growing capacity to notice pressure, stay present, and move toward repair. Keep practicing peace in real conversations, and begin helping others notice what happens when pressure rises."
+    };
+
     let currentIndex = 0;
-    const answers = {};
+    let answers = {};
+    let displayOptionOrders = {};
     let lastResult = null;
 
+    const startBtn = document.getElementById("startAssessment");
+    const assessment = document.getElementById("assessment");
     const intro = document.getElementById("intro");
     const marquee = document.getElementById("marquee");
-    const assessment = document.getElementById("assessment");
-    const questionCard = document.getElementById("questionCard");
-    const questionCount = document.getElementById("questionCount");
     const sectionLabel = document.getElementById("sectionLabel");
+    const questionCount = document.getElementById("questionCount");
+    const questionCard = document.getElementById("questionCard");
     const progressBar = document.getElementById("progressBar");
-    const backBtn = document.getElementById("backBtn");
-    const nextBtn = document.getElementById("nextBtn");
     const toast = document.getElementById("toast");
+    const backBtn = document.getElementById("backBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function shuffleOptions(options) {
+      const arr = [...options];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function getDisplayOptions(q) {
+      if (!displayOptionOrders[q.id]) {
+        displayOptionOrders[q.id] = q.tieBreaker ? [...q.options] : shuffleOptions(q.options);
+      }
+      return displayOptionOrders[q.id];
+    }
 
     function scrollToAssessmentTop() {
-      const header = document.querySelector(".site-header");
-      const offset = header ? header.offsetHeight + 12 : 0;
-      const y = assessment.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+      const y = assessment.getBoundingClientRect().top + window.scrollY - 18;
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
 
-    function goToNextQuestion() {
-      if (currentIndex < questions.length - 1) {
-        currentIndex++;
-        renderQuestion();
-        scrollToAssessmentTop();
-      } else {
-        submitAssessment();
-      }
-    }
-
-    document.getElementById("startAssessment").addEventListener("click", () => {
+    startBtn.addEventListener("click", () => {
       intro.style.display = "none";
       marquee.style.display = "none";
       assessment.classList.add("active");
@@ -1071,31 +1070,46 @@
       scrollToAssessmentTop();
     });
 
-    document.getElementById("restartBtn").addEventListener("click", () => {
-      if (!confirm("Restart the assessment? Your current responses will be cleared.")) return;
-      currentIndex = 0;
-      Object.keys(answers).forEach(key => delete answers[key]);
-      renderQuestion();
-      scrollToAssessmentTop();
-    });
-
     backBtn.addEventListener("click", () => {
       if (currentIndex > 0) {
-        currentIndex--;
+        currentIndex -= 1;
         renderQuestion();
         scrollToAssessmentTop();
       }
     });
 
+    restartBtn.addEventListener("click", () => {
+      if (!confirm("Restart the assessment? Your current answers will be cleared.")) return;
+      answers = {};
+      displayOptionOrders = {};
+      currentIndex = 0;
+      renderQuestion();
+      scrollToAssessmentTop();
+    });
+
     nextBtn.addEventListener("click", () => {
-      const currentQuestion = questions[currentIndex];
-      if (!answers[currentQuestion.id]) {
+      const q = questions[currentIndex];
+      if (!isQuestionAnswered(q)) {
         toast.classList.add("show");
         return;
       }
-      toast.classList.remove("show");
-      goToNextQuestion();
+      if (currentIndex === questions.length - 1) submitAssessment();
+      else goToNextQuestion();
     });
+
+    function goToNextQuestion() {
+      currentIndex += 1;
+      renderQuestion();
+      scrollToAssessmentTop();
+    }
+
+    function isQuestionAnswered(q) {
+      const a = answers[q.id];
+      if (!a) return false;
+      if (q.type === "choose2") return Array.isArray(a.selected) && a.selected.length === q.max;
+      if (q.type === "slider") return a.touched === true;
+      return !!a.id;
+    }
 
     function renderQuestion() {
       const q = questions[currentIndex];
@@ -1103,55 +1117,153 @@
       questionCount.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
       progressBar.style.width = `${((currentIndex + 1) / questions.length) * 100}%`;
       backBtn.disabled = currentIndex === 0;
-      nextBtn.textContent = currentIndex === questions.length - 1 ? "See My Result" : "Next";
+      nextBtn.textContent = currentIndex === questions.length - 1 ? "Get My Assessment" : "Next";
+
+      const messages = {
+        single: "Choose the option that feels most true most often, then click Next.",
+        truefalse: "Choose the statement that feels most true, then click Next.",
+        choose2: `Choose ${q.max} options, then click Next.`,
+        slider: "Move the slider toward the side that feels most true most often, then click Next."
+      };
+      toast.textContent = messages[q.type] || messages.single;
       toast.classList.remove("show");
 
+      if (q.type === "slider") renderSlider(q);
+      else if (q.type === "truefalse") renderTrueFalse(q);
+      else renderOptions(q);
+    }
+
+    function renderOptions(q) {
+      const selectedIds = q.type === "choose2" ? (answers[q.id]?.selected || []).map(o => o.id) : [];
+      const options = getDisplayOptions(q);
       questionCard.innerHTML = `
         <p class="scenario">${q.scenario}</p>
         <h2 class="question-title">${q.prompt}</h2>
-        <div class="answers-grid">
-          ${q.options.map(option => `
-            <button class="answer-card ${answers[q.id]?.letter === option.letter ? "selected" : ""}" type="button" data-letter="${option.letter}">
-              <span class="answer-letter">${option.letter}</span>
-              <span class="answer-text">${option.text}</span>
-            </button>
-          `).join("")}
+        ${q.type === "choose2" ? `<p class="choose-note">Pick ${q.max}. Selected choices turn dark. You can change them before clicking Next.</p>` : ""}
+        <div class="answers-grid ${q.type === "choose2" ? "choose-grid" : ""}">
+          ${options.map((option, index) => {
+            const selected = q.type === "choose2" ? selectedIds.includes(option.id) : answers[q.id]?.id === option.id;
+            return `
+              <button class="answer-card ${q.type === "choose2" ? "choose-card" : ""} ${selected ? "selected" : ""}" type="button" data-id="${option.id}">
+                <span class="answer-letter">${q.type === "choose2" ? "✓" : String.fromCharCode(65 + index)}</span>
+                <span class="answer-text">${option.text}</span>
+              </button>
+            `;
+          }).join("")}
         </div>
       `;
 
       document.querySelectorAll(".answer-card").forEach(card => {
         card.addEventListener("click", () => {
-          const selected = q.options.find(option => option.letter === card.dataset.letter);
-          answers[q.id] = selected;
-          document.querySelectorAll(".answer-card").forEach(c => c.classList.remove("selected"));
-          card.classList.add("selected");
-          toast.classList.remove("show");
-          window.setTimeout(goToNextQuestion, 240);
+          const selected = options.find(option => option.id === card.dataset.id);
+          if (q.type === "choose2") handleChooseTwo(q, selected);
+          else {
+            answers[q.id] = selected;
+            document.querySelectorAll(".answer-card").forEach(c => c.classList.remove("selected"));
+            card.classList.add("selected");
+            toast.classList.remove("show");
+          }
         });
       });
     }
 
-    function calculateScores() {
-      const scores = {
-        Performance: 0,
-        Prestige: 0,
-        Prosperity: 0,
-        Push: 0,
-        Prove: 0,
-        Please: 0,
-        PullAway: 0,
-        PeaceCapacity: 0
-      };
+    function renderTrueFalse(q) {
+      const options = getDisplayOptions(q);
+      questionCard.innerHTML = `
+        <p class="scenario">${q.scenario}</p>
+        <h2 class="question-title">${q.prompt}</h2>
+        <div class="tf-grid">
+          ${options.map(option => {
+            const selected = answers[q.id]?.id === option.id;
+            return `
+              <button class="answer-card tf-card ${selected ? "selected" : ""}" type="button" data-id="${option.id}">
+                <span class="answer-text">${option.text}</span>
+              </button>
+            `;
+          }).join("")}
+        </div>
+      `;
+      document.querySelectorAll(".tf-card").forEach(card => {
+        card.addEventListener("click", () => {
+          const selected = options.find(option => option.id === card.dataset.id);
+          answers[q.id] = selected;
+          document.querySelectorAll(".tf-card").forEach(c => c.classList.remove("selected"));
+          card.classList.add("selected");
+          toast.classList.remove("show");
+        });
+      });
+    }
 
+    function handleChooseTwo(q, selected) {
+      const current = answers[q.id]?.selected || [];
+      const exists = current.find(o => o.id === selected.id);
+      let updated;
+      if (exists) updated = current.filter(o => o.id !== selected.id);
+      else if (current.length < q.max) updated = [...current, selected];
+      else updated = current;
+      answers[q.id] = { selected: updated };
+      renderQuestion();
+      toast.classList.remove("show");
+    }
+
+    function renderSlider(q) {
+      const answer = answers[q.id] || { value: 50, touched: false };
+      questionCard.innerHTML = `
+        <p class="scenario">${q.scenario}</p>
+        <h2 class="question-title">${q.prompt}</h2>
+        <p class="slider-note">There is no perfect answer. Move the slider toward the side that feels most true most often.</p>
+        <div class="slider-shell">
+          <div class="slider-labels">
+            <div class="slider-label"><strong>${q.left.title}</strong><span>${q.left.text}</span></div>
+            <div class="slider-label"><strong>${q.right.title}</strong><span>${q.right.text}</span></div>
+          </div>
+          <input class="peace-slider" type="range" min="0" max="100" value="${answer.value}" id="sliderInput">
+          <div class="slider-value" id="sliderValue">${sliderText(answer.value)}</div>
+        </div>
+      `;
+      const slider = document.getElementById("sliderInput");
+      const valueLabel = document.getElementById("sliderValue");
+      slider.addEventListener("input", () => {
+        const value = Number(slider.value);
+        answers[q.id] = { value, touched: true, capacity: !!q.capacity };
+        valueLabel.textContent = sliderText(value);
+        toast.classList.remove("show");
+      });
+    }
+
+    function sliderText(value) {
+      if (value < 25) return "Strongly toward the left";
+      if (value < 45) return "Somewhat toward the left";
+      if (value <= 55) return "A mix of both";
+      if (value < 75) return "Somewhat toward the right";
+      return "Strongly toward the right";
+    }
+
+    function calculateScores() {
+      const scores = { Performance: 0, Prestige: 0, Prosperity: 0, Push: 0, Prove: 0, Please: 0, PullAway: 0, Internal: 0, External: 0, PeaceCapacity: 0 };
       Object.entries(answers).forEach(([questionId, answer]) => {
-        if (answer.score === "PeaceCapacity") {
-          scores.PeaceCapacity += answer.points || 0;
-        } else if (scores.hasOwnProperty(answer.score)) {
-          scores[answer.score] += 1;
+        const q = questions.find(item => String(item.id) === String(questionId));
+        if (answer.selected) {
+          answer.selected.forEach(item => applyScores(scores, item.scores));
+        } else if (answer.value !== undefined) {
+          const value = Number(answer.value);
+          if (answer.capacity || q?.capacity) {
+            scores.PeaceCapacity += 1 + (value / 100) * 3;
+          } else {
+            scores.Internal += (100 - value) / 20;
+            scores.External += value / 20;
+          }
+        } else {
+          applyScores(scores, answer.scores);
         }
       });
-
       return scores;
+    }
+
+    function applyScores(scores, scoreObj = {}) {
+      Object.entries(scoreObj).forEach(([key, value]) => {
+        if (scores.hasOwnProperty(key)) scores[key] += Number(value);
+      });
     }
 
     function pickTop(scores, keys, tieBreakerQuestionId) {
@@ -1159,133 +1271,72 @@
       const max = Math.max(...values.map(item => item.value));
       const tied = values.filter(item => item.value === max).map(item => item.key);
       if (tied.length === 1) return tied[0];
-      const tieBreaker = answers[tieBreakerQuestionId]?.score;
-      if (tied.includes(tieBreaker)) return tieBreaker;
+      const tieBreaker = answers[tieBreakerQuestionId];
+      if (tieBreaker?.scores) {
+        const topTieBreaker = Object.keys(tieBreaker.scores).find(key => tied.includes(key));
+        if (topTieBreaker) return topTieBreaker;
+      }
       return tied[0];
+    }
+
+    function getCapacityStage(score) {
+      if (score <= 13) return "Emerging";
+      if (score <= 21) return "Developing";
+      return "Strengthening";
     }
 
     function submitAssessment() {
       const scores = calculateScores();
-      const primaryIdentity = pickTop(scores, ["Performance", "Prestige", "Prosperity"], 18);
-      const primaryResponse = pickTop(scores, ["Push", "Prove", "Please", "PullAway"], 38);
-      const resultKey = `${primaryIdentity}|${primaryResponse}`;
-      const profile = resultProfiles[resultKey];
-
-      lastResult = { scores, primaryIdentity, primaryResponse, resultKey, profile, answers };
-      showResult(profile, primaryIdentity, primaryResponse, scores);
+      const primaryIdentity = pickTop(scores, ["Performance", "Prestige", "Prosperity"], 12);
+      const primaryResponse = pickTop(scores, ["Push", "Prove", "Please", "PullAway"], 24);
+      const processingStyle = scores.External >= scores.Internal ? "External" : "Internal";
+      const baseKey = `${primaryIdentity}|${primaryResponse}`;
+      const base = baseProfiles[baseKey];
+      const expressionName = expressionNames[baseKey][processingStyle];
+      const capacityStage = getCapacityStage(scores.PeaceCapacity);
+      const profile = { ...base, name: expressionName, baseKey, processingStyle, capacityStage };
+      lastResult = { scores, primaryIdentity, primaryResponse, processingStyle, capacityStage, profile, answers };
+      showResult(profile);
       sendToGoogleSheet(lastResult);
-    }
-
-    function showResult(profile, primaryIdentity, primaryResponse, scores) {
-      const overlay = document.getElementById("resultOverlay");
-      const content = document.getElementById("resultContent");
-      content.innerHTML = resultHTML(profile);
-      overlay.classList.add("active");
-      document.getElementById("downloadPdfBtn").addEventListener("click", downloadPdf);
-      document.getElementById("closeResultBtn").addEventListener("click", () => overlay.classList.remove("active"));
     }
 
     function renderList(items, className = "result-list") {
       return `<ul class="${className}">${items.map(item => `<li>${item}</li>`).join("")}</ul>`;
     }
 
-    function getResultExtra(profile) {
-      const extras = {
-        "The Controlling Achiever": {
-          others: "Others may experience your pressure as urgency, correction, or a need to get things right immediately. They may appreciate your clarity while also feeling managed by your anxiety.",
-          reflection: "I noticed myself trying to control __________, and one way I can practice trust is __________.",
-          summary: "Your strength is clarity and action. Your growth is learning to lead with steadiness instead of control."
-        },
-        "The Driven Overfunctioner": {
-          others: "Others may experience your pressure as intensity, over-responsibility, or a quiet message that they need to keep up. They may rely on you, but they may also stop carrying what belongs to them.",
-          reflection: "I noticed myself carrying __________, and one thing I can release or share is __________.",
-          summary: "Your strength is dependability. Your growth is learning that peace grows when responsibility is shared, not silently carried alone."
-        },
-        "The Capable Accommodator": {
-          others: "Others may experience you as helpful and capable, but they may not always know when you are tired, frustrated, or overextended. Your peace can disappear when your yes becomes disconnected from your actual capacity.",
-          reflection: "I noticed myself saying yes to __________, and the honest limit I need to name is __________.",
-          summary: "Your strength is responsive service. Your growth is practicing honest limits without losing your care for others."
-        },
-        "The Burdened Withdrawer": {
-          others: "Others may experience you as distant, delayed, or hard to read when expectations feel high. They may not realize you are overwhelmed, but they may feel your absence.",
-          reflection: "I noticed myself avoiding __________, and one small step I can take is __________.",
-          summary: "Your strength is thoughtfulness. Your growth is taking one small step before the whole burden feels manageable."
-        },
-        "The Defensive Influencer": {
-          others: "Others may experience your pressure as persuasion, defensiveness, or a strong desire to be understood. They may hear your explanation before they feel your curiosity.",
-          reflection: "I noticed myself protecting my image when __________, and one way I can listen first is __________.",
-          summary: "Your strength is influence. Your growth is letting truth matter more than image."
-        },
-        "The Recognition Striver": {
-          others: "Others may experience you as energetic, impressive, and committed, but they may also sense when your peace depends on being noticed or valued. Your drive can inspire, but it can also become a request for affirmation.",
-          reflection: "I noticed myself seeking recognition for __________, and one hidden good I can receive without applause is __________.",
-          summary: "Your strength is inspired effort. Your growth is receiving worth that does not require constant recognition."
-        },
-        "The Approval Keeper": {
-          others: "Others may experience you as warm, thoughtful, and easy to be with, but they may not always know what you actually think. Your care can create connection, but your fear of disappointment can hide the truth.",
-          reflection: "I noticed myself softening or hiding __________, and one honest thing I can say is __________.",
-          summary: "Your strength is relational awareness. Your growth is telling the truth with kindness and staying connected."
-        },
-        "The Hidden Image Protector": {
-          others: "Others may experience you as careful, private, or hard to reach when you feel exposed. They may not know whether you are hurt, embarrassed, upset, or simply processing.",
-          reflection: "I noticed myself hiding when __________, and one safe person I can be honest with is __________.",
-          summary: "Your strength is self-awareness. Your growth is allowing yourself to be known without needing to disappear."
-        },
-        "The Protective Controller": {
-          others: "Others may experience your pressure as control, resistance, or a strong need to protect what matters. They may feel safe because you are attentive, but they may also feel limited by your fear of risk.",
-          reflection: "I noticed myself protecting __________, and one way I can release control is __________.",
-          summary: "Your strength is protection. Your growth is learning that trust can create more peace than control."
-        },
-        "The Prepared Stabilizer": {
-          others: "Others may experience you as steady, responsible, and prepared, but they may also feel the weight of your concern about what could go wrong. Your preparation can help, but it can also transmit anxiety.",
-          reflection: "I noticed myself preparing for __________, and what is actually needed today is __________.",
-          summary: "Your strength is steadiness. Your growth is practicing preparation without letting tomorrow steal today’s peace."
-        },
-        "The Security Negotiator": {
-          others: "Others may experience you as calming, hospitable, and steady, but they may also sense that difficult truths are being softened to preserve comfort. You may lower tension while leaving the deeper issue untouched.",
-          reflection: "I noticed myself smoothing over __________, and one gentle truth I can name is __________.",
-          summary: "Your strength is relational calm. Your growth is moving from keeping peace to making peace."
-        },
-        "The Guarded Retreater": {
-          others: "Others may experience you as calm, private, distant, slow to respond, or hard to read. They may wonder if you are upset, overwhelmed, uninterested, or simply trying to feel safe again.",
-          reflection: "I noticed myself pulling away when __________, and one way I can stay present is __________.",
-          summary: "Your strength is steadiness and protection. Your growth is learning that real peace is not found by withdrawing from pressure, but by becoming grounded enough to remain present within it."
-        }
-      };
-      return extras[profile.name] || {
-        others: "Others may experience your pressure before they understand what is happening inside you.",
-        reflection: "I noticed peace breaking down when __________, and one way I can practice peace is __________.",
-        summary: "Your Peace Pattern is a starting point for growth, not a fixed label."
-      };
-    }
-
     function resultHTML(profile) {
-      const extra = getResultExtra(profile);
+      const style = processingProfiles[profile.processingStyle];
       return `
         <div class="result-header">
           <div>
-            <div class="result-pattern-label">Your Peace Pattern</div>
+            <div class="result-pattern-label">Your Peace Profile</div>
             <h2 class="result-title" id="resultTitle">${profile.name}</h2>
-            <span class="result-combo">${profile.combo}</span>
+            <span class="result-combo">${profile.baseName} • ${profile.processingStyle} Style</span>
           </div>
           <img class="result-logo" src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
         </div>
-        <p class="result-desc">${profile.description}</p>
+        <p class="result-desc">${profile.desc}</p>
         <div class="result-grid">
           <div class="result-box"><strong>Where you may make peace well</strong>${renderList(profile.strengths)}</div>
           <div class="result-box"><strong>Where peace may be harder</strong>${renderList(profile.watch)}</div>
-          <div class="result-box wide"><strong>What others may experience</strong><p>${extra.others}</p></div>
+          <div class="result-box wide"><strong>What others may experience</strong><p>${profile.others}</p></div>
+          <div class="result-box wide"><strong>Your processing style</strong><p>${style.description}</p><p><em>${style.growth}</em></p></div>
         </div>
-        <div class="result-callout"><strong>The Way of Peace</strong><p>${profile.invitation}</p></div>
+        <div class="result-callout"><strong>The Way of Peace</strong><p>${profile.way}</p></div>
         <div class="result-grid">
           <div class="result-box"><strong>Internal practice</strong><p>${profile.internal}</p></div>
           <div class="result-box"><strong>Relational practice</strong><p>${profile.relational}</p></div>
           <div class="result-box"><strong>Take a Step of Peace</strong><p>${profile.next}</p></div>
-          <div class="result-box"><strong>A simple reflection</strong><p>${extra.reflection}</p></div>
+          <div class="result-box"><strong>Practice readiness</strong><p>${capacityText[profile.capacityStage]}</p></div>
         </div>
-        <div class="result-callout"><strong>Summary</strong><p>${extra.summary}</p></div>
+        <div class="result-callout"><strong>Summary</strong><p>Your Peace Profile is not a label. It is a starting point for noticing what happens when peace breaks down and practicing one small way of making peace. Your profile shows where peace becomes fragile, how your pressure tends to move, and what kind of practice may help you make peace internally and relationally.</p></div>
+        <div class="join-circle-box">
+          <strong>Join us on your Journey to Peace</strong>
+          <p>The PeaceWorks Circle is an ongoing cohort for leaders who want to practice peace together. Through monthly roundtables, practical tools, and guided one-on-one learning, you will strengthen trust, navigate conflict, and learn to lead with greater calm under pressure.</p>
+          <a class="btn" href="https://www.peaceworks.network/join/" target="_blank" rel="noopener">Join a Peace Circle</a>
+        </div>
         <div class="result-footer">
-          <p style="font-size:1.08rem; line-height:1.35; max-width:600px;">Your Peace Pattern is not a label. It is a starting point for noticing what happens when peace breaks down and practicing one small way of making peace.</p>
+          <p style="font-size:1.08rem; line-height:1.35; max-width:640px;">Download your Peace Profile to keep reflecting on your result and your next step of peace.</p>
           <div class="btn-row">
             <button class="btn btn-secondary" id="closeResultBtn" type="button">Close</button>
             <button class="btn btn-primary" id="downloadPdfBtn" type="button">Download Results</button>
@@ -1294,19 +1345,31 @@
       `;
     }
 
+    function showResult(profile) {
+      const overlay = document.getElementById("resultOverlay");
+      const content = document.getElementById("resultContent");
+      content.innerHTML = resultHTML(profile);
+      overlay.classList.add("active");
+      content.scrollTop = 0;
+      document.querySelector(".result-modal").scrollTop = 0;
+      document.getElementById("downloadPdfBtn").addEventListener("click", downloadPdf);
+      document.getElementById("closeResultBtn").addEventListener("click", () => overlay.classList.remove("active"));
+    }
+
     function buildPdfHTML(profile) {
-      const extra = getResultExtra(profile);
+      const style = processingProfiles[profile.processingStyle];
       return `
         <div class="pdf-sheet" data-page="1">
           <img class="pdf-logo" src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
-          <div class="pdf-label">Your Peace Pattern</div>
+          <div class="pdf-label">Your Peace Profile</div>
           <h1>${profile.name}</h1>
-          <div class="pdf-combo">${profile.combo}</div>
-          <p>${profile.description}</p>
+          <div class="pdf-combo">${profile.baseName} • ${profile.processingStyle} Style</div>
+          <p>${profile.desc}</p>
           <div class="pdf-grid">
             <div class="pdf-box"><strong>Where you may make peace well</strong>${renderList(profile.strengths, "pdf-list")}</div>
             <div class="pdf-box"><strong>Where peace may be harder</strong>${renderList(profile.watch, "pdf-list")}</div>
-            <div class="pdf-box wide"><strong>What others may experience</strong><p>${extra.others}</p></div>
+            <div class="pdf-box wide"><strong>What others may experience</strong><p>${profile.others}</p></div>
+            <div class="pdf-box wide"><strong>Your processing style</strong><p>${style.description}</p></div>
           </div>
           <div class="pdf-bottom">PeaceWorks Peace Assessment</div>
           <div class="pdf-page-number">1 / 2</div>
@@ -1314,15 +1377,20 @@
         <div class="pdf-sheet" data-page="2">
           <img class="pdf-logo" src="https://gilesemery.github.io/peaceworks-main/PeaceworksLogo.svg" alt="PeaceWorks">
           <div class="pdf-label">Your Practice Pathway</div>
-          <div class="pdf-callout"><strong>The Way of Peace</strong><p>${profile.invitation}</p></div>
+          <div class="pdf-callout"><strong>The Way of Peace</strong><p>${profile.way}</p></div>
           <div class="pdf-grid">
             <div class="pdf-box"><strong>Internal practice</strong><p>${profile.internal}</p></div>
             <div class="pdf-box"><strong>Relational practice</strong><p>${profile.relational}</p></div>
             <div class="pdf-box"><strong>Take a Step of Peace</strong><p>${profile.next}</p></div>
-            <div class="pdf-box"><strong>A simple reflection</strong><p>${extra.reflection}</p></div>
-            <div class="pdf-box wide"><strong>Summary</strong><p>${extra.summary}</p></div>
+            <div class="pdf-box"><strong>Practice readiness</strong><p>${capacityText[profile.capacityStage]}</p></div>
+            <div class="pdf-box wide"><strong>Summary</strong><p>Your Peace Profile is not a label. It is a starting point for noticing what happens when peace breaks down and practicing one small way of making peace. Your profile shows where peace becomes fragile, how your pressure tends to move, and what kind of practice may help you make peace internally and relationally.</p></div>
           </div>
-          <div class="pdf-bottom">Your Peace Pattern is not a label. It is a starting point for noticing what happens when peace breaks down and practicing one small way of making peace.</div>
+          <div class="pdf-join-box">
+            <strong>Join us on your Journey to Peace</strong>
+            <p>The PeaceWorks Circle is an ongoing cohort for leaders who want practical structure, relational strength, and steadier leadership under pressure through monthly roundtables, practical tools, and guided one-on-one learning.</p>
+            <span class="pdf-link">peaceworks.network/join</span>
+          </div>
+          <div class="pdf-bottom">Peace grows through one practiced response at a time.</div>
           <div class="pdf-page-number">2 / 2</div>
         </div>
       `;
@@ -1334,7 +1402,6 @@
       const oldText = btn.textContent;
       btn.textContent = "Preparing PDF...";
       btn.disabled = true;
-
       try {
         const pdfPage = document.getElementById("pdfPage");
         pdfPage.innerHTML = buildPdfHTML(lastResult.profile);
@@ -1342,14 +1409,12 @@
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({ orientation: "portrait", unit: "in", format: "letter" });
         const sheets = Array.from(pdfPage.querySelectorAll(".pdf-sheet"));
-
         for (let i = 0; i < sheets.length; i++) {
           const canvas = await html2canvas(sheets[i], { scale: 2, useCORS: true, backgroundColor: "#ffffff" });
           const imgData = canvas.toDataURL("image/png");
           if (i > 0) pdf.addPage();
           pdf.addImage(imgData, "PNG", 0, 0, 8.5, 11);
         }
-
         pdf.save(`PeaceWorks-${lastResult.profile.name.replace(/\s+/g, "-")}.pdf`);
       } catch (error) {
         alert("The PDF could not be created. Please try again.");
@@ -1360,26 +1425,25 @@
       }
     }
 
-
     async function sendToGoogleSheet(result) {
       if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")) return;
-
       const payload = {
         submittedAt: new Date().toISOString(),
-        peacePattern: result.profile.name,
+        peaceProfile: result.profile.name,
+        basePattern: result.profile.baseName,
         identity: result.primaryIdentity,
         response: result.primaryResponse,
+        processingStyle: result.processingStyle,
+        capacityStage: result.capacityStage,
         scores: result.scores,
-        answers: Object.fromEntries(Object.entries(result.answers).map(([id, answer]) => [id, answer.letter]))
+        answers: Object.fromEntries(Object.entries(result.answers).map(([id, answer]) => {
+          if (answer.selected) return [id, answer.selected.map(o => o.id).join(",")];
+          if (answer.value !== undefined) return [id, answer.value];
+          return [id, answer.id];
+        }))
       };
-
       try {
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
+        await fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       } catch (error) {
         console.warn("Google Sheet submission failed.", error);
       }
