@@ -285,6 +285,228 @@
       color: var(--muted);
     }
 
+    .hero-kicker {
+      margin-top: 24px;
+      font-size: 1.18rem;
+      line-height: 1.4;
+      color: var(--text);
+      font-weight: 600;
+      max-width: 620px;
+    }
+
+    .hero-pathways {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 10px;
+      padding-bottom: 8px;
+    }
+
+    .hero-pathway {
+      position: relative;
+      min-height: 220px;
+      padding: 24px;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.76), rgba(255,255,255,0.56));
+      border: 1px solid rgba(255,255,255,0.78);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+
+    .hero-pathway::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -70px;
+      bottom: -80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(143,171,142,0.20), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-pathway:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(143,171,142,0.30);
+    }
+
+    .hero-pathway .pathway-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--sage-pale);
+      color: var(--sage-dark);
+      font-size: .92rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .hero-pathway h2 {
+      font-size: clamp(1.7rem, 2.2vw, 2.2rem);
+      line-height: 1;
+      letter-spacing: -0.025em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .hero-pathway p {
+      font-size: 1.08rem;
+      line-height: 1.45;
+      margin-bottom: 22px;
+    }
+
+    .hero-pathway .pathway-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: auto;
+      color: var(--text);
+      font-size: .96rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .hero-pathway .pathway-link::after {
+      content: "→";
+      transition: transform .2s ease;
+    }
+
+    .hero-pathway:hover .pathway-link::after { transform: translateX(4px); }
+
+    .assessment-shell {
+      position: relative;
+      overflow: hidden;
+      border-radius: 36px;
+      padding: 42px;
+      background:
+        radial-gradient(circle at 88% 8%, rgba(184,204,183,0.30), transparent 26%),
+        linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.62));
+      border: 1px solid rgba(255,255,255,0.82);
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .assessment-grid {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 34px;
+      align-items: start;
+    }
+
+    .assessment-shell h2 {
+      font-size: clamp(3rem, 5.8vw, 5.2rem);
+      line-height: .96;
+      letter-spacing: -0.035em;
+      font-weight: 500;
+      max-width: 10ch;
+      margin-bottom: 18px;
+    }
+
+    .assessment-intro {
+      max-width: 690px;
+      margin-bottom: 24px;
+    }
+
+    .assessment-points {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .assessment-point {
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.68);
+      border: 1px solid rgba(20,20,20,0.06);
+    }
+
+    .assessment-point strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.2rem;
+      line-height: 1.1;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .assessment-point span {
+      display: block;
+      color: var(--muted);
+      font-size: 1.03rem;
+      line-height: 1.38;
+    }
+
+    .assessment-card {
+      padding: 30px;
+      border-radius: 28px;
+      background: linear-gradient(145deg, #111311, #202620);
+      color: #fff;
+      box-shadow: 0 30px 80px rgba(12,14,12,0.20);
+    }
+
+    .assessment-card .tag {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(184,204,183,0.12);
+      color: var(--sage-light);
+      font-size: .88rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .assessment-card h3 {
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .assessment-card p { color: rgba(255,255,255,.72); }
+
+    .assessment-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 22px 0 26px;
+      display: grid;
+      gap: 11px;
+    }
+
+    .assessment-card li {
+      position: relative;
+      padding-left: 20px;
+      color: rgba(255,255,255,.76);
+      font-size: 1.07rem;
+      line-height: 1.35;
+    }
+
+    .assessment-card li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .55em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      box-shadow: 0 0 0 4px rgba(184,204,183,.10);
+    }
+
     .hero-visual {
       min-height: 680px;
       display: grid;
@@ -917,6 +1139,8 @@
 
       .hero-visual { display: none; }
       .hero-copy { max-width: 820px; }
+      .hero-pathways { grid-template-columns: 1fr; }
+      .assessment-grid { grid-template-columns: 1fr; }
       .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .founders-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .founders-grid { gap: 18px; }
@@ -958,9 +1182,12 @@
       .split-head { grid-template-columns: 1fr; }
 
       .idea-shell,
+      .assessment-shell,
       .roi-shell,
       .founders-shell,
       .invite-shell { padding: 28px 22px; }
+
+      .assessment-points { grid-template-columns: 1fr; }
 
       .membership-card { max-width: none; }
 
@@ -985,6 +1212,8 @@
       .idea-title { font-size: clamp(2.4rem, 11vw, 3.6rem); }
       .btn-row { flex-direction: column; align-items: stretch; }
       .btn { width: 100%; }
+      .hero-pathway { min-height: auto; }
+      .assessment-card { padding: 24px 20px; }
       .lede, p, li { font-size: 1.18rem; line-height: 1.48; }
       .signal p { font-size: 1.2rem; }
     }
@@ -1021,13 +1250,7 @@
             <div class="eyebrow">PeaceWorks • Relational Operating System</div>
             <h1 class="display hero-title">Peace isn’t passive.<br>It’s practiced.</h1>
             <p class="hero-sub">Most companies invest in strategy and execution. Very few invest in the relational operating system that holds everything together. PeaceWorks equips business leaders to build cultures where trust holds under pressure.</p>
-            <div class="btn-row">
-              <a class="btn btn-primary" href="https://www.peaceworks.network/join">Join a Circle</a>
-            </div>
-            <div class="hero-note">
-              <strong>For leaders who want calm, honest, durable cultures.</strong>
-              <span>PeaceWorks helps organizations strengthen the relational architecture that determines how people work, repair, listen, and lead together.</span>
-            </div>
+            <p class="hero-kicker">For leaders who want calm, honest, durable cultures.</p>
           </div>
 
           <div class="hero-visual reveal visible" aria-hidden="true">
@@ -1054,6 +1277,29 @@
                 <img src="https://gilesemery.github.io/peaceworks-main/PeaceWorksCircle.svg" alt="PeaceWorks circle logo">
               </div>
             </div>
+          </div>
+
+          <div class="hero-pathways reveal visible" aria-label="Explore PeaceWorks">
+            <a class="hero-pathway" href="https://www.peaceworks.network/join">
+              <span class="pathway-number">01</span>
+              <h2>Join a Circle</h2>
+              <p>Practice calm, honest leadership alongside a small group of leaders committed to building healthier cultures.</p>
+              <span class="pathway-link">Explore the Circle</span>
+            </a>
+
+            <a class="hero-pathway" href="https://portal.peaceworks.network/peace-assessment">
+              <span class="pathway-number">02</span>
+              <h2>Take the Peace Assessment</h2>
+              <p>Discover how you seek, lose, protect, and restore peace—and what others may experience from you when pressure rises.</p>
+              <span class="pathway-link">Begin the assessment</span>
+            </a>
+
+            <a class="hero-pathway" href="https://www.peaceworks.network/roi-calculator">
+              <span class="pathway-number">03</span>
+              <h2>Calculate Relational ROI</h2>
+              <p>Make the hidden cost of relational drag visible and explore what greater trust, clarity, and retention could mean for your organization.</p>
+              <span class="pathway-link">Open the calculator</span>
+            </a>
           </div>
         </div>
       </section>
@@ -1112,6 +1358,52 @@
                 <strong>Strong cultures are not built by accident.</strong>
                 <p>They are practiced. PeaceWorks strengthens the relational habits behind trust, honesty, accountability, and calm leadership.</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="peace-assessment">
+        <div class="container">
+          <div class="assessment-shell reveal">
+            <div class="assessment-grid">
+              <div>
+                <div class="eyebrow">The Peace Assessment</div>
+                <h2>Discover what happens to your peace when pressure rises.</h2>
+                <p class="assessment-intro">PeaceWorks does not simply ask whether you are peaceful. It helps you understand the deeper patterns shaping how you pursue security, significance, contribution, and connection—especially when tension, uncertainty, or conflict enters the room.</p>
+
+                <div class="assessment-points">
+                  <div class="assessment-point">
+                    <strong>Your peace anchors</strong>
+                    <span>See the needs and strategies that most often help you feel grounded and secure.</span>
+                  </div>
+                  <div class="assessment-point">
+                    <strong>Your pressure response</strong>
+                    <span>Recognize whether you tend to please, prove, push, or pull away when peace feels threatened.</span>
+                  </div>
+                  <div class="assessment-point">
+                    <strong>Your processing style</strong>
+                    <span>Understand how internal or external processing shapes your response to tension.</span>
+                  </div>
+                  <div class="assessment-point">
+                    <strong>Your relational impact</strong>
+                    <span>Explore the strengths you bring, the challenges others may experience, and practices for growth.</span>
+                  </div>
+                </div>
+              </div>
+
+              <aside class="assessment-card">
+                <span class="tag">A personalized peace profile</span>
+                <h3>More than a score. A language for growth.</h3>
+                <p>Your results connect four dimensions into one of 12 unique profile types, giving you a practical picture of how peace moves through your life, leadership, and relationships.</p>
+                <ul>
+                  <li>A memorable profile that reflects your relational strengths</li>
+                  <li>Insight into how you seek, lose, protect, and restore peace</li>
+                  <li>Leadership and community reflections</li>
+                  <li>Personal and relational growth practices</li>
+                </ul>
+                <a class="btn btn-secondary" href="https://portal.peaceworks.network/peace-assessment">Take the Peace Assessment</a>
+              </aside>
             </div>
           </div>
         </div>
@@ -1244,6 +1536,13 @@
                 <div class="invite-box">
                   <strong>Ready to join?</strong>
                   <span>Apply for a Circle and begin building healthier relational rhythms inside your company.</span>
+                </div>
+                <div class="invite-box">
+                  <strong>Want to understand your peace under pressure?</strong>
+                  <span>Take the Peace Assessment to discover the patterns that shape how you seek, lose, protect, and restore peace.</span>
+                  <div style="margin-top: 14px;">
+                    <a class="btn btn-secondary" href="https://portal.peaceworks.network/peace-assessment">Take the Peace Assessment</a>
+                  </div>
                 </div>
                 <div class="invite-box">
                   <strong>Want to understand the numbers first?</strong>
